@@ -1,0 +1,11 @@
+<!-- $FIELD_NAME_TITLE$ Field -->
+<div class="form-group">
+    <div class="custom-control custom-checkbox mr-sm-2 mb-3">
+        {!! Form::hidden('$FIELD_NAME$', 0, ['class' => 'form-check-input']) !!}
+        {!! Form::checkbox('$FIELD_NAME$', '$CHECKBOX_VALUE$', null, ['class' => 'custom-control-input', 'id' => '$FIELD_NAME$']) !!}
+        {!! Form::label('$FIELD_NAME$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$'), ['class' => 'custom-control-label']) !!}
+    </div>
+    @error('$FIELD_NAME$')
+    <span class="invalid-feedback"> {{ $message }} </span>
+    @enderror
+</div>

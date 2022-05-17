@@ -1,0 +1,24 @@
+<!-- $FIELD_NAME_TITLE$ Field -->
+<div class="form-group">
+    {!! Form::label('$FIELD_NAME$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$').':') !!}
+    {!! Form::select('$FIELD_NAME$', $INPUT_ARR$, null, ['class' => 'form-control select2 custom-select' . ($errors->has('$FIELD_NAME$') ? ' is-invalid' : ''),'id'=>'$FIELD_NAME$']) !!}
+    @error('$FIELD_NAME$')
+    <span class="invalid-feedback"> {{ $message }} </span>
+    @enderror
+</div>
+
+@push('third_party_stylesheets')
+    <!-- Select2 plugins css -->
+    <link href="{{ asset('elite/assets/node_modules/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('third_party_scripts')
+    <!-- Select2 Plugin JavaScript -->
+    <script src="{{ asset('elite/assets/node_modules/select2/dist/js/select2.full.min.js') }}"></script>
+@endpush
+
+@push('page_scripts')
+    <script type="text/javascript">
+        $('.select2').select2();
+    </script>
+@endpush

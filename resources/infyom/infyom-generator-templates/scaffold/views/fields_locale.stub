@@ -1,0 +1,4 @@
+$FIELDS$
+
+<button type="submit" class="btn btn-primary">@lang('crud.save')</button>
+<a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}" class="btn btn-dark">@lang('crud.cancel')</a>

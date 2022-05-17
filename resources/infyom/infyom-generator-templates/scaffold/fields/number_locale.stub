@@ -1,0 +1,8 @@
+<!-- $FIELD_NAME_TITLE$ Field -->
+<div class="form-group">
+    {!! Form::label('$FIELD_NAME$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$').':') !!}
+    {!! Form::number('$FIELD_NAME$', null, ['class' => 'form-control' . ($errors->has('$FIELD_NAME$') ? ' is-invalid' : '')]) !!}
+    @error('$FIELD_NAME$')
+    <span class="invalid-feedback"> {{ $message }} </span>
+    @enderror
+</div>

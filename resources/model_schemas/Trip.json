@@ -1,0 +1,270 @@
+[
+    {
+        "name": "id",
+        "dbType": "bigInteger,true,true",
+        "htmlType": null,
+        "validations": null,
+        "searchable": false,
+        "fillable": false,
+        "primary": true,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "name",
+        "dbType": "text",
+        "htmlType": "textarea",
+        "validations": "required|string|string|string",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "description",
+        "dbType": "text,65535",
+        "htmlType": "textarea",
+        "validations": "required|string|string|string",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "image",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "date_from",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "date_to",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "time_from",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "time_to",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "lat",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "lng",
+        "dbType": "string,255",
+        "htmlType": "text",
+        "validations": "required|string|max:255|string|max:255|string|max:255",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "zoom",
+        "dbType": "integer,false",
+        "htmlType": null,
+        "validations": "required|integer|integer|integer",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "provider_id",
+        "dbType": "bigInteger,false,true",
+        "htmlType": null,
+        "validations": "nullable|nullable|nullable",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "bus_id",
+        "dbType": "bigInteger,false,true",
+        "htmlType": null,
+        "validations": "nullable|nullable|nullable",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "fees",
+        "dbType": "float,10,0",
+        "htmlType": null,
+        "validations": "nullable|numeric|nullable|numeric|nullable|numeric",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "max",
+        "dbType": "integer,false,true",
+        "htmlType": null,
+        "validations": "nullable|integer|nullable|integer|nullable|integer",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "provider_notes",
+        "dbType": "text,65535:nullable",
+        "htmlType": "textarea",
+        "validations": "nullable|string|nullable|string|nullable|string",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "provider_archive",
+        "dbType": "boolean",
+        "htmlType": "checkbox,1",
+        "validations": "required|boolean|boolean|boolean",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "meal",
+        "dbType": "boolean",
+        "htmlType": "checkbox,1",
+        "validations": "required|boolean|boolean|boolean",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "hotel",
+        "dbType": "boolean",
+        "htmlType": "checkbox,1",
+        "validations": "required|boolean|boolean|boolean",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "created_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": "nullable|nullable|nullable",
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "name": "updated_at",
+        "dbType": "datetime:nullable",
+        "htmlType": "date",
+        "validations": "nullable|nullable|nullable",
+        "searchable": false,
+        "fillable": false,
+        "primary": false,
+        "inForm": false,
+        "inIndex": false,
+        "inView": false
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,Provider,provider_id"
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,Bus,bus_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,TripCity,trip_id"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,TripOrder,trip_id"
+    }
+]

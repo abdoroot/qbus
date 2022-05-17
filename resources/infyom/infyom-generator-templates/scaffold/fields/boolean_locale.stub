@@ -1,0 +1,5 @@
+<!-- 'Boolean $FIELD_NAME_TITLE$ Field' checked by default -->
+<div class="custom-control custom-checkbox mr-sm-2 mb-3">
+    {!! Form::checkbox('$FIELD_NAME$', 1, true, ['class' => 'custom-control-input', 'id' => '$FIELD_NAME$']) !!}
+    {!! Form::label('$FIELD_NAME$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$'), ['class' => 'custom-control-label']) !!}
+</div>

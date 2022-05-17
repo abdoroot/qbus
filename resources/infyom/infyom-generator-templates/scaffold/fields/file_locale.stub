@@ -1,0 +1,13 @@
+<!-- $FIELD_NAME_TITLE$ Field -->
+<div class="form-group">
+    {!! Form::label('$FIELD_NAME$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$')) !!}
+    <div class="input-group">
+        <div class="custom-file mb-3">
+            {!! Form::file('$FIELD_NAME$', ['class' => 'custom-file-input' . ($errors->has('$FIELD_NAME$') ? ' is-invalid' : '')]) !!}
+            {!! Form::label('$FIELD_NAME$', isset($$MODEL_NAME$) ? $$MODEL_NAME_CAMEL$->$FIELD_NAME$ : __('msg.updoad_file'), ['class' => 'custom-file-label form-control', 'data-browse' => __('msg.browse')]) !!}
+        </div>
+    </div>
+    @error('$FIELD_NAME$')
+    <span class="invalid-feedback"> {{ $message }} </span>
+    @enderror
+</div>

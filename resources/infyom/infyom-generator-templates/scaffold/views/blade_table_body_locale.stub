@@ -1,0 +1,52 @@
+<div class="table-responsive m-t-30 m-b-20">
+    <table id="$MODEL_NAME_PLURAL_SNAKE$-table" class="table display table-bordered table-striped no-wrap">
+        <thead>
+            <tr>
+                <th>@lang('crud.$PRIMARY_KEY_NAME$')</th>
+                $FIELD_HEADERS$
+                <th>@lang('crud.action')</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($$MODEL_NAME_PLURAL_CAMEL$ as $$MODEL_NAME_CAMEL$)
+            <tr>
+                <td>{{ $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$ }}</td>
+                $FIELD_BODY$
+                <td>
+                    <a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.edit', [$$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$]) }}"
+                        class='btn btn-info btn-sm'>
+                            <i class="ti-pencil"></i>
+                        </a>
+                    {!! Form::open(['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.destroy', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$], 'method' => 'delete', 'class' => 'd-inline']) !!}
+                        {!! Form::button('<i class="ti-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm btn-confirm']) !!}
+                    {!! Form::close() !!}
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
+@push('third_party_stylesheets')
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('elite/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
+<link rel="stylesheet" type="text/css"
+    href="{{ asset('elite/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css') }}">
+@endpush
+
+@push('third_party_scripts')
+<!-- This is data table -->
+<script src="{{ asset('elite/assets/node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('elite/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
+@endpush
+
+@push('page_scripts')
+<script>
+    $(function () {
+        // responsive table
+        $('#$MODEL_NAME_PLURAL_SNAKE$-table').DataTable({
+            responsive: true
+        });
+    });
+</script>
+@endpush

@@ -1,0 +1,9 @@
+<!-- 'bootstrap / Toggle Switch $FIELD_NAME_TITLE$ Field' -->
+<div class="form-group">
+    <div class="custom-control custom-switch">
+        {!! Form::hidden('$FIELD_NAME$', 0) !!}
+        {!! Form::checkbox('$FIELD_NAME$', 1, null,  ['custom-control-input']) !!}
+        {!! Form::label('$FIELD_NAME$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$'), ['class' => 'custom-control-label']) !!}
+    </div>
+</div>
+

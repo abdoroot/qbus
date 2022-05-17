@@ -1,0 +1,10 @@
+<li class="@if(Request::is('$ROUTE_PREFIX$$MODEL_NAME_PLURAL_CAMEL$*')) active @endif"> 
+    <a class="waves-effect waves-dark" href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}" aria-expanded="false">
+        <i class="icon-link"></i>
+        <span class="hide-menu">
+            @lang('models/$MODEL_NAME_PLURAL_CAMEL$.plural')
+            {{-- <span class="badge badge-pill badge-cyan ml-auto">4</span> --}}
+        </span>
+    </a>
+</li>
+

@@ -1,0 +1,4 @@
+<label class="custom-control custom-radio">
+    {!! Form::radio('$FIELD_NAME$', "$VALUE$", null, ['class' => 'custom-control-input', 'id' => '$FIELD_NAME$-$VALUE$']) !!} 
+    {!! Form::label('$FIELD_NAME$-$VALUE$', __('models/$MODEL_NAME_PLURAL_CAMEL$.fields.$VALUE$'), ['class' => 'custom-control-label']) !!}
+</label>

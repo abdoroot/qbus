@@ -1,0 +1,23 @@
+@extends('$VIEW_PREFIX$layouts.app')
+
+@section('title', __('crud.edit') . ' ' . __('models/$MODEL_NAME_PLURAL_CAMEL$.singular'))
+
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}">@lang('models/$MODEL_NAME_PLURAL_CAMEL$.plural')</a></li>
+<li class="breadcrumb-item active">@lang('crud.edit')</li>
+@endsection
+
+@section('content')
+    <div class="row">
+        @include('flash::message')
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    {!! Form::model($$MODEL_NAME_CAMEL$, ['route' => ['$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.update', $$MODEL_NAME_CAMEL$->$PRIMARY_KEY_NAME$], 'method' => 'patch'$FILES$]) !!}
+                        @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.fields')
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

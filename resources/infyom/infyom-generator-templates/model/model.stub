@@ -1,0 +1,47 @@
+<?php
+
+namespace $NAMESPACE_MODEL$;
+
+use $NAMESPACE_MODEL_EXTEND$ as Model;
+$HAS_FACTORY_IMPORT$
+
+$DOCS$
+class $MODEL_NAME$ extends Model
+{
+$HAS_FACTORY$
+    public $table = '$TABLE_NAME$';
+    $TIMESTAMPS$
+$PRIMARY$
+    public $fillable = [
+        $FIELDS$
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        $CAST$
+    ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        $RULES$
+    ];
+
+    /**
+     * Validation update rules
+     *
+     * @var array
+     */
+    public static $update_rules = [
+        $RULES$
+    ];
+
+    $RELATIONS$
+}
