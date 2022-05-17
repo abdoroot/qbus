@@ -1,0 +1,51 @@
+<?php
+
+return array (
+  'singular' => 'Trip',
+  'plural' => 'Trips',
+  'fields' => 
+  array (
+    'id' => 'Id',
+    'name' => 'Name',
+    'description' => 'Description',
+    'image' => 'Image',
+    'date_from' => 'Date From',
+    'date_to' => 'Date To',
+    'time_from' => 'Time From',
+    'time_to' => 'Time To',
+    'lat' => 'Lat',
+    'lng' => 'Lng',
+    'zoom' => 'Zoom',
+    'provider_id' => 'Provider',
+    'bus_id' => 'Bus',
+    'fees' => 'Fees for one seat',
+    'max' => 'Max number of seats',
+    'provider_notes' => 'Provider Notes',
+    'provider_archive' => 'Provider Archive',
+    'meal' => 'The trip includes meal',
+    'hotel' => 'The trip includes hotel',
+    'auto_approve' => 'Approve clients orders automatically',
+    'created_at' => 'Created At',
+    'updated_at' => 'Updated At',
+    'location' => 'Location on map',
+    'type' => 'Type',
+  ),
+  'description' => 'Description',
+  'description_title' => 'Trip main details like name, ..',
+  'datetime' => 'DateTime',
+  'datetime_title' => 'Trip date and time ranges',
+  'location' => 'Location',
+  'location_title' => 'Pick location on google map',
+  'notes' => 'Notes',
+  'notes_title' => 'Any notes and more settings',
+  'destination' => 'Destination',
+  'program' => 'Program',
+  'program_title' => 'Trip program, Specify destination cities and description per each',
+  'bus' => 'Bus',
+  'bus_title' => 'Trip bus, max number of seats and fees',
+  'types' => [
+    'one-way' => 'One way',
+    'round' => 'Round trip',
+    'multi' => 'Multi trip'
+  ]
+);
