@@ -1,11 +1,13 @@
 <?php
 
 return array (
+  'about' => 'من نحن',
   'active' => 'نشط',
-  'app_name' => 'كيو باص',
+  'app_name' => 'لارافيل',
   'app_users' => 'المستخدين',
   'blocked' => 'محظور',
   'browse' => 'تصفح',
+  'calender' => 'التقويم',
   'check_all_notifications' => 'تحقق من جميع الاشعارات',
   'close' => 'اغلاق',
   'confirm' => 'تاكيد',
@@ -30,9 +32,9 @@ return array (
   'see_all_messages' => 'مشاهدة كل الرسائل',
   'settings' => 'إعدادات',
   'submit' => 'إرسال',
+  'tax_report' => 'تقرير الضرائب',
   'translation' => 'ترجمة',
   'updated_successfully' => 'تم التحديث بنجاح',
   'upload_file' => 'رفع ملف',
   'you_have_n_new_messages' => '{0} ليس لديك رسائل جديدة | {1} لديك:n رسالة جديدة | [2 ، *] لديك:n رسائل جديدة',
-  'active' => 'نشط'
 );

@@ -1,0 +1,153 @@
+#Home {
+    overflow: hidden;
+}
+
+.header {
+    .headerTitle {
+        transform: translate(-50%, -50%);
+
+        h2 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+    }
+}
+
+#About {
+    .header {
+        background: url(../img/42.jpg) no-repeat center center fixed;
+    }
+}
+
+.timeLine {
+    li.done {
+        background: #080;
+        color: #fff;
+        border-color: #fff;
+    }
+
+    &::before {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 2px;
+        background: #000;
+        z-index: -1;
+    }
+}
+
+
+#Book {
+    .active {
+        background: #ece9e9;
+        border-radius: 0.5rem;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #ddd;
+    }
+}
+
+#triple {
+    .slick-dots {
+        bottom: -1rem;
+    }
+}
+
+#Services {
+    .servicesLink {
+        color: #3b82f6;
+    }
+}
+
+#Home {
+    .homeLink {
+        color: #3b82f6;
+    }
+}
+
+#About {
+    .aboutLink {
+        color: #3b82f6;
+    }
+}
+
+#Contact {
+    .contactLink {
+        color: #3b82f6;
+    }
+}
+
+#Login {
+    .loginLink {
+        color: #3b82f6;
+    }
+}
+
+#Sign {
+    .signLink {
+        color: #3b82f6;
+    }
+}
+
+#triples {
+    .triplesLink {
+        color: #3b82f6;
+    } 
+}
+
+.allServices {
+    .row {
+        &:nth-child(even) {
+            direction: rtl;
+            text-align: left;
+
+            div {
+                direction: ltr;
+            }
+        }
+
+        .serviceImg {
+            height: 40rem;
+        }
+    }
+}
+
+.tripleDetails ul::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    left: 1rem;
+    background: #ccc;
+}
+
+@media screen and (max-width : 768px) {
+    .allServices .row .serviceImg {
+        height: 20rem;
+    }
+    .tripleFilter{
+        .filter{
+            height: 1px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 1s ease-in-out;
+            &.active{
+                height: 100%;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+.Pagination {
+    a {
+        background: #ccc5;
+
+        &.active {
+            background: #3b82f6;
+            color: #fff;
+        }
+    }
+
+}

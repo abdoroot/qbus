@@ -1,0 +1,21 @@
+.Banner {
+    img {
+        filter: brightness(0.4) blur(3px);
+    }
+
+    .item {
+        transform: translate(-50%, -50%);
+        // width: 30rem;
+    }
+}
+
+@media screen and (max-width : 768px) {
+ .Banner{
+     .item{
+        width: 100%;
+    position: relative;
+    transform: none;
+    left: auto;
+     }
+ }  
+}

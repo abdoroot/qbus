@@ -1,41 +1,32 @@
 <?php
 
 return array (
-  'singular' => 'Notification',
-  'plural' => 'Notifications',
-  'fields' => [
-    'id' => 'Id',
-    'title' => 'Title',
-    'text' => 'Text',
-    'url' => 'Url',
+  'fields' => 
+  array (
+    'admin_id' => 'Admin id',
     'icon' => 'Icon',
-    'type' => 'Type',
+    'provider_id' => 'Provider id',
+    'text' => 'Text',
+    'title' => 'Title',
     'to' => 'To',
-    'admin_id' => 'Admin Id',
-    'user_id' => 'User Id',
-    'provider_id' => 'Provider Id',
-    'read_at' => 'Read At',
-    'status' => 'Status',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
-  ],
-  'types' => [
-    'primary' => 'Primary',
+    'type' => 'Type',
+    'url' => 'Url',
+    'user_id' => 'User id',
+  ),
+  'plural' => 'Notifications',
+  'singular' => 'Notification',
+  'to' => 
+  array (
+    'all_admins' => 'All admins',
+    'all_providers' => 'All providers',
+    'all_users' => 'All users',
+  ),
+  'types' => 
+  array (
+    'danger' => 'Danger',
     'info' => 'Info',
+    'primary' => 'Primary',
     'success' => 'Success',
     'warning' => 'Warning',
-    'danger' => 'Danger',
-  ],
-  'to' => [
-    'admin' => 'Admin',
-    'user' => 'User',
-    'provider' => 'Provider',
-    'all_admins' => 'All Admins',
-    'all_users' => 'All Users',
-    'all_providers' => 'All Providers',
-  ],
-  'unauthorized' => 'Sorry, you are not authorized to access this notification.',
-  'read' => 'Read',
-  'unread' => 'Unread',
-  'general' => 'General'
+  ),
 );

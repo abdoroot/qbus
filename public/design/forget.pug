@@ -1,0 +1,40 @@
+//- include header ( Meta and css )
+include pug/layout/head.pug
+    body.overflow-x-hidden
+        #Forget 
+            //- include navbar
+            include pug/layout/nav.pug
+            
+            <div class="w-full max-w-sm p-6 m-auto bg-white rounded-md dark:bg-gray-800 my-32">
+                <h1 class="text-3xl font-semibold text-center text-gray-700 dark:text-white">Forget Password</h1>
+
+                <form class="mt-10">
+                    <div>
+                        <label for="username" class="block text-lg text-gray-800 dark:text-gray-200">E-mail</label>
+                        <input type="text" class="text-lg block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                    </div>
+                    <div class="flex items-center justify-between my-12">
+                        <span class="w-1/5 border-b dark:border-gray-600 lg:w-1/5"></span>
+
+                        <a href="#" class="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">or</a>
+
+                        <span class="w-1/5 border-b dark:border-gray-400 lg:w-1/5"></span>
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="Phone" class="block text-lg text-gray-800 dark:text-gray-200">Phone</label>
+                        <input type="text" class="text-lg block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                    </div>
+
+                    <div class="mt-6">
+                        <button class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 text-lg"> Reset Password </button>
+                    </div>
+                </form>
+
+                
+            </div>
+            include pug/layout/footer.pug
+
+
+        //- include Script ( All Script files )
+        include pug/layout/script.pug
