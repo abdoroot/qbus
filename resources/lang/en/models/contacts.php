@@ -1,33 +1,24 @@
 <?php
 
 return array (
-  'singular' => 'Contact',
-  'plural' => 'Contacts',
-  'fields' => [
-    'id' => 'Id',
-    'name' => 'Name',
+  'fields' => 
+  array (
     'email' => 'Email',
-    'type' => 'Type',
-    'subject' => 'Subject',
     'message' => 'Message',
-    'read_at' => 'Read At',
-    'status' => 'Status',
-    'read' => 'Read',
-    'reply' => 'Reply',
+    'name' => 'Name',
+    'read_at' => 'Read at',
     'reply_message' => 'Reply message',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
-  ],
-  'types' => [
-    'contact' => 'Contact',
+    'subject' => 'Subject',
+    'type' => 'Type',
+  ),
+  'plural' => 'Contact messages',
+  'singular' => 'Contact message',
+  'types' => 
+  array (
     'complaint' => 'Complaint',
-    'suggestion' => 'Suggestion',
+    'contact' => 'Contact',
     'enquiry' => 'Enquiry',
     'help' => 'Help',
-    'feedback' => 'Feedback'
-  ],
-  'read' => 'Read',
-  'unread' => 'Unread',
-  'replied' => 'Replied',
-  'unreplied' => 'Unreplied',
+    'suggestion' => 'Suggestion',
+  ),
 );
