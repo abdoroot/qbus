@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
+use Flash;
 
 class LoginController extends Controller
 {
@@ -47,6 +48,10 @@ class LoginController extends Controller
 
         $user = User::where('phone', $request->phone)->first();
         if(!is_null($user)) {
+            if(!$user->phone_verified_at) {
+                Flash::error(__('msg.verify_your_phone_number_before_login'));
+                return redirect()->route('verification.verify', ['id' => $user->id]);
+            }
             if($user->block) {
                 return redirect()->back()->withInput()->withErrors([
                     'phone' => __('auth.blocked')
@@ -59,7 +64,7 @@ class LoginController extends Controller
         }
         
         return redirect()->back()->withInput()->withErrors([
-            'email' => trans('auth.failed')
+            'phone' => trans('auth.failed')
         ]);
     }
 }

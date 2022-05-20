@@ -10,6 +10,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\Notification;
+use App\Models\Coupon;
 use Flash;
 use Response;
 use Auth;
@@ -64,7 +65,7 @@ class TripOrderController extends AppBaseController
             'coupon_id' => !is_null($coupon) ? $coupon->id : null,
             'total' => is_null($coupon)
                 ? $fees + $tax 
-                : ($total = $fees + $tax) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $discount / 100)),
+                : ($total = $fees + $tax) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
             'status' => $trip->auto_approve ? 'approved' : 'pending',
         ]);
 

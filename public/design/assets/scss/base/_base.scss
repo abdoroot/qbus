@@ -1,0 +1,103 @@
+* {
+    list-style: none !important;
+    text-decoration: none !important;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*.thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #555;
+}
+
+body{
+font-size: 62.5%;
+}
+
+.title{
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.description {
+    letter-spacing: 1px;
+    color: #f1f1f1;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    font-weight: 100;
+}
+
+.btn {
+    background: $mainColor;
+    border-radius: 0.5rem;
+    letter-spacing: 1.3px;
+}
+
+svg.w-5.h-5.text-gray-700.fill-current path{
+    fill: #ffe207;
+}
+
+
+.slick-dots {
+    bottom: 4rem;
+    position: absolute;
+    z-index: 9999;
+    height: 4rem;
+
+    li {
+        background: #fff;
+        border-radius: 50%;
+
+        button {
+            opacity: .5;
+            border-radius: 50%;
+        }
+
+        &.slick-active button:before {
+            opacity: 1;
+            background: $mainColor;
+            border-radius: 50%;
+        }
+    }
+}
+
+.done{
+    background: rgb(1, 71, 1);
+}
+.cancel{
+    background: rgb(142, 0, 0);
+}
+.pending{
+    background: rgb(57, 53, 53);
+}
+
+@media screen and (min-width: 1280px){
+    .container {
+        max-width: calc(1280px - 4rem);
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}

@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
 
             if ($guard == "provider")  return redirect(route('provider.home'));
             
-            if($guard == 'user') return redirect(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::HOME);
         }
 
         return $next($request);

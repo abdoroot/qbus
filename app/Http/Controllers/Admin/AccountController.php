@@ -61,6 +61,7 @@ class AccountController extends AppBaseController
     public function store(CreateAccountRequest $request)
     {
         $input = $request->all();
+        $input['password'] = Hash::make($request->password);
 
         $account = $this->accountRepository->create($input);
 

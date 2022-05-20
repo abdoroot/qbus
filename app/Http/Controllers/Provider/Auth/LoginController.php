@@ -55,30 +55,32 @@ class LoginController extends Controller
 
         if(is_null($account)) {
             return redirect()->back()->withInput()->withErrors([
-                'name' => __('auth.failed')
+                'username' => __('auth.failed')
             ]);
         }
-        
+
         if(!$account->active) {
             return redirect()->back()->withInput()->withErrors([
-                'email' => trans('auth.inactive')
+                'username' => trans('auth.inactive')
             ]);
         }
 
         $provider = $account->provider;
         if(is_null($provider)) {
             return redirect()->back()->withInput()->withErrors([
-                'name' => __('auth.failed')
+                'username' => __('auth.failed')
             ]);
         }
+        
         if(!$provider->approve) {
             return redirect()->back()->withInput()->withErrors([
-                'email' => trans('auth.unapproved')
+                'username' => trans('auth.unapproved')
             ]);
         }
+
         if($provider->block) {
             return redirect()->back()->withInput()->withErrors([
-                'email' => __('auth.blocked')
+                'username' => __('auth.blocked')
             ]);
         }
 
@@ -87,7 +89,7 @@ class LoginController extends Controller
         }
         
         return redirect()->back()->withInput()->withErrors([
-            'email' => trans('auth.failed')
+            'username' => trans('auth.failed')
         ]);
     }
 }

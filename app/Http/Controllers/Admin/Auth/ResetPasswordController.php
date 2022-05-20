@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Flash;
 use Hash;
 use DB;
+use Auth;
 
 class ResetPasswordController extends Controller
 {
@@ -62,12 +63,16 @@ class ResetPasswordController extends Controller
             return redirect()->route('admin.password.request')->withInput()->withErrors(['email', __('passwords.invalid')]);
         }
 
-        $admin = Admin::where('email', $request->email)
-            ->update(['password' => Hash::make($request->password)]);
+        $admin = Admin::where('email', $request->email)->first();
+        $admin->update(['password' => Hash::make($request->password)]);
 
         DB::table('password_resets')->where(['email'=> $request->email])->delete();
 
         Flash::success(__('passwords.success'));
+        if($admin->active) {
+            Auth::guard('admin')->login($admin);
+            return redirect()->route('admin.home');
+        }
         return redirect()->route('admin.login');
     }
 }

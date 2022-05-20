@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Provider\Auth;
 
-use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Models\Provider;
+use App\Models\Account;
+use Carbon\Carbon;
+use Flash;
+use Mail;
+use Str;
+use DB;
 
 class ForgotPasswordController extends Controller
 {
@@ -20,8 +24,6 @@ class ForgotPasswordController extends Controller
     | your application to your users. Feel free to explore this trait.
     |
     */
-
-    use SendsPasswordResetEmails;
 
     /**
      * Create a new controller instance.
@@ -43,29 +45,37 @@ class ForgotPasswordController extends Controller
         return view('provider.auth.passwords.email');
     }
 
-    /**
-     * @return mixed
-     */
-    public function broker()
-    {
-        return Password::broker('providers');
-    }
-
-    /**
-     * @param Request $request
-     */
-    protected function validateEmail(Request $request)
+    public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
-    }
 
-    /**
-     * Get the guard to be used during authentication
-     * after password reset.
-     * 
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    public function guard(){
-        return Auth::guard('provider');
+        if(is_null($account = Account::where('email', $request->email)->first())) {
+            Flash::error(__('passwords.user'));
+            return redirect()->back();
+        }
+
+        $token = Str::random(64);
+
+        DB::table('password_resets')->where(['email'=> $account->email])->delete();
+
+        DB::table('password_resets')->insert([
+            'email' => $account->email, 
+            'token' => $token, 
+            'created_at' => Carbon::now()
+            ]);
+
+        Mail::send('emails.password', [
+            'link' => route('provider.password.reset', [
+                'token' => $token,
+                'email' => $account->email])
+            ], function($message) use ($account)
+            {
+                $message->to($account->email, $account->name);
+                $message->subject(__('auth.reset_password.title'));
+            }
+        );
+
+        Flash::success(__('passwords.sent'));
+        return redirect()->back();
     }
 }

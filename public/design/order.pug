@@ -1,0 +1,112 @@
+//- include header ( Meta and css )
+include pug/layout/head.pug
+    body.overflow-x-hidden
+        #triple 
+
+            //- include navbar
+            include pug/layout/nav.pug
+            include pug/Components/until.pug
+            //- include pug/Components/Header.pug
+            
+            <main class="my-8">
+                <div class="container mx-auto px-6">
+                    <div class="md:flex md:items-start">
+                        <div class="w-full md:w-1/2">
+                            .tripleImage.h-96 
+                                img.w-full.h-full.object-cover(src="assets/img/20.jpg", alt="")
+                        </div>
+                        <div class="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
+                            <h3 class="text-gray-700 text-2xl">Direct Bus to Dubai, UAE</h3>
+                            <span class="text-gray-500 text-xl font-bold mt-6 block">Triple start 30 April 2022</span>
+                            <span class="text-gray-500 text-xl font-bold mt-6 block w-full">AED 125  </span>
+                            <hr class="my-3">
+                            
+                            <div class="flex">
+                                <label class="text-gray-700 text-xl font-bold mt-6 mr-4 " for="count" >Person:</label>
+                                <span class="text-gray-500 text-xl font-bold mt-6 block w-full">2</span>
+                            </div>
+                            <div class="flex">
+                                <label class="text-gray-700 text-xl font-bold mt-6 mr-4 " for="count" >Location:</label>
+                                <span class="text-gray-500 text-xl font-bold mt-6 block w-full">Dubai</span>
+                            </div>
+                            <div class="flex">
+                                <label class="text-gray-700 text-xl font-bold mt-6 mr-4 " for="count" >Days:</label>
+                                <span class="text-gray-500 text-xl font-bold mt-6 block w-full">Dec,3,2021 To Dec,8,2021</span>
+                            </div>
+                            <div class="flex items-center">
+                                <label class="text-gray-700 text-xl font-bold mt-6 mr-4 " for="count">Review:</label>
+                                <div class="flex mt-6 item-center">
+                                    <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                                    </svg>
+
+                                    <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                                    </svg>
+
+                                    <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                                    </svg>
+
+                                    <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                                    </svg>
+
+                                    <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                             
+                        </div>
+                    </div>
+                    .row.flex.items-start.justify-start.mt-16.flex-wrap
+                        <div class="w-full md:w-2/3">
+                            .tripleDetails 
+                                ul.text-gray-700.text-left.relative.overflow-hidden
+                                    li.text-lg.relative.overflow-hidden.pl-12.my-4
+                                        span.absolute.w-8.h-8.bg-blue-700.left-0.top-2.text-center.text-white.rounded-full 1
+                                        strong Date from :  10 Dec 2022
+                                        p Time from : 10:00 AM
+                                    li.text-lg.relative.overflow-hidden.pl-12.my-4
+                                        span.absolute.w-8.h-8.bg-blue-700.left-0.top-2.text-center.text-white.rounded-full 2
+                                        <div class="mt-2">
+                                            <label class="text-gray-700 text-xl font-bold mt-6">Discription:</label>
+                                            <div class="flex items-center mt-1">
+                                                p.text-lg.text-gray-500 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam accusantium voluptatibus et, accusamus officiis ratione debitis neque, ducimus dolor a magni. Amet dolorum similique quidem ratione doloremque adipisci saepe modi.
+                                            </div>
+                                        </div>
+                                    li.text-lg.relative.overflow-hidden.pl-12.my-4
+                                        span.absolute.w-8.h-8.bg-blue-700.left-0.top-2.text-center.text-white.rounded-full 3
+                                        <div class="mt-2 text-left">
+                                            <label class="text-gray-700 text-xl font-bold mt-6">Program:</label>
+                                            <div class="flex items-center flex-wrap justify-start mt-1">
+                                                p.text-lg.text-gray-500.w-full.my-2 - Sharjh Park Lorem, ipsum dolor sit amet consectetur
+                                                p.text-lg.text-gray-500.w-full.my-2 - Dubai Mall Lorem, ipsum dolor sit amet consectetur
+                                                p.text-lg.text-gray-500.w-full.my-2 - Burj Khalifa Lorem, ipsum dolor sit amet consectetur
+                                                p.text-lg.text-gray-500.w-full.my-2 - Abu Dhabi Lorem, ipsum dolor sit amet consectetur
+                                                p.text-lg.text-gray-500.w-full.my-2 - Ajman Park Lorem, ipsum dolor sit amet consectetur
+                                            </div>
+                                        </div>
+
+                                    li.text-lg.relative.overflow-hidden.pl-12.my-4
+                                        span.absolute.w-8.h-8.bg-blue-700.left-0.top-2.text-center.text-white.rounded-full 4
+                                        <div class="mt-2 text-left">
+                                            <label class="text-gray-700 text-xl font-bold mt-6">Locaion:</label>
+                                            <div class="flex items-center flex-wrap justify-start mt-1">
+                                                <iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Dubai&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                            </div>
+                                        </div>
+                                    li.text-lg.relative.overflow-hidden.pl-12.my-4
+                                        span.absolute.w-8.h-8.bg-blue-700.left-0.top-2.text-center.text-white.rounded-full 5
+                                        strong Date To :  15 Dec 2022
+                                        p Time To : 8:00 PM
+                        </div>
+                        
+                </div>
+            </main>
+
+            include pug/Components/Map.pug 
+            include pug/layout/footer.pug
+        //- include Script ( All Script files )
+        include pug/layout/script.pug

@@ -71,6 +71,7 @@ return array (
   'sign_up' => 'Sign up',
   'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
   'unapproved' => 'Your account is unapproved, please contact admin for more details',
+  'verify' => 'Verification',
   'verify_email' => 
     array (
       'another_req' => 'click here to request another',

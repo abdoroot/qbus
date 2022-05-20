@@ -185,9 +185,12 @@ class Trip extends Model
         $additionals = [];
         foreach($this->additional ?? [] as $value) {
             $additional = \App\Models\Additional::find($value['id']);
-            if(!is_null($additional)) $additionals[] = [
-                'additional' => $additional,
-                'fees' => $value['fees']];
+            if(!is_null($additional)) {
+                $additionals[] = [
+                    'id' => $additional->id,
+                    'additional' => $additional,
+                    'fees' => $value['fees']];
+            }
         }
 
         return $additionals;
@@ -253,13 +256,18 @@ class Trip extends Model
                     d='M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z' />
             </svg>";
         }
+
+        $img = "";
+        if(!is_null($bus = $this->bus) && !is_null($image = $bus->image)) {
+            $img = asset('images/buses/'.$image);
+        } 
                     
         return "<div class='$className'>
         <a href='".route('trips.show', $this->id)."'>
             <div class='imgItem h-72 overflow-hidden'>
                 <img
                     class='object-cover object-center min-w-full h-full'
-                    src='".asset('images/trips/'.$this->image)."'
+                    src='".$img."'
                     alt=''>
             </div>
             <!-- <div class='flex items-center px-2 py-3 bg-gray-900'>
@@ -267,7 +275,8 @@ class Trip extends Model
             </div> -->
             <div class='px-2 py-4 border'>
                 <h1 class='text-xl font-semibold text-gray-800 dark:text-white'>
-                    {$this->name}
+                    {$this->name} " . 
+                    (!is_null($destination = $this->destination) ? ' - ' . $destination->name : '') . "
                 </h1>
                 <div class='flex mt-2 item-center'>
                     $rate
@@ -289,7 +298,12 @@ class Trip extends Model
                         <path fill-rule='evenodd' clip-rule='evenodd'
                             d='M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z' />
                     </svg>
-                    <h1 class='px-2 text-lg'>".(!is_null($destination = $this->destination) ? (!is_null($terminal = $destination->arrivalTerminal) ? $terminal->name : null) : null)."</h1>
+                    <h1 class='px-2 text-lg'>" . (
+                        !is_null($destination) ? (
+                            !is_null($terminal = $destination->arrivalTerminal) ? $terminal->name 
+                            : null) 
+                        : null) . 
+                    "</h1>
                 </div>
                 <div class='flex items-center mt-4 text-gray-700 dark:text-gray-200'>
                     <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>

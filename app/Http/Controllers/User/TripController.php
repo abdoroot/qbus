@@ -12,6 +12,7 @@ use App\Models\Trip;
 use App\Models\City;
 use App\Models\TripOrder;
 use App\Models\Notification;
+use App\Models\Additional;
 use App\Models\Review;
 use Flash;
 use Response;
@@ -46,16 +47,20 @@ class TripController extends AppBaseController
         $paginator = new Trip;
         if(!is_null($search = $request->search)) {
             $query .= "&search={$request->search}";
-            $paginator = $paginator->where('name', 'like', "%$search%");
+            $paginator = $paginator->where('description', 'like', "%$search%");
         }
-        if($meal = $request->meal) {
-            $query .= "&meal=1";
-            $paginator = $paginator->where('meal', 1);
+        
+        if(!empty($additional = $request->additional ?? [])) {
+            $query .= "&additional[]=" . implode("&additional[]=", $additional);
+            $paginator = $paginator->when($additional , function($query) use ($additional) {
+                $query->where(function ($query) use ($additional) {
+                    foreach($additional as $addition) {
+                        $query->orWhereJsonContains('additional', ['id' => $addition]);
+                    }
+                });
+            });
         }
-        if($hotel = $request->hotel) {
-            $query .= "&hotel=1";
-            $paginator = $paginator->where('hotel', 1);
-        }
+
         if(!is_null($date_from = $request->date_from)) {
             $query .= "&date_from={$request->date_from}";
             $paginator = $paginator->where('date_from', '>=', $date_from);
@@ -78,21 +83,25 @@ class TripController extends AppBaseController
         }
         if(!is_null($city_id = $request->city_id)) {
             $query .= "&city_id={$request->city_id}";
-            $paginator = $paginator->join('trip_cities', 'trip_cities.trip_id', '=', 'trips.id')
-                ->where('city_id', '=', $city_id);
+            $paginator = $paginator->join('destinations', 'destinations.id', '=', 'trips.destination_id')
+                ->where(function ($query) use($city_id) {
+                    $query->where('from_city_id', $city_id)
+                        ->orWhere('to_city_id', $city_id);
+                });
         }
 
         $paginator = $paginator->select('trips.*')->paginate($limit);
 
         $cities = City::pluck('name', 'id');
+        $additionals = Additional::get();
 
         return view('guest.trips.index')
             ->with('paginator', $paginator)
             ->with('cities', $cities)
+            ->with('additionals', $additionals)
             ->with('query', $query)
             ->with('search', $search)
-            ->with('meal', $meal)
-            ->with('hotel', $hotel)
+            ->with('additional', $additional)
             ->with('date_from', $date_from)
             ->with('date_to', $date_to)
             ->with('time_from', $time_from)
@@ -117,13 +126,16 @@ class TripController extends AppBaseController
         }
 
         $moreTrips = Trip::where('id', '!=', $id)->take(4)->get();
-
         $reviews = Review::where(['trip_id' => $id, 'publish' => 1])->take(3)->get();
+        $additionals = Additional::get();
+        $tax = (!is_null($provider = $trip->provider) ? $provider->tax : 0);
 
         return view('guest.trips.show')
             ->with('trip', $trip)
             ->with('moreTrips', $moreTrips)
-            ->with('reviews', $reviews);
+            ->with('reviews', $reviews)
+            ->with('additionals', $additionals)
+            ->with('tax', $tax);
     }
 
     public function store(CreateTripOrderRequest $request)

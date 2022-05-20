@@ -1,0 +1,27 @@
+//- include header ( Meta and css )
+include pug/layout/head.pug
+    body.overflow-x-hidden
+
+        #About 
+
+            //- include navbar
+            include pug/layout/nav.pug
+            include pug/Components/until.pug
+            //- include pug/Components/Header.pug
+            
+            
+            <section class="bg-white dark:bg-gray-900">
+                <div class="container px-6 py-10 mx-auto">
+                    <h1 class="text-3xl mb-4 font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">About Us  <br /> <span class="text-blue-500 mt-4 inline-block">Who are we ?</span></h1>
+                </div>
+            </section>
+
+            include pug/Components/Features.pug
+            include pug/Components/Gallery.pug
+
+            include pug/Components/Map.pug 
+            include pug/layout/footer.pug
+
+
+        //- include Script ( All Script files )
+        include pug/layout/script.pug

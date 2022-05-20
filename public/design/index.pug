@@ -1,0 +1,30 @@
+//- include header ( Meta and css )
+include pug/layout/head.pug
+    body.overflow-x-hidden
+        #Home 
+
+            //- include navbar
+            include pug/layout/nav.pug
+            //- include pug/Components/Header.pug
+            include pug/Components/Banner.pug
+            //- include pug/Components/topReview.pug
+            //- include pug/Components/Features.pug
+            //- include pug/Components/Card.pug
+            //- include pug/Components/Gallery.pug
+            <div class="container mx-auto text-center my-32">
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">Order <span class="text-blue-600 dark:text-blue-400">a Full Bus</span></h2>
+                <p class="mt-4 text-gray-600 dark:text-gray-400 text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quidem 55odi reprehenderit vitae exercitationem aliquid dolores ullam temporibus enim expedita aperiam mollitia iure 55onsectetur dicta tenetur, porro consequuntur saepe accusantium consequatur.</p>
+
+                <div class="mt-8">
+                    <a href="#" class="px-5 py-2 font-semibold text-gray-100 transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-700 text-2xl">Start Now</a>
+                </div>
+            </div>
+            //- include pug/Components/join.pug
+            //- include pug/Components/OurDriver.pug
+            //- include pug/Components/OurPrices.pug
+            include pug/Components/Map.pug 
+            include pug/layout/footer.pug
+
+        
+        //- include Script ( All Script files )
+        include pug/layout/script.pug 

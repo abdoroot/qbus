@@ -1,0 +1,83 @@
+//- include header ( Meta and css )
+include pug/layout/head.pug
+    body.overflow-x-hidden
+        #Services 
+
+            //- include navbar
+            include pug/layout/nav.pug
+            //- include pug/Components/Header.pug
+        
+            <section class="bg-white dark:bg-gray-900">
+                <div class="container px-6 py-10 mx-auto">
+                    <h1 class="text-3xl mb-4 font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">Explore  <br /> <span class="text-blue-500 mt-4 inline-block">Our Services</span></h1>
+                </div>
+            </section>
+
+            <section class="allServices my-8">
+                <div class="container mx-auto">
+                    <div class="row flex justify-center items-center flex-wrap mb-8 md:mb-0">
+                        <div class="w-full md:w-1/2">
+                            img.serviceImg(src="assets/img/19.jpg", alt="" class="min-w-full object-cover")
+                        </div>
+                        <div class="w-full md:w-1/2 p-4 md:p-8">
+                            <h3 class="text-gray-700 text-2xl">Direct Bus to Dubai, UAE</h3>
+                            <div class="mt-2">
+                                <label class="text-gray-700 text-xl font-bold mt-6">Discription:</label>
+                                <div class="flex items-center mt-1">
+                                    p.text-lg.text-gray-500 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam accusantium voluptatibus et, accusamus officiis ratione debitis neque, ducimus dolor a magni. Amet dolorum similique quidem ratione doloremque adipisci saepe modi.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row flex justify-center items-center flex-wrap mb-8 md:mb-0">
+                        <div class="w-full md:w-1/2">
+                            img.serviceImg(src="assets/img/32.jpg", alt="" class="min-w-full object-cover")
+                        </div>
+                        <div class="w-full md:w-1/2 p-4 md:p-8">
+                            <h3 class="text-gray-700 text-2xl">Direct Bus to Dubai, UAE</h3>
+                            <div class="mt-2">
+                                <label class="text-gray-700 text-xl font-bold mt-6">Discription:</label>
+                                <div class="flex items-center mt-1">
+                                    p.text-lg.text-gray-500 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam accusantium voluptatibus et, accusamus officiis ratione debitis neque, ducimus dolor a magni. Amet dolorum similique quidem ratione doloremque adipisci saepe modi.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row flex justify-center items-center flex-wrap mb-8 md:mb-0">
+                        <div class="w-full md:w-1/2">
+                            img.serviceImg(src="assets/img/41.jpg", alt="" class="min-w-full object-cover")
+                        </div>
+                        <div class="w-full md:w-1/2 p-4 md:p-8">
+                            <h3 class="text-gray-700 text-2xl">Direct Bus to Dubai, UAE</h3>
+                            <div class="mt-2">
+                                <label class="text-gray-700 text-xl font-bold mt-6">Discription:</label>
+                                <div class="flex items-center mt-1">
+                                    p.text-lg.text-gray-500 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam accusantium voluptatibus et, accusamus officiis ratione debitis neque, ducimus dolor a magni. Amet dolorum similique quidem ratione doloremque adipisci saepe modi.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row flex justify-center items-center flex-wrap mb-8 md:mb-0">
+                        <div class="w-full md:w-1/2">
+                            img.serviceImg(src="assets/img/27.jpg", alt="" class="min-w-full object-cover")
+                        </div>
+                        <div class="w-full md:w-1/2 p-4 md:p-8">
+                            <h3 class="text-gray-700 text-2xl">Direct Bus to Dubai, UAE</h3>
+                            <div class="mt-2">
+                                <label class="text-gray-700 text-xl font-bold mt-6">Discription:</label>
+                                <div class="flex items-center mt-1">
+                                    p.text-lg.text-gray-500 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Numquam accusantium voluptatibus et, accusamus officiis ratione debitis neque, ducimus dolor a magni. Amet dolorum similique quidem ratione doloremque adipisci saepe modi.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div> 
+                </div>
+            </main>
+        
+            include pug/Components/Map.pug 
+            include pug/layout/footer.pug
+
+        
+        //- include Script ( All Script files )
+        include pug/layout/script.pug

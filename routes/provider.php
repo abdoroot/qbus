@@ -49,7 +49,7 @@ Route::namespace('\App\Http\Controllers\Provider\Auth')->group(function() {
     // Password Resets
     Route::POST('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     Route::GET('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    Route::POST('password/reset', 'ResetPasswordController@reset');
+    Route::POST('password/reset', 'ResetPasswordController@reset')->name('password.update');
     Route::GET('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 
     //Verification Routes

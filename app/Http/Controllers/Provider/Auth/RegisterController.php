@@ -150,11 +150,17 @@ class RegisterController extends Controller
 
     public function account($id, Request $request)
     {
+        $this->validate($request, [
+            'username' => 'required|string|max:255|unique:accounts,username',
+            'password' => 'required|string|min:8|max:255',
+        ]);
+
         $provider = Provider::find($id);
         if(is_null($provider)) {
             Flash::error(__('messages.not_found', ['model' => __('models/providers.singular')]));
             return redirect()->route('');
         }
+
         if(!is_null($provider->accounts->first())) {
             return redirect()->route('provider.login');
         }
@@ -162,10 +168,11 @@ class RegisterController extends Controller
         $provider->accounts()->create([
             'username' => $request->username,
             'password' => Hash::make($request->password),
-            'active' => true
+            'active' => true,
+            'role' => 'admin'
         ]);
 
         Flash::success(__('messages.saved', ['model' => __('models/accounts.singular')]));
-        return redirect()->route('provider.login', ['name' => $provider->name]);;
+        return redirect()->route('provider.login', ['username' => $request->username]);;
     }
 }

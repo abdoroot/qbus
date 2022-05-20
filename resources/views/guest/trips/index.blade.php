@@ -23,13 +23,6 @@
                             @lang('msg.filter_options') <img class="float-right w-8" src="{{ asset('design/assets/img/filter.svg') }}"></h3>
                         <div class="filter">
                             <h3 class="text-gray-700 dark:text-gray-200 mt-6 font-bold">@lang('msg.trip_features'):</h3>
-                            @foreach(['meal', 'hotel'] as $feature)
-                            <div class="mt-4 flex items-start justify-start">
-                                <input id="feature-{{ $feature }}" type="checkbox" name="{{ $feature }}" @if($$feature) checked @endif
-                                    class="px-4 py-2  mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
-                                <label class="text-gray-700 dark:text-gray-200 ml-4" for="feature-{{ $feature }}">@lang('models/trips.fields.'.$feature)</label>
-                            </div>
-                            @endforeach
                             <div class="flex items-center mt-4">
                                 <div class="mt-4 w-1/2">
                                     <label class="text-gray-700 dark:text-gray-200 font-bold"
@@ -58,19 +51,29 @@
                                         class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
                                 </div>
                             </div>
-                            @foreach(['one-way','round','multi'] as $t)
+                            {{-- @foreach(['one-way','round','multi'] as $t)
                             <div class="mt-4 flex items-start justify-start">
                                 <input id="type-{{ $t }}" type="radio" name="type" value="{{ $t }}" @if($t == $type) checked @endif
                                     class="px-4 py-2  mt-2 text-gray-700 bg-white border border-gray-200 rounded-md">
                                 <label class="text-gray-700 dark:text-gray-200 ml-4" for="type-{{ $t }}">@lang('models/trips.types.'.$t)</label>
                             </div>
-                            @endforeach
+                            @endforeach --}}
                             <div class="mt-4">
                                 <label class="text-gray-700 dark:text-gray-200 font-bold" for="city">@lang('models/cities.singular')</label>
                                 {!! Form::select('city_id', $cities, $city_id, [
                                     'placeholder' => __('msg.select'),
                                     'class' => 'block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring']) !!}
                             </div>
+                            @foreach($additionals as $addition)
+                            <div class="mt-4 flex items-start justify-start">
+                                <input id="additional-{{ $addition->id }}" type="checkbox" 
+                                    name="additional[]" @if(in_array($addition->id, $additional)) checked @endif
+                                    class="px-4 py-2  mt-2 text-gray-700 bg-white border border-gray-200 rounded-md" value="{{ $addition->id }}">
+                                <label class="text-gray-700 dark:text-gray-200 ml-4" for="additional-{{ $addition->id }}">
+                                    {{ $addition->name }}
+                                </label>
+                            </div>
+                            @endforeach
                         </div>
                         <div class="w-full">
                             <div class="flex text-lg items-center mx-auto justify-center mt-8">

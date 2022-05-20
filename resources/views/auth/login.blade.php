@@ -2,69 +2,78 @@
 
 @section('title', __('auth.login.title'))
 
+@section('id', 'Login')
+
 @section('content')
-<section id="wrapper">
-    <div class="login-register">
-        <div class="login-box card">
-            <div class="card-body">
-                @include('flash::message')
-                {!! Form::open(['route' => 'login', 'type' => 'post', 'class' => 'form-horizontal form-material', 'id' => 'loginform']) !!}
-                    <h3 class="text-center m-b-20">@lang('auth.login.title')</h3>
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <input type="tel"
-                                name="phone"
-                                value="{{ old('phone') }}"
-                                placeholder="@lang('auth.phone')"
-                                class="form-control @error('phone') is-invalid @enderror">
-
-                            @error('phone')
-                            <span class="error invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
+    <div class="bg-white dark:bg-gray-900 mb-16">
+        <div class="flex justify-center h-screen">
+            <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url(public/design/assets/img/38.jpg)">
+                <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+                    <div>
+                        <h2 class="text-4xl font-bold text-white">@lang('msg.login_side_title')</h2>
+                        <p class="max-w-xl mt-3 text-gray-300 text-xl">@lang('msg.login_side_text')</p>
                     </div>
-
-                    <div class="form-group ">
-                        <div class="col-xs-12">
-                            <input type="password"
-                                name="password"
-                                placeholder="@lang('auth.password')"
-                                class="form-control @error('password') is-invalid @enderror">
-
-                            @error('password')
-                            <span class="error invalid-feedback">{{ $message }}</span>
-                            @enderror
-                        </div>
+                </div>
+            </div>
+            <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/2">
+                <div class="flex-1">
+                    <div class="text-center">
+                        <h2 class="text-4xl font-bold text-center text-gray-700 dark:text-white">@lang('auth.login.title')</h2>
+                        <p class="mt-3 text-gray-500 dark:text-gray-300 text-lg">@lang('auth.login.subtitle')</p>
                     </div>
+                    <div class="mt-8">
+                        {!! Form::open(['route' => 'login', 'type' => 'post', 'id' => 'loginform']) !!}
+                            <div>
+                                <label for="phone" class="block mb-2 text-lg text-gray-600 dark:text-gray-200">@lang('auth.phone')</label>
+                                <input type="tel"
+                                    name="phone"
+                                    value="{{ old('phone') }}"
+                                    placeholder="@lang('auth.phone')"
+                                    class="@error('phone') border-red-500 @enderror 
+                                        block w-full px-4 py-4 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 text-lg ">
 
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="d-flex no-block align-items-center">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="remember" name="remember">
-                                    <label class="custom-control-label" for="remember">@lang('auth.login.remember_me')</label>
-                                </div> 
-                                <div class="ml-auto">
-                                    <a href="{{ route('password.request') }}" class="text-muted"><i class="fas fa-lock m-r-5"></i> @lang('auth.login.forgot_password')</a> 
-                                </div>
+                                @error('phone')
+                                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                                @enderror
                             </div>
-                        </div>
-                    </div>
+                            <div class="mt-6">
+                                <div class="flex justify-between mb-2">
+                                    <label for="password" class="text-lg text-gray-600 dark:text-gray-200">@lang('auth.password')</label>
+                                    <a href="{{ route('password.request') }}"
+                                        class="text-lg text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"> @lang('auth.login.forgot_password')</a>
+                                </div>
+                                <input type="password"
+                                    name="password"
+                                    placeholder="@lang('auth.password')"
+                                    class="@error('password') border-red-500 @enderror 
+                                        block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 text-lg" />
 
-                    <div class="form-group text-center">
-                        <div class="col-xs-12 p-b-20">
-                            <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">@lang('auth.sign_in')</button>
-                        </div>
+                                @error('password')
+                                <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mt-6">
+                                <div class="form-check">
+                                  <input type="checkbox" id="remember" name="remember" class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer">
+                                  <label for="remember" class="form-check-label inline-block text-base text-gray-600 dark:text-gray-200">
+                                    @lang('auth.login.remember_me')
+                                  </label>
+                                </div>
+                              </div>
+                            <div class="mt-6">
+                                <button
+                                    class="text-lg w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                                    @lang('auth.sign_in')
+                                </button>
+                            </div>
+                        {!! Form::close() !!}
+                        <p class="mt-6 text-lg text-center text-gray-400">@lang('auth.login.register_membership') <a
+                                href="{{ route('register') }}"
+                                class="text-blue-500 focus:outline-none focus:underline hover:underline">@lang('auth.sign_up')</a>.</p>
                     </div>
-
-                    <div class="form-group m-b-0">
-                        <div class="col-sm-12 text-center">
-                            @lang('auth.login.register_membership') <a href="{{ route('register') }}" class="text-info m-l-5"><b>@lang('auth.sign_up')</b></a>
-                        </div>
-                    </div>
-                {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>
-</section>
 @endsection
+    

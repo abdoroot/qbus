@@ -126,13 +126,7 @@ class Destination extends Model
      **/
     public function stopTerminals()
     {
-        $terminals = [];
-        foreach($this->stops ?? [] as $terminal_id) {
-            $terminal = \App\Models\Terminal::find($terminal_id);
-            if(!is_null($terminal)) $terminals[] = $terminal;
-        }
-
-        return $terminals;
+        return \App\Models\Terminal::whereIn('id', $this->stops)->get();
     }
 
     public function getNameAttribute()
