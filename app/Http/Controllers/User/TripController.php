@@ -18,6 +18,7 @@ use Flash;
 use Response;
 use Auth;
 use DB;
+use Carbon\Carbon;
 
 class TripController extends AppBaseController
 {
@@ -45,6 +46,7 @@ class TripController extends AppBaseController
         $query = '';
         $limit = 6;
         $paginator = new Trip;
+        $today = Carbon::now();
         if(!is_null($search = $request->search)) {
             $query .= "&search={$request->search}";
             $paginator = $paginator->where('description', 'like', "%$search%");
@@ -89,6 +91,11 @@ class TripController extends AppBaseController
                         ->orWhere('to_city_id', $city_id);
                 });
         }
+
+
+        $paginator = $paginator->where('date_from', '>=', $today->toDateString());
+
+        $paginator = $paginator->where('time_from', '>=', $today->toTimeString());
 
         $paginator = $paginator->select('trips.*')->paginate($limit);
 
