@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "3.0",
         "laravelcollective/html": "^6.2",
+        "nesbot/carbon": "^2.58",
         "spatie/laravel-translatable": "^4.6"
     },
     "require-dev": {
