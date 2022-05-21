@@ -21,7 +21,7 @@
 
         @yield('content')
 
-        @include('guest.layouts.map')
+        {{--@include('guest.layouts.map')--}}
 
         @include('guest.layouts.footer')
     </div>
