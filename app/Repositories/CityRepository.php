@@ -17,8 +17,7 @@ class CityRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        'name_en',
-        'name_ar'
+        'name'
     ];
 
     /**

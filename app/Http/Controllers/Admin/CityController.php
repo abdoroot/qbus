@@ -89,7 +89,8 @@ class CityController extends AppBaseController
      * @return Response
      */
     public function edit($id)
-    {
+    { 
+
         $city = $this->cityRepository->find($id);
 
         if (empty($city)) {
@@ -110,6 +111,7 @@ class CityController extends AppBaseController
      */
     public function update($id, UpdateCityRequest $request)
     {
+
         $city = $this->cityRepository->find($id);
 
         if (empty($city)) {

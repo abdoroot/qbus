@@ -25,7 +25,7 @@ class UpdateCityRequest extends FormRequest
     public function rules()
     {
         $rules = City::$update_rules;
-        $rules['name_en'] = $rules['name_en'].",".$this->route("city");$rules['name_ar'] = $rules['name_ar'].",".$this->route("city");
+        //$rules['name_en'] = $rules['name_en'].",".$this->route("city");$rules['name_ar'] = $rules['name_ar'].",".$this->route("city");
         foreach($rules as $i => $rule) {
             if(strpos($rule, 'unique') !== false) {
                 $rules[$i] .= "," . $this->city;
