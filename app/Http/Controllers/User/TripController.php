@@ -132,14 +132,14 @@ class TripController extends AppBaseController
             return redirect(route('trips.index'));
         }
 
-        $moreTrips = Trip::where('id', '!=', $id)->take(4)->get();
+        //$moreTrips = Trip::where('id', '!=', $id)->take(4)->get();
         $reviews = Review::where(['trip_id' => $id, 'publish' => 1])->take(3)->get();
         $additionals = Additional::get();
         $tax = (!is_null($provider = $trip->provider) ? $provider->tax : 0);
 
         return view('guest.trips.show')
             ->with('trip', $trip)
-            ->with('moreTrips', $moreTrips)
+            //->with('moreTrips', $moreTrips)
             ->with('reviews', $reviews)
             ->with('additionals', $additionals)
             ->with('tax', $tax);

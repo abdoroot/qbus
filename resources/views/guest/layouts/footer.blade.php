@@ -1,6 +1,10 @@
 <!-- end Map -->
+{{-- email subscription
 <footer class="flex justify-center px-4 text-gray-800 bg-white dark:text-white dark:bg-gray-800">
     <div class="container py-6">
+
+
+
         <h1 class="text-lg font-bold text-center lg:text-2xl"> {{ $app_email_title }} <br> </h1>
         @if(Session::has('email'))
         <span class="w-full flex justify-center items-center text-lg tracking-wide text-green-500 text-xs mt-1 mb-3">
@@ -10,6 +14,8 @@
             {{ Session::get('email') }}
         </span>
         @endif
+
+
         <div class="flex justify-center mt-6">
             <div
                 class="bg-white border rounded-md focus-within:ring dark:bg-gray-800 dark:border-gray-600 focus-within:border-blue-400 focus-within:ring-blue-300 focus-within:ring-opacity-40 dark:focus-within:border-blue-300">
@@ -35,6 +41,7 @@
         </div>
     </div>
 </footer>
+--}}
 <footer class="bg-white dark:bg-gray-800">
     <div class="container px-6  mx-auto">
         <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

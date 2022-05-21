@@ -28,9 +28,11 @@
             @include('guest.trips.order', ['tax_amount' => $tax_amount = ($fees = $trip->fees) * $tax / 100])
         </div>
         
-        @include('guest.trips.reviews')
+        {{-- @include('guest.trips.reviews') --}} 
         
-        @if($moreTrips->count() > 0)
+
+
+        {{-- @if($moreTrips->count() > 0)
         <div class="mt-16">
             <h3 class="text-gray-600 text-2xl font-medium">@lang('msg.more_trips')</h3>
             <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
@@ -39,13 +41,26 @@
                 @endforeach
             </div>
         </div>
-        @endif
+        @endif --}}
+
     </div>
 </main>
 @endsection
 
 @push('page_scripts')
 <script>
+
+$(document).ready(function(){
+  updateFees(getTicketCount());
+});
+
+   function getTicketCount(){
+     let TicketCount = 0;
+     TicketCount = parseInt($('#count-input').val());
+     return TicketCount;
+   };
+
+
     $(document).on('click', '#increase-count', function() {
         var value = parseInt($('#count-input').val()) + 1;
         $('#count-input').val(value);
@@ -59,13 +74,32 @@
             $('#count-span').text(value);
             updateFees(value);
         }
-    })
+    });
+
+    $(document).on('change', '.additional', function() {
+        updateFees(getTicketCount());
+    });
+
+    function additionalsFees(){
+     let totalFees = 0;
+      $(".additional").each(function(){
+        if(this.checked) {
+          totalFees+=parseFloat($(this).attr("fees"));
+        }
+     });
+      return totalFees;
+    }
+
     function updateFees(count) {
+
         var fees = {{ $fees }} * count;
+        var additionalFees = additionalsFees();
         var tax = {{ $tax_amount }} * count;
         $('#fees').text(fees);
+        $('#additional').text(additionalFees);
         $('#tax').text(tax);
-        $('#total').text(fees + tax);
+        $('#total').text(fees + tax + additionalFees);
+
     }
 </script>
 @endpush

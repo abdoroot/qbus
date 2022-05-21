@@ -21,36 +21,7 @@
                 </p>
             </div>
             <hr class="border-gray-200 dark:border-gray-700">
-            <div class="py-6">
-                <h1 class="text-lg font-medium text-gray-700 capitalize lg:text-xl dark:text-white">
-                    @lang('models/trips.fields.additional')</h1>
-                <div class="mt-8 space-y-4">
-                    @foreach($additionals as $additional)
-                    <div class="flex items-center">
-                        @if(!is_null($tripAdditionals = $trip->additionals()) && !is_null($addition = collect($tripAdditionals)->where('id', $additional->id)->first()))
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500"
-                            viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        @else
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-400"
-                            viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        @endif
-                        <span class="mx-4 text-gray-700 dark:text-gray-300">{{ $additional->name }} 
-                            @if(isset($addition) && !is_null($addition))
-                                ({{ $addition['fees'] }})
-                            @endif
-                        </span>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
+            
         </div>
         <div class="mt-6">
             <label class="text-gray-700 text-xl font-bold">@lang('models/trips.destination'):</label>
@@ -76,10 +47,7 @@
                         </svg>
                     </span>
                     <div class="mt-2">
-                        <label class="text-gray-700 text-xl font-bold mt-6">@lang('models/destinations.fields.from_city_id')</label>
-                        <div class="flex items-center mt-1">
-                            <p class="text-lg text-gray-500"> {{ !is_null($fromCity = $destination->fromCity) ? $fromCity->name : '-' }} </p>
-                        </div>
+                        <label class="text-gray-700 text-xl font-bold mt-6">{{ !is_null($fromCity = $destination->fromCity) ? $fromCity->name : '-' }}</label>
                         <div>
                             <label class="text-gray-700 text-base font-bold mt-6">@lang('models/destinations.fields.starting_terminal_id') : </label>
                             <span class="text-base text-gray-500">{{ !is_null($startingTerminal = $destination->startingTerminal) ? $startingTerminal->name : '-' }}</span>
@@ -95,10 +63,7 @@
                         </svg>
                     </span>
                     <div class="mt-2">
-                        <label class="text-gray-700 text-xl font-bold mt-6">@lang('models/destinations.fields.to_city_id')</label>
-                        <div class="flex items-center mt-1">
-                            <p class="text-lg text-gray-500">{{ !is_null($toCity = $destination->toCity) ? $toCity->name : '-' }}</p>
-                        </div>
+                        <label class="text-gray-700 text-xl font-bold mt-6">{{ !is_null($toCity = $destination->toCity) ? $toCity->name : '-' }}</label>
                         <div>
                             <label class="text-gray-700 text-base font-bold mt-6">@lang('models/destinations.fields.arrival_terminal_id') : </label>
                             <span class="text-base text-gray-500">{{ !is_null($arrivalTerminal = $destination->arrivalTerminal) ? $arrivalTerminal->name : '-' }}</span>
@@ -127,11 +92,13 @@
                 @endif
             </ul>
         </div>
+        @if($trip->provider_notes != "")
         <div class="mt-6">
             <label class="text-gray-700 text-xl font-bold mt-6">@lang('models/trips.fields.provider_notes'):</label>
             <div class="flex items-center mt-1">
                 <p class="text-lg text-gray-500">{{ $trip->provider_notes ?? '-' }}</p>
             </div>
         </div>
+        @endif
     </div>
 </div>
