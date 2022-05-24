@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('register', 'UserAPIController@register');
 Route::post('login', 'UserAPIController@login');
 Route::get('cites', 'CityAPIController@index');
+Route::get('about_us', 'SettingsAPIController@aboutUs');
+Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
+Route::get('social', 'SettingsAPIController@social');
 //////////////////////////////////////////////////////////////
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('logout', 'UserAPIController@logout');
