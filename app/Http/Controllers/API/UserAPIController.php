@@ -1,13 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\API;
-
 use App\Http\Requests\API\CreateUserAPIRequest;
 use App\Http\Requests\API\UpdateUserAPIRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
+use Carbon\Carbon;
 use Response;
 
 /**
@@ -20,9 +25,75 @@ class UserAPIController extends AppBaseController
     /** @var  UserRepository */
     private $userRepository;
 
+    public $successStatus = 200;
+
     public function __construct(UserRepository $userRepo)
     {
         $this->userRepository = $userRepo;
+    }
+
+
+    public function login(){
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')]) || Auth::attempt(['phone' => request('phone'), 'password' => request('password')])){
+            $user = Auth::user();
+            $success['token'] =  $user->createToken('Qbus')-> accessToken;
+            return response()->json(['success' => $success], $this->successStatus);
+        }
+        else{
+            return response()->json(['error'=>'Unauthorised'], 401);
+        }
+    }
+
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'min:8', 'unique:users'],
+            'address' => ['required', 'string', 'max:255'],
+            'date_of_birth' => ['required', 'date', 'max:255'],
+            'marital_status' => ['required',Rule::in(['married', 'married']), 'string', 'max:20'],
+            'password' => ['required', Rules\Password::defaults()],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 401);
+        }
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+        $user = User::create($input);
+        $success['token'] =  $user->createToken('Qbus')-> accessToken;
+        $success['name'] =  $user->name;
+        $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
+        $success['verify_phone'] = $send;
+        return response()->json(['success'=>$success], $this-> successStatus);
+    }
+
+    public function verifyPhone(Request $request){
+        $user = Auth::user();
+        if(!Hash::check($request->code, $user->phone_verification_code)) {
+            return response()->json(['error'=>'error validation code'], 401);
+        }else{
+            $user->update(['phone_verified_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+            return response()->json(['success' => "Phone Verified Successfully"], $this-> successStatus);
+        }
+    }
+
+    public function resendVerificationCode(){
+        $user = Auth::user();
+        $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
+        return response()->json(['success' => $send], $this-> successStatus);
+    }
+
+    public function userInfo(){
+        $user = Auth::user();
+        return response()->json(['success' => $user], $this-> successStatus);
+    }
+
+    public function logout(){
+        $user = Auth::user()->token()->revoke();
+        return response()->json(['success' => 'logout successfully'], $this-> successStatus);
     }
 
     /**
