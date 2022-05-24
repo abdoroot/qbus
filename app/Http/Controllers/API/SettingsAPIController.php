@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Setting;
+use App\Models\Additional;
 use Response;
 
 /**
@@ -13,7 +14,7 @@ use Response;
 
 class SettingsAPIController extends AppBaseController
 {
-    public function aboutUs(Request $request)
+    public function aboutUs()
     {
         $data =[
             "about_title" => Setting::where('key','about_title')->first(),
@@ -24,7 +25,7 @@ class SettingsAPIController extends AppBaseController
         return $data;
     }
 
-    public function contactUsDetails(Request $request)
+    public function contactUsDetails()
     {
         $data =[
             "location" => Setting::where('key','location')->first()['value'],
@@ -37,7 +38,7 @@ class SettingsAPIController extends AppBaseController
     }
 
 
-    public function social(Request $request)
+    public function social()
     {
         $data =[
             "twitter" => Setting::where('key','twitter')->first()['value'],
@@ -49,4 +50,11 @@ class SettingsAPIController extends AppBaseController
         return $data;
     }
 
+    public function additionals()
+    {
+        $data = Additional::all();
+        return $data;
+    }
+
 }
+

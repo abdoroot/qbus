@@ -20,6 +20,7 @@ Route::get('cites', 'CityAPIController@index');
 Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
 Route::get('social', 'SettingsAPIController@social');
+Route::get('additionals', 'SettingsAPIController@additionals');
 //////////////////////////////////////////////////////////////
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('logout', 'UserAPIController@logout');
