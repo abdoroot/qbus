@@ -162,7 +162,7 @@
             Request::is('admin/settings*') ||
             Request::is('admin/cities*') ||
             Request::is('admin/categories*') ||
-            Request::is('admin/features*') ||
+{{--            Request::is('admin/features*') ||--}}
 {{--            Request::is('admin/services*') || --}}
             Request::is('admin/emails*') ||
             Request::is('admin/additionals*'))) active @endif" href="javascript:void(0)" aria-expanded="false">
@@ -174,7 +174,7 @@
         <li><a href="{{ route('admin.cities.index') }}" class="@if(Request::is('admin/cities*')) active @endif">@lang('models/cities.plural') </a></li>
         {{-- <li><a href="{{ route('admin.categories.index') }}" class="@if(Request::is('admin/categories*')) active @endif">@lang('models/categories.plural') </a></li> --}}
 {{--        <li><a href="{{ route('admin.features.index') }}" class="@if(Request::is('admin/features*')) active @endif">@lang('models/features.plural') </a></li>--}}
-        <li><a href="{{ route('admin.services.index') }}" class="@if(Request::is('admin/services*')) active @endif">@lang('models/services.plural') </a></li>
+{{--        <li><a href="{{ route('admin.services.index') }}" class="@if(Request::is('admin/services*')) active @endif">@lang('models/services.plural') </a></li>--}}
         <li><a href="{{ route('admin.emails.index') }}" class="@if(Request::is('admin/emails*')) active @endif">@lang('models/emails.plural') </a></li>
         <li><a href="{{ route('admin.additionals.index') }}" class="@if(Request::is('admin/additionals*')) active @endif">@lang('models/additionals.plural') </a></li>
     </ul>
