@@ -149,4 +149,28 @@ class PackageAPIController extends AppBaseController
             __('messages.deleted', ['model' => __('models/packages.singular')])
         );
     }
+
+    /**
+     * Get the specified Package Additionals.
+     * GET|HEAD /packages/get-additionals
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getAdditionals(Request $request)
+    {
+        /** @var Package $package */
+        $package = $this->packageRepository->find($request->package_id);
+        if (empty($package)) {
+            return $this->sendError(
+                __('messages.not_found', ['model' => __('models/packages.singular')])
+            );
+        }
+
+        return $this->sendResponse(
+            $package->additionals(),
+            __('messages.retrieved', ['model' => __('models/packages.singular')])
+        );
+    }
 }

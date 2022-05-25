@@ -10,6 +10,8 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\Notification;
+use App\Models\Coupon;
+use Carbon\Carbon;
 use Flash;
 use Response;
 use Auth;
@@ -51,21 +53,45 @@ class PackageOrderController extends AppBaseController
         DB::beginTransaction();
 
         $coupon = Coupon::where([
-            'code' => $request->code,
-            'provider_id' => $package->provider_id,
-            'status' => 'approved',
-        ])->first();
+                'code' => $request->code,
+                'provider_id' => $package->provider_id,
+                'status' => 'approved',
+            ])
+            ->where('date_from', '<=', $today = Carbon::now()->toDateString())
+            ->where('date_to', '>=', $today)
+            ->first();
 
-        $input = array_merge($request->only('package_id', 'count'), [
+        $additionalFees = 0;
+        $additional = [];
+        $packageAdditional = $package->additional;
+
+        foreach ($request->additional ?? [] as $additional_id) {
+            $filter = array_filter($packageAdditional, function ($addition) use ($additional_id)
+            {
+                return $addition['id'] == $additional_id;
+            });
+
+            if(is_null($filter)) continue;
+
+            $filter = array_shift($filter);
+            $count = (isset($request->additional_count[$filter['id']]) ? $request->additional_count[$filter['id']] : 1);
+            $additionFees = $filter['fees'] * $count;
+
+            $additional[] = ['id' => $additional_id, 'fees' => $additionFees, 'count' => $count];
+            $additionalFees += $additionFees;
+        }
+
+        $input = array_merge($request->only('package_id', 'count', 'user_notes'), [
             'user_id' => $this->id,
             'provider_id' => $package->provider_id,
-            'fees' => $fees = ($package->fees * $request->count),
+            'fees' => $fees = $package->fees * $request->count,
             'tax' => $tax = ($fees * (!is_null($provider = $package->provider) ? $provider->tax : 0) / 100),
             'coupon_id' => !is_null($coupon) ? $coupon->id : null,
             'total' => is_null($coupon)
-                ? $fees + $tax 
-                : ($total = $fees + $tax) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $discount / 100)),
+                ? $fees + $tax + $additionalFees 
+                : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
             'status' => $package->auto_approve ? 'approved' : 'pending',
+            'additional' => json_decode(json_encode($additional))
         ]);
 
         $packageOrder = $this->packageOrderRepository->create($input);
@@ -73,7 +99,7 @@ class PackageOrderController extends AppBaseController
         // Notify Provider
         $providerNotif = Notification::create([
             'title' => 'Package Order #' . $packageOrder->id,
-            'text' => "New reservation for package #{$package->id} : {$package->name}, please click to check more details.",
+            'text' => "New reservation for package #{$package->id}, please click to check more details.",
             'url' => route('provider.packageOrders.show', $packageOrder->id),
             'icon' => 'ti-shopping-cart',
             'type' => ($packageOrder->status == 'pending' ? 'warning' : 'info'),
@@ -84,7 +110,7 @@ class PackageOrderController extends AppBaseController
         // Notify User
         $userNotif = Notification::create([
             'title' => 'Package Order #' . $packageOrder->id,
-            'text' => "Your order is created successfully for package #{$package->id} : {$package->name}, please click to check more details.",
+            'text' => "Your order is created successfully for package #{$package->id}, please click to check more details.",
             'url' => route('packageOrders.show', $packageOrder->id),
             'icon' => 'ti-shopping-cart',
             'type' => 'info',

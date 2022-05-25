@@ -5,6 +5,7 @@
                 <th>@lang('crud.id')</th>
                 <th>@lang('models/reviews.fields.name')</th>
                 <th>@lang('models/reviews.fields.trip_id')</th>
+                <th>@lang('models/reviews.fields.package_id')</th>
                 <th>@lang('models/reviews.fields.bus_order_id')</th>
                 <th>@lang('models/reviews.fields.rate')</th>
                 <th>@lang('models/reviews.fields.publish')</th>
@@ -17,6 +18,7 @@
                 <td>{{ $review->id }}</td>
                 <td>{{ $review->name }}</td>
                 <td>@if(!is_null($trip = $review->trip))<a href="{{ route('provider.trips.show', $trip->id) }}">{{ $trip->name }}</a>@endif</td>
+                <td>@if(!is_null($package = $review->package))<a href="{{ route('provider.packages.show', $package->id) }}">{{ $package->name }}</a>@endif</td>
                 <td>@if(!is_null($busOrder = $review->busOrder))<a href="{{ route('provider.busOrders.show', $busOrder->id) }}">{{ $busOrder->name }}</a>@endif</td>
                 <td>{{ $review->rate }}</td>
                 <td>{!! $review->publish_span !!}</td>

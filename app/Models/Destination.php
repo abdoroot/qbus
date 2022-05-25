@@ -126,7 +126,7 @@ class Destination extends Model
      **/
     public function stopTerminals()
     {
-        return \App\Models\Terminal::whereIn('id', $this->stops)->get();
+        return \App\Models\Terminal::whereIn('id', $this->stops ?? [])->get();
     }
 
     public function getNameAttribute()

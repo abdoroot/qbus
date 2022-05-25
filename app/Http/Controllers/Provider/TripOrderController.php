@@ -67,8 +67,10 @@ class TripOrderController extends AppBaseController
             'approved' => __('models/tripOrders.status.approved'),
         ];
 
+        $today = Carbon::now()->format('Y-m-d');
+
         $trips = Trip::where('provider_id', $this->provider_id)    
-            ->where('date_from', '<=', $today = Carbon::now()->format('Y-m-d'))
+            // ->where('date_from', '<=', $today)
             ->where('date_to', '>=', $today)
             ->pluck('id', 'id');
         $users = User::pluck('name', 'id');
@@ -102,13 +104,34 @@ class TripOrderController extends AppBaseController
         $input = $request->all();
         $input['provider_id'] = $this->provider_id;
 
+        $additionalFees = 0;
+        $additional = [];
+        $tripAdditional = $trip->additional;
+
+        foreach ($request->additional ?? [] as $additional_id) {
+            $filter = array_filter($tripAdditional, function ($addition) use ($additional_id)
+            {
+                return $addition['id'] == $additional_id;
+            });
+
+            if(is_null($filter)) continue;
+
+            $filter = array_shift($filter);
+            $count = (isset($request->additional_count[$filter['id']]) ? $request->additional_count[$filter['id']] : 1);
+            $additionFees = $filter['fees'] * $count;
+
+            $additional[] = ['id' => $additional_id, 'fees' => $additionFees, 'count' => $count];
+            $additionalFees += $additionFees;
+        }
+
         $input = array_merge($request->only('trip_id', 'user_id', 'coupon_id', 'count', 'type', 'status'), [
             'provider_id' => $this->provider_id,
-            'fees' => $fees = ($trip->fees * $request->count),
+            'fees' => $fees = $trip->fees * $request->count,
             'tax' => $tax = ($fees * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100),
             'total' => is_null($coupon = Coupon::find($request->coupon_id))
-                ? $fees + $tax 
-                : ($total = $fees + $tax) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
+                ? $fees + $tax + $additionalFees 
+                : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
+            'additional' => json_decode(json_encode($additional))
         ]);
 
         $tripOrder = $this->tripOrderRepository->create($input);

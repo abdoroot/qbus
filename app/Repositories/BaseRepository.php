@@ -94,9 +94,13 @@ abstract class BaseRepository
                         if(!($value = array_filter($value))) continue; 
                         if(in_array($key, ['destination', 'additional'])) { // Schema::getColumnType($this->model->getTable() ,$key) == 'json'
                             if($key == "additional") {
-                                // foreach ($value as $val) {
-                                //     $query->whereJsonContains($key.'->1->id', $val);
-                                // }
+                                $query->when($value , function($query) use ($key, $value) {
+                                    $query->where(function ($query) use ($key, $value) {
+                                        foreach($value as $val) {
+                                            $query->whereJsonContains($key, ['id' => $val]);
+                                        }
+                                    });
+                                });
                                 continue;
                             }
                             foreach ($value as $val) {

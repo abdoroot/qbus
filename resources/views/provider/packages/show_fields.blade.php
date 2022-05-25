@@ -46,6 +46,12 @@
     <td>{{ $package->time_from }}</td>
 </tr>
 
+<!-- Rate Field -->
+<tr>
+    <th>@lang('models/packages.fields.rate')</th>
+    <td>{{ $package->rate }}</td>
+</tr>
+
 <!-- Description Field -->
 <tr>
     <th>@lang('models/packages.fields.description')</th>

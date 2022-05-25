@@ -112,7 +112,7 @@
         @enderror
     </div>
     @endforeach
-    </div>
+</div>
 
 <button type="submit" class="btn btn-primary">@lang('crud.save')</button>
 <a href="{{ route('provider.trips.index') }}" class="btn btn-dark">@lang('crud.cancel')</a>

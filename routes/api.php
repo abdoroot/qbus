@@ -40,8 +40,10 @@ Route::resource('bus_orders', BusOrderAPIController::class);
 
 Route::resource('destinations', DestinationAPIController::class);
 
+Route::get('packages/get-additionals', 'PackageAPIController@getAdditionals')->name('packages.additionals');
 Route::resource('packages', PackageAPIController::class);
 
+Route::get('trips/get-additionals', 'TripAPIController@getAdditionals')->name('trips.additionals');
 Route::resource('trips', TripAPIController::class);
 
 Route::resource('trip_orders', TripOrderAPIController::class);
@@ -49,7 +51,6 @@ Route::resource('trip_orders', TripOrderAPIController::class);
 Route::resource('reviews', ReviewAPIController::class);
 
 Route::resource('tickets', TicketAPIController::class);
-
 
 Route::resource('features', App\Http\Controllers\API\FeatureAPIController::class);
 

@@ -44,7 +44,8 @@ class TripOrder extends Model
         'tax',
         'coupon_id',
         'type',
-        'admin_notes'
+        'admin_notes',
+        'additional'
     ];
 
     /**
@@ -68,7 +69,8 @@ class TripOrder extends Model
         'tax' => 'double',
         'coupon_id' => 'integer',
         'type' => 'string',
-        'admin_notes' => 'string'
+        'admin_notes' => 'string',
+        'additional' => 'array'
     ];
 
     /**
@@ -82,6 +84,7 @@ class TripOrder extends Model
         'user_notes' => 'nullable|string',
         'code' => 'nullable|exists:coupons,code',
         'type' => 'required|string|in:one-way,round,multi',
+        'additional' => 'nullable|array',
     ];
 
     /**
@@ -96,6 +99,7 @@ class TripOrder extends Model
         'user_notes' => 'nullable|string',
         'coupon_id' => 'nullable|exists:coupons,id',
         'type' => 'required|string|in:one-way,round,multi',
+        'additional' => 'nullable|array',
     ];
 
     /**
@@ -204,5 +208,34 @@ class TripOrder extends Model
         $subtotal = $this->fees + $this->tax;
         if($coupon->type == 'discount') return $coupon->discount;
         return $subtotal * $coupon->discount / 100;
+    }
+
+    public function getAdditionalFeesAttribute()
+    {
+        if(is_null($this->additional)) return null;
+
+        $fees = 0;
+        foreach($this->additional as $additional) {
+            $fees += $additional['fees'];
+        }
+        return $fees;
+    }
+
+    public function additionals()
+    {
+        $additionals = [];
+        foreach($this->additional ?? [] as $value) {
+            $additional = \App\Models\Additional::find($value['id']);
+            if(!is_null($additional)) {
+                $additionals[] = [
+                    'id' => $additional->id,
+                    'additional' => $additional,
+                    'fees' => $value['fees'],
+                    'count' => isset($value['count']) ? $value['count'] : 1
+                ];
+            }
+        }
+
+        return $additionals;
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Models\Provider;
 use App\Models\Trip;
+use App\Models\Package;
 use App\Models\User;
 use App\Models\BusOrder;
 use Flash;
@@ -38,6 +39,7 @@ class ReviewController extends AppBaseController
 
         $providers = Provider::pluck('name', 'id');
         $users = User::pluck('name', 'id');
+        $packages = Package::pluck('name', 'id');
         $trips = Trip::pluck('id', 'id');
         $busOrders = BusOrder::pluck('id', 'id');
 
@@ -46,6 +48,7 @@ class ReviewController extends AppBaseController
             ->with('providers', $providers)
             ->with('users', $users)
             ->with('trips', $trips)
+            ->with('packages', $packages)
             ->with('busOrders', $busOrders);
     }
 

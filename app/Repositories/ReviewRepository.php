@@ -18,6 +18,7 @@ class ReviewRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'trip_id',
+        'package_id',
         'user_id',
         'bus_order_id',
         'provider_id',

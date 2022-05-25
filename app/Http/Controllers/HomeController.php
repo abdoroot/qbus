@@ -8,6 +8,11 @@ use App\Models\Setting;
 use App\Models\Feature;
 use App\Models\Service;
 use App\Models\Email;
+use App\Models\Trip;
+use App\Models\Package;
+use App\Models\Coupon;
+use App\Models\City;
+use Carbon\Carbon;
 use Session;
 
 class HomeController extends Controller
@@ -40,11 +45,14 @@ class HomeController extends Controller
         $section_text = Setting::values('section_text');
         $section_link = Setting::values('section_link');
 
-        return view('guest.home')
+        $cities = City::pluck('name', 'id');
+
+        return view('user.home.index')
             ->with('header_image', $header_image)
             ->with('section_title', $section_title)
             ->with('section_text', $section_text)
-            ->with('section_link', $section_link);
+            ->with('section_link', $section_link)
+            ->with('cities', $cities);
     }
 
     public function setLocale($locale) {
@@ -100,5 +108,49 @@ class HomeController extends Controller
 
         $request->session()->flash('email', __('messages.saved', ['model' => __('models/emails.singular')]));
         return redirect()->back();
+    }
+
+    public function code(Request $request)
+    {
+        $query = '';
+        $paginator = null;
+        if(!is_null($code = $request->code)) {
+            $limit = 6;
+            $today = Carbon::now();
+            $query = "&code={$request->code}";
+            $provider_id = null;
+            $coupon = Coupon::where(['code' => $request->code, 'status' => 'approved'])
+                ->where('date_from', '<=', $today->toDateString())
+                ->where('date_to', '>=', $today->toDateString())
+                ->first();
+            if(!is_null($coupon)) $provider_id = $coupon->provider_id;
+
+            $trips = Trip::where(function ($query) use ($today) {
+                    $query->where('date_to', '>', $today->toDateString())
+                        ->orWhere(function ($query) use ($today)
+                        {
+                            $query->where('date_to', '=', $today->toDateString())
+                                ->where('time_from', '>=', $today->toTimeString());
+                        });
+                })
+                ->join('providers', 'providers.id', '=', 'trips.provider_id')
+                ->where('provider_id', $provider_id)
+                ->select('trips.*')
+                ->orderBy('date_from', 'asc')
+                ->get();
+
+            $packages = Package::join('providers', 'providers.id', '=', 'packages.provider_id')
+                ->where('provider_id', $provider_id)
+                ->select('packages.*')
+                ->orderBy('date_from', 'asc')
+                ->get();
+
+            $paginator = $trips->merge($packages)->sortBy('date_from')->paginate($limit);
+        }
+        
+        return view('user.code')
+            ->with('query', $query)
+            ->with('code', $code)
+            ->with('paginator', $paginator);
     }
 }

@@ -6,7 +6,7 @@
                 <h3>
                     <a href="{{ route('admin.providers.show', $provider->id) }}"><b class="text-danger">{{ $provider->name }}</b></a>
                 </h3>
-                <p class="text-muted m-l-5">{{ $provider->address }},
+                <p class="text-muted m-l-5"><i class="icon-location-pin"></i> {{ $provider->address }},
                     <br/><i class="icon-envelope"></i> {{ $provider->email }}
                     <br/><i class="icon-phone"></i> {{ $provider->phone }}
                     <br/> <hr>
@@ -23,7 +23,7 @@
                     </a>
                 </h4>
                 <h6><i class="icon-phone"></i> {{ $user->phone }}</h4>
-                <p class="text-muted m-l-30">{!! $user->email !!}</p>
+                <p class="text-muted m-l-30"><i class="icon-envelope"></i> {!! $user->email !!}</p>
                 @endif
             </address>
         </div>
@@ -38,13 +38,12 @@
         <h5><i class="icon-calender"></i> {{ $package->date_from }}</h5>
         <h5><i class="icon-clock"></i> {{ $package->time_from }}</h5>
         <h4 class="text-muted">@lang('models/packages.fields.destinations') : 
-            <ul class="timeline">
+            <ul class="timeline mt-3">
                 @foreach($package->packageDestinations() as $destination)
-                <a href="{{ route('admin.destinations.show', $destination->id) }}">{{ $destination->name }}</a>
+                <li><a href="{{ route('admin.destinations.show', $destination->id) }}">{{ $destination->name }}</a></li>
                 @endforeach
             </ul>
         </h4>
-        <p>{{ $package->description }}</p>
         @endif
         <h4 class="mt-3">{!! $packageOrder->status_span !!}</h4>
     </div>
@@ -69,6 +68,18 @@
         </div>
     </div>
     <div class="col-sm-12">
+        <small class="text-muted"> @lang('models/packageOrders.fields.count') :</small>
+        <p>{{ $packageOrder->count ?? '-' }}</p>
+        @if(!empty($additionals = $packageOrder->additionals()))
+        <small class="text-muted">@lang('models/packages.fields.additional') </small>
+        @foreach($additionals as $additional)
+        <p>
+            <b>@if(!is_null($addition = $additional['additional'])) {{ $addition->name }} @else {{ $additional['id'] }} @endif : </b> 
+            <span class="d-block pl-3 pr-3">@lang('models/packageOrders.fields.count') : {{ $additional['count'] }}</span>
+            <span class="d-block pl-3 pr-3">@lang('models/packageOrders.fields.fees') : {{ $additional['fees'] }}</span>
+        </p>
+        @endforeach
+        @endif
         <small class="text-muted"> @lang('models/packageOrders.fields.user_notes') :</small>
         <p>{{ $packageOrder->user_notes ?? '-' }}</p>
         <small class="text-muted"> @lang('models/packageOrders.fields.provider_notes') :</small>
@@ -83,6 +94,9 @@
         <div class="float-right m-t-30 text-right">
             <p>@lang('models/packageOrders.fields.fees'): {{ $packageOrder->fees }}</p>
             <p>@lang('models/packageOrders.fields.tax') : {{ $packageOrder->tax }} </p>
+            @if(!is_null($packageOrder->additionalFees))
+            <p>@lang('models/packageOrders.fields.additional') : {{ $packageOrder->additionalFees }} </p>
+            @endif
             @if(!is_null($coupon = $packageOrder->coupon))
             <p>@lang('models/packageOrders.fields.coupon_id') : 
                 <a href="{{ route('admin.coupons.show', $coupon->id) }}">

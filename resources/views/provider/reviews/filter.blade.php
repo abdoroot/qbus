@@ -25,6 +25,12 @@
                 {!! Form::select('trip_id', $trips, Request::get('trip_id'), ['class' => 'form-control select2', 'placeholder' => __('msg.all')]) !!}
             </div>
 
+            <!-- Package Id Field -->
+            <div class="form-group col-sm-6">
+                {!! Form::label('package_id', __('models/reviews.fields.package_id').':') !!}
+                {!! Form::select('package_id', $packages, Request::get('package_id'), ['class' => 'form-control select2', 'placeholder' => __('msg.all')]) !!}
+            </div>
+
             <!-- Bus Order Id Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('bus_order_id', __('models/reviews.fields.bus_order_id').':') !!}

@@ -22,7 +22,7 @@
 </tr>
 
 @if(!is_null($trip = $review->trip))
-<!-- User Id Field -->
+<!-- Trip Id Field -->
 <tr>
     <th>@lang('models/reviews.fields.trip_id')</th>
     <td>
@@ -31,8 +31,18 @@
 </tr>
 @endif
 
+@if(!is_null($package = $review->package))
+<!-- Package Id Field -->
+<tr>
+    <th>@lang('models/reviews.fields.package_id')</th>
+    <td>
+        <a href="{{ route('provider.packages.show', $package->id) }}">{{ $package->name }}</a>
+    </td>
+</tr>
+@endif
+
 @if(!is_null($busOrder = $review->busOrder))
-<!-- User Id Field -->
+<!-- Bus Order Id Field -->
 <tr>
     <th>@lang('models/reviews.fields.bus_order_id')</th>
     <td>

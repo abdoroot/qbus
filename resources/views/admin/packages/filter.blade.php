@@ -61,6 +61,24 @@
                 {!! Form::time('time_from', Request::get('time_from'), ['class' => 'form-control']) !!}
             </div>
 
+            <!-- Rate Field -->
+            <div class="form-group col-sm-6">
+                {!! Form::label('rate', __('models/packages.fields.rate').':') !!}
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        {!! Form::select('rate_operator', 
+                        [
+                            '>' => __('msg.greater_than'),
+                            '<' => __('msg.less_than'),
+                            '=' => __('msg.equal_to')
+                        ], Request::get('rate_operator'), ['class' => 'form-control selectpicker']) !!}
+                    </div>
+                    <div class="col-sm-8">
+                        {!! Form::select('rate', array_combine(range(1,5), range(1,5)), Request::get('rate'), ['class' => 'form-control selectpicker', 'placeholder' => __('msg.all')]) !!}
+                    </div>
+                </div>
+            </div>
+
             <!-- Additional Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('additional', __('models/packages.fields.additional').':') !!}

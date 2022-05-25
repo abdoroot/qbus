@@ -14,6 +14,7 @@ use App\Models\TripOrder;
 use App\Models\Notification;
 use App\Models\Additional;
 use App\Models\Review;
+use App\Models\Coupon;
 use Flash;
 use Response;
 use Auth;
@@ -43,10 +44,19 @@ class TripController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = '';
+        $query = "type=$request->type";
         $limit = 6;
-        $paginator = new Trip;
         $today = Carbon::now();
+        
+        $paginator = Trip::where(function ($query) use ($today) {
+            $query->where('date_from', '>', $today->toDateString())
+                ->orWhere(function ($query) use ($today)
+                {
+                    $query->where('date_from', '=', $today->toDateString())
+                        ->where('time_from', '>=', $today->toTimeString());
+                }) ;
+        });
+
         if(!is_null($search = $request->search)) {
             $query .= "&search={$request->search}";
             $paginator = $paginator->where('description', 'like', "%$search%");
@@ -57,7 +67,7 @@ class TripController extends AppBaseController
             $paginator = $paginator->when($additional , function($query) use ($additional) {
                 $query->where(function ($query) use ($additional) {
                     foreach($additional as $addition) {
-                        $query->orWhereJsonContains('additional', ['id' => $addition]);
+                        $query->whereJsonContains('additional', ['id' => $addition]);
                     }
                 });
             });
@@ -67,10 +77,12 @@ class TripController extends AppBaseController
             $query .= "&date_from={$request->date_from}";
             $paginator = $paginator->where('date_from', '>=', $date_from);
         }
+
         if(!is_null($date_to = $request->date_to)) {
             $query .= "&date_to={$request->date_to}";
             $paginator = $paginator->where('date_to', '<=', $date_to);
         }
+
         if(!is_null($time_from = $request->time_from)) {
             $query .= "&time_from={$request->time_from}";
             $paginator = $paginator->where('time_from', '>=', $time_from);
@@ -79,23 +91,33 @@ class TripController extends AppBaseController
             $query .= "&time_to={$request->time_to}";
             $paginator = $paginator->where('time_to', '<=', $time_to);
         }
-        if(!is_null($type = $request->type)) {
-            $query .= "&type={$request->type}";
-            $paginator = $paginator->where('type', '=', $type);
+        
+        $from_city_id = $request->from_city_id;
+        $to_city_id = $request->to_city_id;
+        if(!is_null($from_city_id) || !is_null($to_city_id)) {
+            $paginator = $paginator->join('destinations', 'destinations.id', '=', 'trips.destination_id');
+            if(!is_null($from_city_id)) {
+                $query .= "&from_city_id={$request->from_city_id}";
+                $paginator = $paginator->where('from_city_id', $from_city_id);
+            }
+            if(!is_null($to_city_id)) {
+                $query .= "&to_city_id={$request->to_city_id}";
+                $paginator = $paginator->where('to_city_id', $to_city_id);
+            }
         }
-        if(!is_null($city_id = $request->city_id)) {
-            $query .= "&city_id={$request->city_id}";
-            $paginator = $paginator->join('destinations', 'destinations.id', '=', 'trips.destination_id')
-                ->where(function ($query) use($city_id) {
-                    $query->where('from_city_id', $city_id)
-                        ->orWhere('to_city_id', $city_id);
-                });
+
+        if(!is_null($code = $request->code)) {
+            $query .= "&code={$request->code}";
+            $provider_id = null;
+            $coupon = Coupon::where(['code' => $request->code, 'status' => 'approved'])
+                ->where('date_from', '<=', $today = Carbon::now()->toDateString())
+                ->where('date_to', '>=', $today)
+                ->first();
+            if(!is_null($coupon)) $provider_id = $coupon->provider_id;
+
+            $paginator = $paginator->join('providers', 'providers.id', '=', 'trips.provider_id')
+                ->where('provider_id', $provider_id);
         }
-
-
-        $paginator = $paginator->where('date_from', '>=', $today->toDateString());
-
-        $paginator = $paginator->where('time_from', '>=', $today->toTimeString());
 
         $paginator = $paginator->select('trips.*')->paginate($limit);
 
@@ -113,8 +135,10 @@ class TripController extends AppBaseController
             ->with('date_to', $date_to)
             ->with('time_from', $time_from)
             ->with('time_to', $time_to)
-            ->with('type', $type)
-            ->with('city_id', $city_id);
+            ->with('from_city_id', $from_city_id)
+            ->with('to_city_id', $to_city_id)
+            ->with('code', $code)
+            ->with('type', $request->type);
     }
 
     /**
@@ -124,7 +148,7 @@ class TripController extends AppBaseController
      *
      * @return Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $trip = $this->tripRepository->find($id);
         if (empty($trip)) {
@@ -137,92 +161,15 @@ class TripController extends AppBaseController
         $additionals = Additional::get();
         $tax = (!is_null($provider = $trip->provider) ? $provider->tax : 0);
 
+        $type = ($request->type ?? 'one-way');
+
         return view('guest.trips.show')
             ->with('trip', $trip)
             //->with('moreTrips', $moreTrips)
             ->with('reviews', $reviews)
             ->with('additionals', $additionals)
-            ->with('tax', $tax);
-    }
-
-    public function store(CreateTripOrderRequest $request)
-    {
-        $trip = Trip::find($request->trip_id);
-
-        DB::beginTransaction();
-
-        $input = array_merge($request->only('trip_id', 'count'), [
-            'user_id' => $this->id,
-            'provider_id' => $trip->provider_id,
-            'total' => $trip->fees * $request->count,
-            'status' => $trip->auto_approve ? 'approved' : 'pending',
-        ]);
-
-        $tripOrder = TripOrder::create($input);
-
-        // Notify Provider
-        $providerNotif = Notification::create([
-            'title' => 'Trip Order #' . $tripOrder->id,
-            'text' => "New reservation is ordered for trip #{$trip->id} : {$trip->name}, please click to check more details.",
-            'url' => route('provider.tripOrders.show', $tripOrder->id),
-            'icon' => 'ti-shopping-cart',
-            'type' => ($tripOrder->status == 'pending' ? 'warning' : 'info'),
-            'to' => 'provider',
-            'provider_id' => $tripOrder->provider_id
-        ]);
-
-        // Notify User
-        $userNotif = Notification::create([
-            'title' => 'Trip Order #' . $tripOrder->id,
-            'text' => "Your order is created successfully for trip #{$trip->id} : {$trip->name}, please click to check more details.",
-            'url' => route('tripOrders.show', $tripOrder->id),
-            'icon' => 'ti-shopping-cart',
-            'type' => 'info',
-            'to' => 'user',
-            'user_id' => $tripOrder->user_id
-        ]);
-
-        // store order Tickets (only if approved)
-        if($tripOrder->status == 'approved') {
-            $apiRequest = new CreateTicketAPIRequest;
-            $apiRequest->replace(['trip_order_id' => $tripOrder->id]);
-            $storeTickets = app('App\Http\Controllers\API\TicketAPIController')->store($apiRequest);
-            $response     = $storeTickets->getData();
-            if(!$response->success) {
-                Flash::error($response->message);
-                return redirect()->back()->withInput();
-            }
-        }
-
-        DB::commit();
-
-        $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
-
-        if($tripOrder->status == 'approved') {
-            $message .= ', ' . __('msg.please_do_the_payment_and_complete_the_order');
-            $request->session()->flash('payment', $message);
-            return redirect()->route('trips.payment', $tripOrder->id);
-        }
-
-        $message .= ', ' . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order');
-        $request->session()->flash('trip', $message);
-        
-        return redirect()->back();
-    }
-
-    public function payment($id, Request $request)
-    {
-        $tripOrder = $this->tripOrderRepository->find($id);
-        if (empty($tripOrder) || $tripOrder->user_id != $this->id) {
-            Flash::error(__('messages.not_found', ['model' => __('models/tripOrders.singular')]));
-            return redirect(route('tripOrders.index'));
-        }
-        if($tripOrder->status != 'approved') {
-            Flash::error(__('msg.the_payment_link_is_not_valid'));
-            return redirect(route('tripOrders.index'));
-        }
-
-        return('redirect to the payment gateway ...');
+            ->with('tax', $tax)
+            ->with('type', $type);
     }
 
     public function review(CreateReviewRequest $request)

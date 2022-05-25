@@ -18,6 +18,7 @@ class Review extends Model
 
     public $fillable = [
         'trip_id',
+        'package_id',
         'user_id',
         'bus_order_id',
         'provider_id',
@@ -36,6 +37,7 @@ class Review extends Model
     protected $casts = [
         'id' => 'integer',
         'trip_id' => 'integer',
+        'package_id' => 'integer',
         'user_id' => 'integer',
         'bus_order_id' => 'integer',
         'provider_id' => 'integer',
@@ -53,6 +55,7 @@ class Review extends Model
      */
     public static $rules = [
         'trip_id' => 'nullable|exists:trips,id',
+        'package_id' => 'nullable|exists:packages,id',
         'bus_order_id' => 'nullable|exists:bus_orders,id',
         'user_id' => 'nullable|exists:users,id',
         'provider_id' => 'nullable|exists:providers,id',
@@ -77,6 +80,14 @@ class Review extends Model
     public function trip()
     {
         return $this->belongsTo(\App\Models\Trip::class, 'trip_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function package()
+    {
+        return $this->belongsTo(\App\Models\Package::class, 'package_id');
     }
 
     /**

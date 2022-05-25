@@ -5,7 +5,7 @@
                 <div class="text-xl font-semibold text-gray-700">
                     <a class="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
                         href="{{ route('home') }}">
-                        <img src="{{ $app_logo }}" alt="" style="max-height: 23px;" />
+                        <img src="{{ $app_logo }}" alt="@lang('msg.app_name')" style="max-height: 23px;" />
                     </a>
                 </div>
                 <!-- Mobile menu button -->
@@ -27,26 +27,44 @@
             <div class="flex-1 md:flex md:items-center md:justify-between relative ">
                 <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
                     <a href="{{ route('home') }}"
-                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 homeLink">Home</a>
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 homeLink">
+                        @lang('msg.home')
+                    </a>
                     <a href="{{ route('about') }}"
-                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 aboutLink">About
-                        us</a>
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 aboutLink">
+                        @lang('msg.about')
+                    </a>
                     <a href="{{ route('trips.index') }}"
-                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 triplesLink">Trips</a>
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 triplesLink">
+                        @lang('models/trips.plural')
+                    </a>
+                    <a href="{{ route('packages.index') }}"
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 packagesLink">
+                        @lang('models/packages.plural')
+                    </a>
+                    <a href="{{ route('code') }}"
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 codeLink">
+                        @lang('msg.code')</a>
+                        
                     <a href="{{ route('services') }}"
-                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 servicesLink">Our
-                        Services</a>
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 servicesLink">
+                        @lang('models/services.plural')</a>
+                        
                     <a href="{{ route('contact') }}"
-                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 contactLink">Contact
-                        Us</a>
+                        class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 contactLink">
+                        @lang('msg.contact')
+                    </a>
                 </div>
                 <div class="flex md:items-center mt-4 md:mt-0 flex-col md:flex-row md:flex-nowrap items-start">
                     @if(!Auth::check())
                     <a href="{{ route('login') }}"
-                        class="loginLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">Login</a>
+                        class="loginLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">
+                        @lang('auth.sign_in')
+                    </a>
                     <a href="{{ route('register') }}"
-                        class="signLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">Sign
-                        up</a>
+                        class="signLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">
+                        @lang('auth.sign_up')
+                    </a>
                     @endif
                     <div class="relative hidden md:inline-block text-2xl overflow-hidden language">
                         <!-- Dropdown toggle button -->

@@ -30,6 +30,16 @@
 </tr>
 @endif
 
+@if(!is_null($package = $review->package))
+<!-- Package Id Field -->
+<tr>
+    <th>@lang('models/reviews.fields.package_id')</th>
+    <td>
+        <a href="{{ route('provider.packages.show', $package->id) }}">{{ $package->name }}</a>
+    </td>
+</tr>
+@endif
+
 @if(!is_null($busOrder = $review->busOrder))
 <!-- Bus Order Id Field -->
 <tr>

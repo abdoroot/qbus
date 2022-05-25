@@ -46,6 +46,7 @@ return array (
   'types' => [
     'one-way' => 'One way',
     'round' => 'Round trip',
-    'multi' => 'Multi trip'
+    'multi' => 'Multi trip',
+    'full' => 'Full bus reservation',
   ]
 );

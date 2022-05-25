@@ -94,9 +94,14 @@ class PackageController extends AppBaseController
             }
         }
 
-        $input['additional'] = array_filter($request->additional, function($additional) {
-            return isset($additional['id']);
-        });
+        $input['additional'] = json_decode(
+            json_encode(
+                array_filter($request->additional, function($additional) 
+                {
+                    return isset($additional['id']);
+                })
+            )
+        );
         
         $package = $this->packageRepository->create($input);
 

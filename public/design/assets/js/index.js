@@ -118,42 +118,6 @@
    });
  });
 
- $(function () {
-   $("#One").click(function () {
-     if ($("#One").is(":checked")) {
-       $(".itemForm").addClass('hidden')
-       $(".oneWay").removeClass('hidden');
-     }
-   });
- });
-
- $(function () {
-   $("#Round").click(function () {
-     if ($("#Round").is(":checked")) {
-       $(".itemForm").addClass('hidden')
-       $(".Round").removeClass('hidden');
-     }
-   });
- });
-
-
- $(function () {
-   $("#Multi").click(function () {
-     if ($("#Multi").is(":checked")) {
-       $(".itemForm").addClass('hidden')
-       $(".Multi").removeClass('hidden');
-     }
-   });
- });
-
- $(function () {
-   $("#Full").click(function () {
-     if ($("#Full").is(":checked")) {
-       $(".itemForm").addClass('hidden')
-       $(".Full").removeClass('hidden');
-     }
-   });
- });
 
  $('.language').mouseover(function(){
   $(this).removeClass('overflow-hidden');

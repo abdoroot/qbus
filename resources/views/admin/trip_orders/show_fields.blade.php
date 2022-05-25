@@ -8,7 +8,7 @@
                         <b class="text-danger">{{ $provider->name }}</b>
                     </a>
                 </h3>
-                <p class="text-muted m-l-5">{{ $provider->address }},
+                <p class="text-muted m-l-5"><i class="icon-location-pin"></i> {{ $provider->address }},
                     <br/><i class="icon-envelope"></i> {{ $provider->email }}
                     <br/><i class="icon-phone"></i> {{ $provider->phone }}
                     <br/> <hr>
@@ -25,7 +25,7 @@
                     </a>
                 </h4>
                 <h6><i class="icon-phone"></i> {{ $user->phone }}</h4>
-                <p class="text-muted m-l-30">{!! $user->email !!}</p>
+                <p class="text-muted m-l-30"><i class="icon-envelope"></i> {!! $user->email !!}</p>
                 @endif
             </address>
         </div>
@@ -44,7 +44,6 @@
             <a href="{{ route('admin.destinations.show', $destination->id) }}">{{ $destination->name }}</a>
             @endif
         </h4>
-        <p>{{ $trip->description }}</p>
         @endif
         <h4 class="mt-3">{!! $tripOrder->status_span !!}</h4>
         <h5>
@@ -72,6 +71,18 @@
         </div>
     </div>
     <div class="col-sm-12">
+        <small class="text-muted"> @lang('models/tripOrders.fields.count') :</small>
+        <p>{{ $tripOrder->count ?? '-' }}</p>
+        @if(!empty($additionals = $tripOrder->additionals()))
+        <small class="text-muted">@lang('models/trips.fields.additional') </small>
+        @foreach($additionals as $additional)
+        <p>
+            <b>@if(!is_null($addition = $additional['additional'])) {{ $addition->name }} @else {{ $additional['id'] }} @endif : </b> 
+            <span class="d-block pl-3 pr-3">@lang('models/tripOrders.fields.count') : {{ $additional['count'] }}</span>
+            <span class="d-block pl-3 pr-3">@lang('models/tripOrders.fields.fees') : {{ $additional['fees'] }}</span>
+        </p>
+        @endforeach
+        @endif
         <small class="text-muted"> @lang('models/tripOrders.fields.user_notes') :</small>
         <p>{{ $tripOrder->user_notes ?? '-' }}</p>
         <small class="text-muted"> @lang('models/tripOrders.fields.provider_notes') :</small>
@@ -86,6 +97,9 @@
         <div class="float-right m-t-30 text-right">
             <p>@lang('models/tripOrders.fields.fees'): {{ $tripOrder->fees }}</p>
             <p>@lang('models/tripOrders.fields.tax') : {{ $tripOrder->tax }} </p>
+            @if(!is_null($tripOrder->additionalFees))
+            <p>@lang('models/tripOrders.fields.additional') : {{ $tripOrder->additionalFees }} </p>
+            @endif
             @if(!is_null($coupon = $tripOrder->coupon))
             <p>@lang('models/tripOrders.fields.coupon_id') : 
                 <a href="{{ route('admin.coupons.show', $coupon->id) }}">

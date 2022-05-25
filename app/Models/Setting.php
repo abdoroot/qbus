@@ -44,7 +44,7 @@ class Setting extends Model
         'location',
         'copyright',
         'links_title',
-        'social_title',
+        'download_title',
         'contact_title',
         'provider_title',
         'provider_subtitle',

@@ -149,4 +149,28 @@ class TripAPIController extends AppBaseController
             __('messages.deleted', ['model' => __('models/trips.singular')])
         );
     }
+
+    /**
+     * Get the specified Trip Additionals.
+     * GET|HEAD /trips/get-additionals
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getAdditionals(Request $request)
+    {
+        /** @var Trip $trip */
+        $trip = $this->tripRepository->find($request->trip_id);
+        if (empty($trip)) {
+            return $this->sendError(
+                __('messages.not_found', ['model' => __('models/trips.singular')])
+            );
+        }
+
+        return $this->sendResponse(
+            $trip->additionals(),
+            __('messages.retrieved', ['model' => __('models/trips.singular')])
+        );
+    }
 }

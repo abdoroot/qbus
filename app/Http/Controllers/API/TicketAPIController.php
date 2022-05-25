@@ -6,6 +6,7 @@ use App\Http\Requests\API\CreateTicketAPIRequest;
 use App\Http\Requests\API\UpdateTicketAPIRequest;
 use App\Models\Ticket;
 use App\Models\TripOrder;
+use App\Models\PackageOrder;
 use App\Repositories\TicketRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -58,7 +59,6 @@ class TicketAPIController extends AppBaseController
      */
     public function store(CreateTicketAPIRequest $request)
     {
-        /** @var TripOrder $tripOrder */
         if($request->type == 'trip') {
             $tripOrder = TripOrder::find($request->trip_order_id);
             if (is_null($trip = $tripOrder->trip)) {
@@ -96,7 +96,7 @@ class TicketAPIController extends AppBaseController
                 __('messages.saved', ['model' => __('models/tickets.singular')])
             );
         } else {
-            $packageOrder = TripOrder::find($request->package_order_id);
+            $packageOrder = PackageOrder::find($request->package_order_id);
 
             DB::beginTransaction();
 

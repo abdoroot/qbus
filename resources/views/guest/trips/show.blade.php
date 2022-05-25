@@ -22,6 +22,8 @@
                 {{ Session::get('trip') }}
             </span>
             @endif
+
+            @include('guest.layouts.flash')
             
             @include('guest.trips.show_details')
             
@@ -50,16 +52,15 @@
 @push('page_scripts')
 <script>
 
-$(document).ready(function(){
-  updateFees(getTicketCount());
-});
+    $(document).ready(function(){
+        updateFees(getTicketCount());
+    });
 
    function getTicketCount(){
-     let TicketCount = 0;
-     TicketCount = parseInt($('#count-input').val());
-     return TicketCount;
-   };
-
+        let TicketCount = 0;
+        TicketCount = parseInt($('#count-input').val());
+        return TicketCount;
+    };
 
     $(document).on('click', '#increase-count', function() {
         var value = parseInt($('#count-input').val()) + 1;
@@ -75,19 +76,37 @@ $(document).ready(function(){
             updateFees(value);
         }
     });
+    $(document).on('click', '.increase-additional', function() {
+        var id = $(this).data('additional-id');
+        var input = '#count-' + id;
+        var value = parseInt($(input).val()) + 1;
+        $('#count-'+id).val(value);
+        $('#span-'+id).text(value);
+        updateFees(getTicketCount());
+    })
+    $(document).on('click', '.decrease-additional', function() {
+        var id = $(this).data('additional-id');
+        var input = '#count-' + id;
+        var value = parseInt($(input).val()) - 1;
+        if(value > 0) {
+            $('#count-'+id).val(value);
+            $('#span-'+id).text(value);
+            updateFees(getTicketCount());
+        }
+    })
 
     $(document).on('change', '.additional', function() {
         updateFees(getTicketCount());
     });
 
-    function additionalsFees(){
-     let totalFees = 0;
-      $(".additional").each(function(){
-        if(this.checked) {
-          totalFees+=parseFloat($(this).attr("fees"));
-        }
-     });
-      return totalFees;
+    function additionalsFees() {
+        let totalFees = 0;
+        $(".additional").each(function() { 
+            if(this.checked) {
+                totalFees += parseFloat($(this).attr("fees")) * parseInt($('#count-'+$(this).val()).val());
+            }
+        });
+        return totalFees;
     }
 
     function updateFees(count) {

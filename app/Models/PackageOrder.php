@@ -43,7 +43,8 @@ class PackageOrder extends Model
         'fees',
         'tax',
         'coupon_id',
-        'admin_notes'
+        'admin_notes',
+        'additional'
     ];
 
     /**
@@ -66,7 +67,8 @@ class PackageOrder extends Model
         'fees' => 'double',
         'tax' => 'double',
         'coupon_id' => 'integer',
-        'admin_notes' => 'string'
+        'admin_notes' => 'string',
+        'additional' => 'array'
     ];
 
     /**
@@ -199,5 +201,34 @@ class PackageOrder extends Model
         $subtotal = $this->fees + $this->tax;
         if($coupon->type == 'discount') return $coupon->discount;
         return $subtotal * $coupon->discount / 100;
+    }
+
+    public function getAdditionalFeesAttribute()
+    {
+        if(is_null($this->additional)) return null;
+
+        $fees = 0;
+        foreach($this->additional as $additional) {
+            $fees += $additional['fees'];
+        }
+        return $fees;
+    }
+
+    public function additionals()
+    {
+        $additionals = [];
+        foreach($this->additional ?? [] as $value) {
+            $additional = \App\Models\Additional::find($value['id']);
+            if(!is_null($additional)) {
+                $additionals[] = [
+                    'id' => $additional->id,
+                    'additional' => $additional,
+                    'fees' => $value['fees'],
+                    'count' => isset($value['count']) ? $value['count'] : 1
+                ];
+            }
+        }
+
+        return $additionals;
     }
 }

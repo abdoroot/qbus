@@ -26,17 +26,6 @@
         <div class="mt-6">
             <label class="text-gray-700 text-xl font-bold">@lang('models/trips.destination'):</label>
             <ul class="text-gray-700 text-left relative overflow-hidden">
-                {{-- @foreach($trip->tripCities as $i => $tripCity)
-                <li class="text-lg relative overflow-hidden pl-12 my-4"><span
-                        class="absolute w-8 h-8 bg-blue-700 left-0 top-2 text-center text-white rounded-full">{{ $i+1 }}</span>
-                    <div class="mt-2">
-                        <label class="text-gray-700 text-xl font-bold mt-6">{{ !is_null($city = $tripCity->city) ? $city->name : '-' }}</label>
-                        <div class="flex items-center mt-1">
-                            <p class="text-lg text-gray-500">{{ $tripCity->description }}</p>
-                        </div>
-                    </div>
-                </li>
-                @endforeach --}}
                 @if(!is_null($destination))
                 <li class="text-lg relative overflow-hidden pl-12 my-4">
                     <span
@@ -70,7 +59,7 @@
                         </div>
                     </div>
                 </li>
-                @if(!is_null($stops = $destination->stopTerminals()))
+                @if(count($stops = $destination->stopTerminals()) > 0)
                 <li class="text-lg relative overflow-hidden pl-12 my-4">
                     <span
                         class="pl-1 pt-1 absolute w-8 h-8 bg-blue-700 left-0 top-2 text-center text-white rounded-full">

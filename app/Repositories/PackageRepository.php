@@ -30,6 +30,7 @@ class PackageRepository extends BaseRepository
         'provider_archive',
         'auto_approve',
         'additional',
+        'rate',
         'created_at'
     ];
 

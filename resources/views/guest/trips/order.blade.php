@@ -4,6 +4,7 @@
         <div class="block w-full items-center mt-1">
             {!! Form::open(['route' => 'tripOrders.store', 'id' => 'order-form']) !!}
                 {!! Form::hidden('trip_id', $trip->id) !!}
+                {!! Form::hidden('type', $type) !!}
                 {!! Form::hidden('count', 1, ['id' => 'count-input']) !!}
                 <button type="button" class="text-gray-500 focus:outline-none focus:text-gray-600 mt-2" id="increase-count">
                     <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -51,27 +52,47 @@
                     @enderror
                 </div>--}}
 
-<div class="py-6">
-                <h1 class="text-lg font-medium text-gray-700 capitalize lg:text-xl dark:text-white">
-                    @lang('models/trips.fields.additional')</h1>
-                <div class="mt-8 space-y-4">
-                    @foreach($additionals as $additional)
-                    <div class="flex items-center">
-                        @if(!is_null($tripAdditionals = $trip->additionals()) && !is_null($addition = collect($tripAdditionals)->where('id', $additional->id)->first()))
-                        <input type="checkbox" name="additional" class="additional" fees="{{ $addition['fees'] }}">
-                        <span class="mx-4 text-gray-700 dark:text-gray-300">{{ $additional->name }} 
-                            @if(isset($addition) && !is_null($addition))
-                                ({{ $addition['fees'] }})
+                <div class="py-5">
+                    <label class="text-lg font-medium text-gray-700 capitalize lg:text-xl dark:text-white">
+                        @lang('models/trips.fields.additional')</label>
+                    <div class="mt-3">
+                        @foreach($additionals as $additional)
+                        <div class="flex items-center">
+                            @if(!is_null($tripAdditionals = $trip->additionals()) && !is_null($addition = collect($tripAdditionals)->where('id', $additional->id)->first()))
+                            <div class="">
+                                <input type="checkbox" name="additional[]" value="{{ $addition['id'] }}" class="additional" fees="{{ $addition['fees'] }}">
+                                <span class="mx-4 text-gray-700 dark:text-gray-300">{{ $additional->name }} 
+                                    @if(isset($addition) && !is_null($addition))
+                                        ({{ $addition['fees'] }})
+                                    @endif
+                                </span>
+                            </div>
+
+                            <div class="float-right">
+                                {!! Form::hidden('additional_count['.$additional->id.']', 1, ['id' => 'count-'.$additional->id]) !!}
+                                <button type="button" class="text-gray-500 focus:outline-none focus:text-gray-600 mt-2 increase-additional" id="increase-{{ $additional->id }}" data-additional-id="{{ $additional->id }}">
+                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </button>
+                                <span class="text-gray-700 text-lg mx-2 mt-2" id="span-{{ $additional->id }}">1</span>
+
+                                <button type="button" class="text-gray-500 focus:outline-none focus:text-gray-600 mt-2 decrease-additional" id="decrease-{{ $additional->id }}" data-additional-id="{{ $additional->id }}">
+                                    <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </button>
+                            </div>
                             @endif
-                        </span>
-                        @endif
+                        </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
-            </div>
 
 
-            <div class="mt-4">
+                <div class="mt-5">
                     <label class="text-gray-700 dark:text-gray-200" for="comment">@lang('models/tripOrders.fields.user_notes')</label>
                     <textarea
                         value="{{ old('user_notes') }}"
@@ -83,7 +104,6 @@
                     </span>
                     @enderror
                 </div>
-
 
                 <div class="mt-5">
                     <strong>@lang('models/tripOrders.fields.fees') : </strong>

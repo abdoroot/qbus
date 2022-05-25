@@ -24,6 +24,6 @@ class HomeController extends AppBaseController
      */
     public function index()
     {
-        return view('user.home');
+        return view('user.dashboard');
     }
 }

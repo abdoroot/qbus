@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\Notification;
 use App\Models\Coupon;
+use Carbon\Carbon;
 use Flash;
 use Response;
 use Auth;
@@ -45,28 +46,52 @@ class TripOrderController extends AppBaseController
             ->with('trips', $trips);
     }
 
-    public function store(CreateTripOrderRequest $request)
+    public function store(Request $request)
     {
         $trip = Trip::find($request->trip_id);
 
         DB::beginTransaction();
 
         $coupon = Coupon::where([
-            'code' => $request->code,
-            'provider_id' => $trip->provider_id,
-            'status' => 'approved',
-        ])->first();
+                'code' => $request->code,
+                'provider_id' => $trip->provider_id,
+                'status' => 'approved',
+            ])
+            ->where('date_from', '<=', $today = Carbon::now()->toDateString())
+            ->where('date_to', '>=', $today)
+            ->first();
 
-        $input = array_merge($request->only('trip_id', 'count', 'type'), [
+        $additionalFees = 0;
+        $additional = [];
+        $tripAdditional = $trip->additional;
+
+        foreach ($request->additional ?? [] as $additional_id) {
+            $filter = array_filter($tripAdditional, function ($addition) use ($additional_id)
+            {
+                return $addition['id'] == $additional_id;
+            });
+
+            if(is_null($filter)) continue;
+
+            $filter = array_shift($filter);
+            $count = (isset($request->additional_count[$filter['id']]) ? $request->additional_count[$filter['id']] : 1);
+            $additionFees = $filter['fees'] * $count;
+
+            $additional[] = ['id' => $additional_id, 'fees' => $additionFees, 'count' => $count];
+            $additionalFees += $additionFees;
+        }
+
+        $input = array_merge($request->only('trip_id', 'count', 'user_notes', 'type'), [
             'user_id' => $this->id,
             'provider_id' => $trip->provider_id,
-            'fees' => $fees = ($trip->fees * $request->count),
+            'fees' => $fees = $trip->fees * $request->count,
             'tax' => $tax = ($fees * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100),
             'coupon_id' => !is_null($coupon) ? $coupon->id : null,
             'total' => is_null($coupon)
-                ? $fees + $tax 
-                : ($total = $fees + $tax) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
+                ? $fees + $tax + $additionalFees 
+                : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
             'status' => $trip->auto_approve ? 'approved' : 'pending',
+            'additional' => json_decode(json_encode($additional))
         ]);
 
         $tripOrder = $this->tripOrderRepository->create($input);
@@ -110,14 +135,39 @@ class TripOrderController extends AppBaseController
         $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
 
         if($tripOrder->status == 'approved') {
+
             $message .= ', ' . __('msg.please_do_the_payment_and_complete_the_order');
             $request->session()->flash('payment', $message);
-            return redirect()->route('tripOrders.payment', $tripOrder->id);
+            return redirect()->action('\App\Http\Controllers\User\TripController@payment', [$tripOrder->id, $request]);
+
+        } elseif(($type = $tripOrder->type) == 'round' && is_null($request->trip_order_id)) {
+            
+            $request->request->add([
+                'trip_order_id' => $tripOrder->id,
+                'from_city_id' => $request->to_city_id,
+                'to_city_id' => $request->from_city_id,
+                'date_from' => $request->date_to,
+            ]);
+
+            $message .= ', ' . __('msg.choose_your_next_trip!');
+            $request->session()->flash('trip', $message);
+            return redirect()->action('\App\Http\Controllers\User\TripController@index', [$request]);
+        } elseif(($type = $tripOrder->type) == 'multi') {
+            dd($request->all());
+            $request->request->add([
+                'trip_order_id' => $tripOrder->id,
+                'from_city_id' => $request->to_city_id,
+                'to_city_id' => $request->from_city_id,
+                'date_from' => $request->date_to,
+            ]);
+
+            $message .= ', ' . __('msg.choose_your_next_trip!');
+            $request->session()->flash('trip', $message);
+            return redirect()->action('\App\Http\Controllers\User\TripController@index', [$request]);
         }
 
         $message .= ', ' . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order');
         $request->session()->flash('trip', $message);
-        
         return redirect()->back();
     }
 

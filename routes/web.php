@@ -20,12 +20,15 @@ Route::get('about', 'HomeController@about')->name('about');
 Route::get('services', 'HomeController@services')->name('services');
 Route::get('contact', 'HomeController@contact')->name('contact');
 Route::post('email', 'HomeController@email')->name('email');
+Route::get('code', 'HomeController@code')->name('code');
 
 Route::namespace('\App\Http\Controllers\User')->group(function() {
 
-    Route::get('trips', 'TripController@index')->name('trips.index');
-    Route::get('trips/{id}', 'TripController@show')->name('trips.show');
-    Route::post('review', 'TripController@review')->name('trips.review');
+    Route::resource('trips', 'TripController')->only('index', 'show');
+    Route::resource('packages', 'PackageController')->only('index', 'show');
+
+    Route::post('trips/review', 'TripController@review')->name('trips.review');
+    Route::post('packages/review', 'PackageController@review')->name('packages.review');
 
     Route::middleware(['auth'])->group(function() {
         Route::get('/home', 'HomeController@index')->name('dashboard');

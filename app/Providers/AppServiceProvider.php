@@ -7,6 +7,8 @@ use Illuminate\Support\Collection;
 use Barryvdh\TranslationManager\Models\Translation;
 use App\Models\Setting;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -16,7 +18,31 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Collection::macro('paginate', function($perPage, $total = null, $page = null, $pageName = 'page') {
+
+            $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
+
+            return new LengthAwarePaginator(
+
+                $this->forPage($page, $perPage),
+
+                $total ?: $this->count(),
+
+                $perPage,
+
+                $page,
+
+                [
+
+                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+
+                    'pageName' => $pageName,
+
+                ]
+
+            );
+
+        });
     }
 
     /**
@@ -55,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
         $app_phone2 = Setting::values('phone2');
         $app_copyright = Setting::values('copyright');
         $app_links_title = Setting::values('links_title');
-        $app_social_title = Setting::values('social_title');
+        $app_download_title = Setting::values('download_title');
         $app_contact_title = Setting::values('contact_title');
         $app_provider_title = Setting::values('provider_title');
         $app_provider_subtitle = Setting::values('provider_subtitle');
@@ -64,6 +90,8 @@ class AppServiceProvider extends ServiceProvider
         $app_feedback_subtitle = Setting::values('feedback_subtitle');
         $app_feedback_footer = Setting::values('feedback_footer');
         $socials = Setting::where('group', 'social')->get();
+        $app_store = Setting::values('app-store');
+        $google_play = Setting::values('google-play');
 
         view()->share('locales', $locales);
         view()->share('app_logo', $app_logo);
@@ -75,7 +103,7 @@ class AppServiceProvider extends ServiceProvider
         view()->share('app_phone2', $app_phone2);
         view()->share('app_copyright', $app_copyright);
         view()->share('app_links_title', $app_links_title);
-        view()->share('app_social_title', $app_social_title);
+        view()->share('app_download_title', $app_download_title);
         view()->share('app_contact_title', $app_contact_title);
         view()->share('app_provider_title', $app_provider_title);
         view()->share('app_provider_subtitle', $app_provider_subtitle);
@@ -84,5 +112,7 @@ class AppServiceProvider extends ServiceProvider
         view()->share('app_feedback_subtitle', $app_feedback_subtitle);
         view()->share('app_feedback_footer', $app_feedback_footer);
         view()->share('socials', $socials);
+        view()->share('app_store', $app_store);
+        view()->share('google_play', $google_play);
     }
 }
