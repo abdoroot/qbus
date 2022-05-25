@@ -63,7 +63,7 @@
         @if ($errors->has('image'))
             <span class="invalid-feedback" role="alert">
                 {{ $errors->first('image') }}
-            </span> 
+            </span>
         @endif
     </div>
 </div>

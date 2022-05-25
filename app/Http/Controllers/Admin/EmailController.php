@@ -100,18 +100,10 @@ class EmailController extends AppBaseController
         return view('admin.emails.edit')->with('email', $email);
     }
 
-    /**
-     * Update the specified Email in storage.
-     *
-     * @param int $id
-     * @param UpdateEmailRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, UpdateEmailRequest $request)
+
+    public function update($id,Request $request)
     {
         $email = $this->emailRepository->find($id);
-
         if (empty($email)) {
             Flash::error(__('messages.not_found', ['model' => __('models/emails.singular')]));
             return redirect(route('admin.emails.index'));

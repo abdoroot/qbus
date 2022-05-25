@@ -141,7 +141,7 @@ class User extends Authenticatable
             ->where(function($query) {
                 $query->where('user_id', null)
                       ->orWhere('user_id', $this->id);
-            });
+            })->OrdersBy('created_at','Desc');
 
         if($read != -1) {
             $query->where('read_at', $read ? '!=' : '=', null);

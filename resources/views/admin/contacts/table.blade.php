@@ -23,7 +23,7 @@
                                 <small class="d-block font-light">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($contact->created_at))->diffForHumans() }}</small>
                             </h5>
                         </div>
-                        <p class="mb-1" 
+                        <p class="mb-1"
                             style="width: 100%; white-space: normal;">
                             {!! substr($contact->message, 0, 80) . (Str::length($contact->message) > 80 ? ' ..' : '') !!}
                         </p>
@@ -48,7 +48,7 @@
                 <td>
                     <a href="{{ route('admin.contacts.edit', [$contact->id]) }}"
                         class='btn btn-info btn-sm'>
-                            <i class="ti-pencil"></i>
+                        <i class="fa fa-reply-all"></i>
                         </a>
                     {!! Form::open(['route' => ['admin.contacts.destroy', $contact->id], 'method' => 'delete', 'class' => 'd-inline']) !!}
                         {!! Form::button('<i class="ti-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm btn-confirm']) !!}
@@ -92,7 +92,7 @@
             ],
             "order": [[ 0, "desc" ]]
         });
-        $('.buttons-copy, .buttons-print, .buttons-excel').addClass('btn btn-primary mr-1'); 
+        $('.buttons-copy, .buttons-print, .buttons-excel').addClass('btn btn-primary mr-1');
     });
 </script>
 @endpush

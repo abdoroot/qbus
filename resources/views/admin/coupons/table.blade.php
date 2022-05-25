@@ -4,13 +4,14 @@
             <tr>
                 <th>@lang('crud.id')</th>
                 <th>@lang('models/coupons.fields.name')</th>
+                <th>@lang('models/coupons.fields.status')</th>
                 <th>@lang('models/coupons.fields.date_from')</th>
                 <th>@lang('models/coupons.fields.date_to')</th>
                 <th>@lang('models/coupons.fields.type')</th>
                 <th>@lang('models/coupons.fields.discount')</th>
                 <th>@lang('models/coupons.fields.code')</th>
                 <th>@lang('models/coupons.fields.provider_id')</th>
-                <th>@lang('models/coupons.fields.status')</th>
+
                 <th>@lang('crud.action')</th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
             <tr>
                 <td>{{ $coupon->id }}</td>
                 <td><a href="{{ route('admin.coupons.show', [$coupon->id]) }}">{{ $coupon->name }}</a></td>
+                <td>{!! $coupon->status_span !!}</td>
                 <td>{{ $coupon->date_from }}</td>
                 <td>{{ $coupon->date_to }}</td>
                 <td>{{ $coupon->type }}</td>
@@ -29,7 +31,7 @@
                     <a href="{{ route('admin.providers.show', $coupon->provider_id) }}" class="text-primary"> {{ $coupon->provider->name }}</a>
                     @endif
                 </td>
-                <td>{!! $coupon->status_span !!}</td>
+
                 <td>
                     <a href="{{ route('admin.coupons.edit', [$coupon->id]) }}"
                         class='btn btn-info btn-sm'>
