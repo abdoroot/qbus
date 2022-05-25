@@ -81,7 +81,7 @@
 <!-- Tax Field -->
 <div class="form-group">
     {!! Form::label('tax', __('models/providers.fields.tax').':') !!}
-    {!! Form::number('tax', !isset($provider) ? 15 : null, ['class' => 'form-control' . ($errors->has('tax') ? ' is-invalid' : '', 'step' => '.01')]) !!}
+    {!! Form::number('tax', !isset($provider) ? 15 : null, ['class' => 'form-control' . ($errors->has('tax') ? ' is-invalid' : ''),'step' => '.01']) !!}
     @error('tax')
     <span class="invalid-feedback"> {{ $message }} </span>
     @enderror

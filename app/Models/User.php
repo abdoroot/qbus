@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -141,7 +141,7 @@ class User extends Authenticatable
             ->where(function($query) {
                 $query->where('user_id', null)
                       ->orWhere('user_id', $this->id);
-            });
+            })->OrdersBy('created_at','Desc');
 
         if($read != -1) {
             $query->where('read_at', $read ? '!=' : '=', null);

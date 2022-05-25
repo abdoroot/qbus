@@ -9,6 +9,7 @@ use App\Http\Controllers\AppBaseController;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Provider;
+use Illuminate\Support\Facades\Hash;
 use Flash;
 use Response;
 
@@ -130,7 +131,7 @@ class AccountController extends AppBaseController
 
         $input = $request->except('password');
         if(!is_null($request->password)) $input['password'] = Hash::make($request->password);
-        
+
         $account = $this->accountRepository->update($input, $id);
 
         Flash::success(__('messages.updated', ['model' => __('models/accounts.singular')]));
@@ -146,7 +147,7 @@ class AccountController extends AppBaseController
      *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id,Request $request)
     {
         $account = $this->accountRepository->find($id);
 

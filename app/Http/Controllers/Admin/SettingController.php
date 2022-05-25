@@ -116,8 +116,8 @@ class SettingController extends AppBaseController
                 $column = 'trans';
                 $rules = [$setting->key => 'required|array'];
                 if(!is_null($rule = $setting->rules)) $rules["{$key}.*"] = $rule;
-                
-            } elseif(!is_null($rules = $setting->rules)) { 
+
+            } elseif(!is_null($rules = $setting->rules)) {
                 $rules = [$key => $rules];
             }
 
@@ -135,7 +135,7 @@ class SettingController extends AppBaseController
             } else {
                 $setting = $this->settingRepository->update([$column => $request->$key], $setting->id);
             }
-            
+
         }
 
         Flash::success(__('messages.updated', ['model' => __('models/settings.singular')]));

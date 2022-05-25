@@ -14,8 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', 'UserAPIController@register');
+Route::post('login', 'UserAPIController@login');
+Route::get('cites', 'CityAPIController@index');
+Route::get('about_us', 'SettingsAPIController@aboutUs');
+Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
+Route::get('social', 'SettingsAPIController@social');
+Route::get('additionals', 'SettingsAPIController@additionals');
+//////////////////////////////////////////////////////////////
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('logout', 'UserAPIController@logout');
+    Route::get('user_info', 'UserAPIController@userInfo');
+    Route::post('verify_phone', 'UserAPIController@verifyPhone');
+    Route::get('resend_verification_code', 'UserAPIController@resendVerificationCode');
 });
 
 
