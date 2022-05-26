@@ -133,15 +133,11 @@ class HomeController extends Controller
                                 ->where('time_from', '>=', $today->toTimeString());
                         });
                 })
-                ->join('providers', 'providers.id', '=', 'trips.provider_id')
                 ->where('provider_id', $provider_id)
-                ->select('trips.*')
                 ->orderBy('date_from', 'asc')
                 ->get();
 
-            $packages = Package::join('providers', 'providers.id', '=', 'packages.provider_id')
-                ->where('provider_id', $provider_id)
-                ->select('packages.*')
+            $packages = Package::where('provider_id', $provider_id)
                 ->orderBy('date_from', 'asc')
                 ->get();
 

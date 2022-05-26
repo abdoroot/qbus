@@ -45,7 +45,8 @@ class TripOrder extends Model
         'coupon_id',
         'type',
         'admin_notes',
-        'additional'
+        'additional',
+        'prev_trip_order_id'
     ];
 
     /**
@@ -70,7 +71,8 @@ class TripOrder extends Model
         'coupon_id' => 'integer',
         'type' => 'string',
         'admin_notes' => 'string',
-        'additional' => 'array'
+        'additional' => 'array',
+        'prev_trip_order_id' => 'integer'
     ];
 
     /**
@@ -85,6 +87,7 @@ class TripOrder extends Model
         'code' => 'nullable|exists:coupons,code',
         'type' => 'required|string|in:one-way,round,multi',
         'additional' => 'nullable|array',
+        'prev_trip_order_id' => 'nullable|exists:trip_orders,id'
     ];
 
     /**
@@ -100,6 +103,7 @@ class TripOrder extends Model
         'coupon_id' => 'nullable|exists:coupons,id',
         'type' => 'required|string|in:one-way,round,multi',
         'additional' => 'nullable|array',
+        'prev_trip_order_id' => 'nullable|exists:trip_orders,id'
     ];
 
     /**
@@ -128,6 +132,14 @@ class TripOrder extends Model
     public function trip()
     {
         return $this->belongsTo(\App\Models\Trip::class, 'trip_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     **/
+    public function prevTripOrder()
+    {
+        return $this->belongsTo(\App\Models\TripOrder::class, 'prev_trip_order_id');
     }
 
     /**
@@ -237,5 +249,22 @@ class TripOrder extends Model
         }
 
         return $additionals;
+    }
+
+    public function getPrevTripOrders()
+    {
+        $prevOrders = [];
+        $tripOrder = $this;
+        $prevTripOrder = $tripOrder->prevTripOrder;
+        while (!is_null($prevTripOrder)) {
+            $prevOrders[] = $prevTripOrder;
+            $prevTripOrder = $prevTripOrder->prevTripOrder;
+        }
+        return $prevOrders;
+    }
+
+    public function nextMultiIndex()
+    {
+        return count($this->getPrevTripOrders()) + 1;
     }
 }

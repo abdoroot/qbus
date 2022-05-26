@@ -81,7 +81,7 @@ class TripOrderController extends AppBaseController
             $additionalFees += $additionFees;
         }
 
-        $input = array_merge($request->only('trip_id', 'count', 'user_notes', 'type'), [
+        $input = array_merge($request->only('trip_id', 'count', 'user_notes', 'type', 'prev_trip_order_id'), [
             'user_id' => $this->id,
             'provider_id' => $trip->provider_id,
             'fees' => $fees = $trip->fees * $request->count,
@@ -134,36 +134,58 @@ class TripOrderController extends AppBaseController
 
         $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
 
+        $type = $tripOrder->type;
+        
         if($tripOrder->status == 'approved') {
 
             $message .= ', ' . __('msg.please_do_the_payment_and_complete_the_order');
             $request->session()->flash('payment', $message);
-            return redirect()->action('\App\Http\Controllers\User\TripController@payment', [$tripOrder->id, $request]);
+            $data = ['id' => $tripOrder->id];
+            if($type == 'round' && is_null($request->prev_trip_order_id)) {
+                $data = array_merge($data, [
+                    'prev_trip_order_id' => $tripOrder->id,
+                    'from_city_id' => $request->to_city_id,
+                    'to_city_id' => $request->from_city_id,
+                    'date_from' => $request->date_to ?? $request->date_from,
+                    'type' => $request->type
+                ]);
+            } elseif($type == 'multi'
+                && isset($request->destination) 
+                && is_array($destination = $request->destination)) {
+                    $data = array_merge($data, [
+                        'prev_trip_order_id' => $tripOrder->id,
+                        'destination' => $request->destination,
+                        'type' => $request->type
+                    ]);
+            }
 
-        } elseif(($type = $tripOrder->type) == 'round' && is_null($request->trip_order_id)) {
-            
-            $request->request->add([
-                'trip_order_id' => $tripOrder->id,
+            return redirect()->route('tripOrders.payment', $data);
+
+        } elseif($type == 'round' && is_null($request->prev_trip_order_id)) {
+
+            $message .= ', ' . __('msg.choose_your_next_trip');
+            $request->session()->flash('trip', $message);
+            return redirect()->route('trips.index', [
+                'prev_trip_order_id' => $tripOrder->id,
                 'from_city_id' => $request->to_city_id,
                 'to_city_id' => $request->from_city_id,
-                'date_from' => $request->date_to,
+                'date_from' => $request->date_to ?? $request->date_from,
+                'type' => $request->type
             ]);
 
-            $message .= ', ' . __('msg.choose_your_next_trip!');
-            $request->session()->flash('trip', $message);
-            return redirect()->action('\App\Http\Controllers\User\TripController@index', [$request]);
-        } elseif(($type = $tripOrder->type) == 'multi') {
-            dd($request->all());
-            $request->request->add([
-                'trip_order_id' => $tripOrder->id,
-                'from_city_id' => $request->to_city_id,
-                'to_city_id' => $request->from_city_id,
-                'date_from' => $request->date_to,
-            ]);
+        } elseif($type == 'multi' 
+            && isset($request->destination) 
+            && is_array($destination = $request->destination)
+            && isset($destination['from_city_id'])
+            && $tripOrder->nextMultiIndex() < count($destination['from_city_id']) - 1) {
 
-            $message .= ', ' . __('msg.choose_your_next_trip!');
-            $request->session()->flash('trip', $message);
-            return redirect()->action('\App\Http\Controllers\User\TripController@index', [$request]);
+                $message .= ', ' . __('msg.choose_your_next_trip');
+                $request->session()->flash('trip', $message);
+                return redirect()->route('trips.index', [
+                    'prev_trip_order_id' => $tripOrder->id,
+                    'destination' => $request->destination,
+                    'type' => $request->type
+                ]);
         }
 
         $message .= ', ' . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order');

@@ -87,8 +87,7 @@ class PackageController extends AppBaseController
                 ->first();
             if(!is_null($coupon)) $provider_id = $coupon->provider_id;
 
-            $paginator = $paginator->join('providers', 'providers.id', '=', 'packages.provider_id')
-                ->where('provider_id', $provider_id);
+            $paginator = $paginator->where('packages.provider_id', $provider_id);
         }
 
         $paginator = $paginator->select('packages.*')->paginate($limit);
