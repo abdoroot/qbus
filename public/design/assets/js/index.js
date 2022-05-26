@@ -8,7 +8,6 @@
 
  $('nav button').click(function () {
    $('nav .flex-1').toggleClass('active')
-   console.log('done')
  })
 
 
@@ -110,21 +109,11 @@
    $('.filter').toggleClass('active');
  })
 
- $(function () {
-   $(".repeat").on('click', function (e) {
-     e.preventDefault(); // to prevent form submit
-     var $self = $(this);
-     $self.before($self.prev('div').clone()); // use prev() not parent()
-   });
- });
-
 
  $('.language').mouseover(function(){
   $(this).removeClass('overflow-hidden');
-   console.log('Done')
  })
  $('.language').mouseleave(function(){
   $(this).addClass('overflow-hidden');
-  console.log('Done')
 })
 

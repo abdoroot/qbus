@@ -67,7 +67,9 @@
             <div class="relative mb-4 text-center w-full md:w-1/4 p-2 px-10 float-left">
                 <label class="text-white text-xl" for="code"> . </label>
                 <button type="submit"
-                    class="block text-white text-center bg-indigo-500 w-full border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Booking</button>
+                    class="block text-white text-center bg-indigo-500 w-full border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                    @lang('crud.submit')
+                </button>
             </div>
     </div>
     {!! Form::close() !!}

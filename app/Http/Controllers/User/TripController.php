@@ -44,7 +44,34 @@ class TripController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $query = "type=$request->type";
+        // $query = "type=" . ($type = $request->type) . 
+        //         ($type != 'one-way' ? '&prev_trip_order_id='.($prevTripOrderId = $request->prev_trip_order_id) : null);
+
+        if(($type = $request->type) == 'multi' 
+            && isset($request->destination) 
+            && is_array($destination = $request->destination)) {
+                $i = 0;
+                if(!is_null($prevTripOrder = TripOrder::find($request->prev_trip_order_id))) { 
+                    $i = $prevTripOrder->nextMultiIndex();
+                }
+                if($request->skip) {
+                    if(isset($destination['from_city_id'][$i+1])) $i+=$request->skip;
+                } 
+
+                if(isset($destination['from_city_id']) && isset($destination['from_city_id'][$i])) {
+                    $request->request->add(['from_city_id' => $destination['from_city_id'][$i]]);
+                } 
+                if(isset($destination['to_city_id']) && isset($destination['to_city_id'][$i])) {
+                    $request->request->add(['to_city_id' => $destination['to_city_id'][$i]]);
+                } 
+                if(isset($destination['date_from']) && isset($destination['date_from'][$i])) {
+                    $request->request->add(['date_from' => $destination['date_from'][$i]]);
+                } 
+                if(isset($destination['code']) && isset($destination['code'][$i])) {
+                    $request->request->add(['code' => $destination['code'][$i]]);
+                } 
+        }
+
         $limit = 6;
         $today = Carbon::now();
         
@@ -58,12 +85,12 @@ class TripController extends AppBaseController
         });
 
         if(!is_null($search = $request->search)) {
-            $query .= "&search={$request->search}";
+            // $query .= "&search={$request->search}";
             $paginator = $paginator->where('description', 'like', "%$search%");
         }
         
         if(!empty($additional = $request->additional ?? [])) {
-            $query .= "&additional[]=" . implode("&additional[]=", $additional);
+            // $query .= "&additional[]=" . implode("&additional[]=", $additional);
             $paginator = $paginator->when($additional , function($query) use ($additional) {
                 $query->where(function ($query) use ($additional) {
                     foreach($additional as $addition) {
@@ -74,21 +101,21 @@ class TripController extends AppBaseController
         }
 
         if(!is_null($date_from = $request->date_from)) {
-            $query .= "&date_from={$request->date_from}";
+            // $query .= "&date_from={$request->date_from}";
             $paginator = $paginator->where('date_from', '>=', $date_from);
         }
 
         if(!is_null($date_to = $request->date_to)) {
-            $query .= "&date_to={$request->date_to}";
+            // $query .= "&date_to={$request->date_to}";
             $paginator = $paginator->where('date_to', '<=', $date_to);
         }
 
         if(!is_null($time_from = $request->time_from)) {
-            $query .= "&time_from={$request->time_from}";
+            // $query .= "&time_from={$request->time_from}";
             $paginator = $paginator->where('time_from', '>=', $time_from);
         }
         if(!is_null($time_to = $request->time_to)) {
-            $query .= "&time_to={$request->time_to}";
+            // $query .= "&time_to={$request->time_to}";
             $paginator = $paginator->where('time_to', '<=', $time_to);
         }
         
@@ -97,17 +124,17 @@ class TripController extends AppBaseController
         if(!is_null($from_city_id) || !is_null($to_city_id)) {
             $paginator = $paginator->join('destinations', 'destinations.id', '=', 'trips.destination_id');
             if(!is_null($from_city_id)) {
-                $query .= "&from_city_id={$request->from_city_id}";
+                // $query .= "&from_city_id={$request->from_city_id}";
                 $paginator = $paginator->where('from_city_id', $from_city_id);
             }
             if(!is_null($to_city_id)) {
-                $query .= "&to_city_id={$request->to_city_id}";
+                // $query .= "&to_city_id={$request->to_city_id}";
                 $paginator = $paginator->where('to_city_id', $to_city_id);
             }
         }
 
         if(!is_null($code = $request->code)) {
-            $query .= "&code={$request->code}";
+            // $query .= "&code={$request->code}";
             $provider_id = null;
             $coupon = Coupon::where(['code' => $request->code, 'status' => 'approved'])
                 ->where('date_from', '<=', $today = Carbon::now()->toDateString())
@@ -115,8 +142,7 @@ class TripController extends AppBaseController
                 ->first();
             if(!is_null($coupon)) $provider_id = $coupon->provider_id;
 
-            $paginator = $paginator->join('providers', 'providers.id', '=', 'trips.provider_id')
-                ->where('provider_id', $provider_id);
+            $paginator = $paginator->where('trips.provider_id', $provider_id);
         }
 
         $paginator = $paginator->select('trips.*')->paginate($limit);
@@ -128,7 +154,7 @@ class TripController extends AppBaseController
             ->with('paginator', $paginator)
             ->with('cities', $cities)
             ->with('additionals', $additionals)
-            ->with('query', $query)
+            // ->with('query', $query)
             ->with('search', $search)
             ->with('additional', $additional)
             ->with('date_from', $date_from)
@@ -138,7 +164,7 @@ class TripController extends AppBaseController
             ->with('from_city_id', $from_city_id)
             ->with('to_city_id', $to_city_id)
             ->with('code', $code)
-            ->with('type', $request->type);
+            ->with('type', $type);
     }
 
     /**

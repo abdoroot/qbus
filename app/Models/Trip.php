@@ -263,7 +263,7 @@ class Trip extends Model
         } 
                     
         return "<div class='$className'>
-            <a href='".route('trips.show', $this->id)."$query'>
+            <a href='".route('trips.show', [$this->id, $query])."'>
                 <div class='imgItem h-72 overflow-hidden'>
                     <img
                         class='object-cover object-center min-w-full h-full'

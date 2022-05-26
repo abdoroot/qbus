@@ -17,8 +17,40 @@
             </div>
             <div class="w-full md:w-2/3 xl:w-3/4">
                 <div class="row flex items-start justify-center flex-wrap">
+                    @if(Session::has('trip'))
+                    <span class="w-full items-center text-base tracking-wide bg-blue-300 my-10 p-3">
+                        {{ Session::get('trip') }}
+                    </span>
+                    @endif
+                    
+                    @if(count($paginator->items()) == 0)
+                        <h1 class="w-full items-center text-xl tracking-wide text-indiago-500 mt-20 p-3 text-center">
+                            @lang('msg.no_items_found')
+                        </h1>
+                        
+                        @if($type == 'multi')
+                        <a href="{{ Request::fullUrl() . '&skip='.(Request::get('skip')+1) }}" class="w-full items-center text-base tracking-wide text-blue-500 mb-3 mt-5 text-center">
+                            @lang('msg.skip_to_the_next_trip_search')
+                        </a>
+
+                        <div>
+                            <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">
+                                </h1>
+                            <div class="mt-2">
+                                <span class="inline-block w-10 h-1 rounded-full bg-gray-800"></span>
+                                <span class="inline-block mx-2 text-gray-800 text-xl">@lang('msg.or')</span>
+                                <span class="inline-block w-10 h-1 rounded-full bg-gray-800"></span>
+                            </div>
+                        </div>
+                        @endif
+                        
+                        <a href="{{ Request::url() }}" class="w-full items-center text-base tracking-wide text-blue-500 mt-5 p-3 text-center">
+                            @lang('msg.reset_search_fields')
+                        </a>
+                    @endif
+
                     @foreach($paginator->items() as $trip)
-                    {!! $trip->viewDiv('w-full md:w-1/2 xl:w-1/3 p-4', $query) !!}
+                    {!! $trip->viewDiv('w-full md:w-1/2 xl:w-1/3 p-4', $query = substr($url = Request::fullUrl(), strpos($url, '?') + 1)) !!}
                     @endforeach
                     @if($paginator->lastPage() > 1)
                     <div class="w-full">

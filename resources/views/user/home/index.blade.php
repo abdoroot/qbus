@@ -62,9 +62,20 @@
   
  $(function () {
    $(".item-input").on('click', function () {
-    $(".itemForm").addClass('hidden')
-    $(".itemForm."+$(this).attr('id')).removeClass('hidden');
+        $(".itemForm").addClass('hidden')
+        $(".itemForm."+$(this).attr('id')).removeClass('hidden');
    });
+
+    $(".destination-repeat").on('click', function (e) {
+        e.preventDefault(); // to prevent form submit
+        var $self = $(this);
+        $self.before($self.prev('.destination-item').clone()); // use prev() not parent()
+    });
+
+    $(document).on('click', ".destination-remove", function (e) {
+        e.preventDefault(); // to prevent form submit
+        $(this).closest('.destination-item').remove();
+    });
  });
 </script>
 @endpush

@@ -2,9 +2,9 @@
     <div class="w-full mx-auto border rounded-lg md:mx-4 text-xl p-6">
         <label class="text-gray-700 text-xl font-bold" for="count">@lang('models/tripOrders.fields.count'):</label>
         <div class="block w-full items-center mt-1">
-            {!! Form::open(['route' => 'tripOrders.store', 'id' => 'order-form']) !!}
+            {!! Form::open(['route' => ['tripOrders.store', substr($url = Request::fullUrl(), strpos($url, '?') + 1)], 'id' => 'order-form']) !!}
                 {!! Form::hidden('trip_id', $trip->id) !!}
-                {!! Form::hidden('type', $type) !!}
+                {{-- {!! Form::hidden('type', $type) !!} --}}
                 {!! Form::hidden('count', 1, ['id' => 'count-input']) !!}
                 <button type="button" class="text-gray-500 focus:outline-none focus:text-gray-600 mt-2" id="increase-count">
                     <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round"
