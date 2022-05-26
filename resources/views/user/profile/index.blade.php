@@ -1,47 +1,67 @@
-@extends('user.layouts.app')
-
-@section('title', __('msg.profile'))
-
-@section('breadcrumb')
-<li class="breadcrumb-item active">@lang('msg.profile')</li>
-@endsection
+@extends('guest.layouts.app')
 
 @section('content')
+<div class="row">
+    <div class="row flex flex-wrap items-start min-h-screen bg-white border  text-lg">
+        <div class="w-full md:w-1/4 min-h-screen py-8 border-r"><div class="flex flex-col items-center mt-6 -mx-2">
+                <img class="object-cover w-24 h-24 mx-2 rounded-full" src="{{ is_file(asset('images/users/' . $user->image)) ? asset('images/users/' . $user->image):asset('images/users/default-user-image.png') }}" alt="avatar">
+                <h4 class="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 hover:underline">{{ $user->name }}</h4>
+                <p class="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:underline">  {{ $user->phone }}</p>
+            </div>
+
+            @php $page = "profile.index"; @endphp
+            @include('user.profile.menu')
+        </div>
+        <div class="w-full md:w-3/4 p-4 md:p-8">
+            <div class="profileTap">
+                <h2 class="font-bold">My profile</h2><div class="mt-6 ">
+                    @include('flash::message')
+                    <div class="items-center -mx-2 md:flex mb-4 md:mb-16">
+                        <div class="w-full mx-2">
+                            <label class="block mb-2 text-lg font-medium text-gray-600 dark:text-gray-200">Name</label>
+                            <p>{{ $user->name }}</p></div>
+                        <div class="w-full mx-2 mt-4 md:mt-0">
+                            <label class="block mb-2 text-lg font-medium text-gray-600 dark:text-gray-200">E-mail</label>
+                            <p>{{ $user->email }}</p></div>
+                    </div>
+                    <div class="items-center -mx-2 md:flex mb-4 md:mb-16">
+
+                        <div class="w-full mx-2 mt-4 md:mt-0">
+                            <label class="block mb-2 text-lg font-medium text-gray-600 dark:text-gray-200">Phone</label>
+                            <p>{{ $user->phone }}</p></div>
+
+                        <div class="w-full mx-2 mt-4 md:mt-0">
+                            <label class="block mb-2 text-lg font-medium text-gray-600 dark:text-gray-200">address</label>
+                            <p>{{ $user->address }}</p></div>
+
+                    </div>
+
+                    <div class="items-center -mx-2 md:flex mb-4 md:mb-16">
+
+                        <div class="w-full mx-2 mt-4 md:mt-0">
+                            <label class="block mb-2 text-lg font-medium text-gray-600 dark:text-gray-200">age</label>
+                            <p>{{ Carbon\Carbon::parse($user->date_of_birth)->diff(Carbon\Carbon::now())->format('%y years') }}</p></div>
+
+                        <div class="w-full mx-2 mt-4 md:mt-0">
+                            <label class="block mb-2 text-lg font-medium text-gray-600 dark:text-gray-200">Marital status</label>
+                            <p>{{ __('models/users.marital_status.'.$user->marital_status) }}</p></div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div></div>
+</div>
+
 <div class="row">
     @include('flash::message')
     <!-- Column -->
     <div class="col-lg-4 col-xlg-3 col-md-5">
         <div class="card">
-            <div class="card-body">
-                <center class="m-t-30"> <img src="{{ asset('images/users/' . $user->image) }}" class="img-circle" width="150" />
-                    <h4 class="card-title m-t-10">{{ $user->name }}</h4>
-                    <h6 class="card-subtitle">{{ $user->email }}</h6>
-                    <div class="row text-center justify-content-md-center">
-                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-user"></i> <font class="font-medium">{{ __('models/users.marital_status.'.$user->marital_status) }}</font></a></div>
-                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-clock"></i> <font class="font-medium">{{ Carbon\Carbon::parse($user->date_of_birth)->diff(Carbon\Carbon::now())->format('%y years') }}</font></a></div>
-                    </div>
-                </center>
-            </div>
-            <div>
-                <hr> </div>
-            <div class="card-body"> 
-                <small class="text-muted"> @lang('models/users.fields.email') </small>
-                <h6>{{ $user->email }}</h6> 
-                <small class="text-muted p-t-30 db">@lang('models/users.fields.phone')</small>
-                <h6>{{ $user->phone }}</h6> 
-                <small class="text-muted p-t-30 db">@lang('models/users.fields.address')</small>
-                <h6>{{ $user->address }}</h6>
-                {{--
-                <div class="map-box">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen></iframe>
-                </div> 
-                <small class="text-muted p-t-30 db">Social Profile</small>
-                <br/>
-                <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
-                <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
-                <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
-                --}}
-            </div>
+
+
         </div>
     </div>
     <!-- Column -->
@@ -57,11 +77,11 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <!--Profile tab-->
-                @include('user.profile.profile_tab')
-                
+
+
                 <!-- Settings tab -->
-                @include('user.profile.settings_tab')
-                
+
+
                 <!-- Password tab -->
                 @include('user.profile.password_tab')
             </div>

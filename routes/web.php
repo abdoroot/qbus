@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return "all is cleared";
+});
 // Set Locale Route
 Route::get('setlocale/{locale}', 'HomeController@setLocale')->name('localization');
 Route::get('about', 'HomeController@about')->name('about');
@@ -31,15 +39,18 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
     Route::post('packages/review', 'PackageController@review')->name('packages.review');
 
     Route::middleware(['auth'])->group(function() {
+        //Route::get('/home', function (){ return redirect(route('home'));})->name('dashboard');
         Route::get('/home', 'HomeController@index')->name('dashboard');
         Route::get('/profile', 'ProfileController@index')->name('profile.index');
+        Route::get('/profile/settings', 'ProfileController@settings')->name('profile.shows.settings');
         Route::post('/profile', 'ProfileController@update')->name('profile.settings');
         Route::post('/password', 'ProfileController@password')->name('profile.password');
+        Route::get('/profile/logout', 'ProfileController@logout')->name('profile.logout');
 
         Route::resource('contacts', 'ContactController')->only('index', 'show', 'create', 'store');
         Route::resource('notifications', 'NotificationController')->only('index', 'show', 'update', 'destroy');
 
-        // bus Orders 
+        // bus Orders
         Route::get('busOrders/{id}/payment', 'BusOrderController@payment')->name('busOrders.payment');
         Route::resource('busOrders', 'BusOrderController');
 
@@ -48,7 +59,7 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
         // payment link for the trip order
         Route::get('tripOrders/{id}/payment', 'TripOrderController@payment')->name('tripOrders.payment');
 
-        // package Orders 
+        // package Orders
         Route::get('packageOrders/{id}/payment', 'PackageOrderController@payment')->name('packageOrders.payment');
         Route::resource('packageOrders', 'PackageOrderController');
     });

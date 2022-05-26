@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
-use App\Models\User;
 use Validator;
 use Flash;
 use Auth;
@@ -80,5 +78,18 @@ class ProfileController extends AppBaseController
 
         Flash::success(trans('msg.updated_successfully', ['name' => trans('msg.password')]));
         return redirect(route('profile.index', ['active' => 'password']));
+    }
+
+    public function settings(Request $request)
+    {
+        $user = Auth::user();
+        return view('user.profile.settings')
+            ->with('user', $user)
+            ->with('active', $request->active);
+    }
+    public function logout()
+    {
+        Auth::logout();;
+        return redirect(route('home'));
     }
 }
