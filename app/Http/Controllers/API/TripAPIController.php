@@ -32,9 +32,11 @@ class TripAPIController extends AppBaseController
             'message' => $message,
             'code' => $code,
         ];
-
         if($data != ""){
             $array['data'] = $data;
+        }
+        else{
+            $array['data'] = ['message' => ""] ;
         }
         return $array;
     }

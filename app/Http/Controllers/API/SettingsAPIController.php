@@ -24,6 +24,8 @@ class SettingsAPIController extends AppBaseController
 
         if($data != ""){
             $array['data'] = $data;
+        }else{
+            $array['data'] = ['message' => ""] ;
         }
         return $array;
     }
