@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Setting;
 use App\Models\Additional;
 use Response;
+use App\Models\City;
 
 /**
  * Class FeatureController
@@ -14,15 +15,34 @@ use Response;
 
 class SettingsAPIController extends AppBaseController
 {
+
+    public function ReturnJson($message,$data,$code = 1){
+        $array = [
+            'message' => $message,
+            'code' => $code,
+        ];
+
+        if($data != ""){
+            $array['data'] = $data;
+        }
+        return $array;
+    }
+
+    public function cites()
+    {
+        $data = City::all();
+        return response()->json( $this->ReturnJson("success",['cites' => $data],1),200);
+    }
+
     public function aboutUs()
     {
         $data =[
-            "about_title" => Setting::where('key','about_title')->first(),
-            "about_subtitle" => Setting::where('key','about_subtitle')->first(),
-            "about_text" => Setting::where('key','about_text')->first(),
+            "about_title" => Setting::select("trans")->where('key','about_title')->first() ?? "",
+            "about_subtitle" => Setting::select("trans")->where('key','about_subtitle')->first() ?? "",
+            "about_text" => Setting::select("trans")->where('key','about_text')->first() ?? "",
             "about_image" => asset("images/settings/".Setting::where('key','about_image')->first()['value']),
         ];
-        return $data;
+        return response()->json( $this->ReturnJson("success",['about_us' => array_filter($data)],1),200);
     }
 
     public function contactUsDetails()
@@ -34,7 +54,9 @@ class SettingsAPIController extends AppBaseController
             "phone2" => Setting::where('key','phone2')->first()['value'],
             "email2" => Setting::where('key','email2')->first()['value'],
         ];
-        return $data;
+
+        return response()->json( $this->ReturnJson("success",['contact_us' => array_filter($data)],1),200);
+
     }
 
 
@@ -46,14 +68,16 @@ class SettingsAPIController extends AppBaseController
             "instagram" => Setting::where('key','instagram')->first()['value'],
             "youtube" => Setting::where('key','youtube')->first()['value'],
         ];
+        return response()->json( $this->ReturnJson("success",['social_link' => array_filter($data)],1),200);
 
-        return $data;
     }
+
+
 
     public function additionals()
     {
         $data = Additional::all();
-        return $data;
+        return response()->json( $this->ReturnJson("success",['additional' => $data],1),200);
     }
 
 }

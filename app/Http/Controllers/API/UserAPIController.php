@@ -33,14 +33,46 @@ class UserAPIController extends AppBaseController
     }
 
 
+    public function ReturnJson($message,$data,$code = 1){
+        $array = [
+            'message' => $message,
+            'code' => $code,
+        ];
+
+        if($data != ""){
+            $array['data'] = $data;
+        }
+        return $array;
+    }
+
+
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')]) || Auth::attempt(['phone' => request('phone'), 'password' => request('password')])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('Qbus')-> accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
+            $token =  $user->createToken('Qbus')-> accessToken;
+            //remove null values
+            //$user= array_map('array_filter', $user);
+
+
+            return response()->json( $this->ReturnJson("success",['token' => $token,
+                "user" => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email ?? '',
+                    'phone' => $user->phone ?? '',
+                    'image' => $user->image ?? '',
+                    'address' => $user->address ?? '',
+                    'date_of_birth' => $user->date_of_birth ?? '',
+                    'marital_status' => $user->marital_status ?? '',
+                    'block' => $user->block ?? 0,
+                    'block_notes' => $user->block_notes ?? '',
+                    'wallet' => $user->wallet ?? '',
+                    'language' => $user->language ?? 'ar',
+                ],
+            ]), $this->successStatus);
         }
         else{
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json( $this->ReturnJson("Unauthorised","",0),400);
         }
     }
 
@@ -56,44 +88,74 @@ class UserAPIController extends AppBaseController
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
+        //print_r($request);
+
         if ($validator->fails()) {
-            return response()->json(['error'=>$validator->errors()], 401);
+            return response()->json( $this->ReturnJson("Please ReCheck the ",$validator->errors(),0),400);
         }
 
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
         $success['token'] =  $user->createToken('Qbus')-> accessToken;
-        $success['name'] =  $user->name;
+        $success['user'] =  [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email ?? '',
+                'phone' => $user->phone ?? '',
+                'image' => $user->image ?? '',
+                'address' => $user->address ?? '',
+                'date_of_birth' => $user->date_of_birth ?? '',
+                'marital_status' => $user->marital_status ?? '',
+                'block' => $user->block ?? 0,
+                'block_notes' => $user->block_notes ?? '',
+                'wallet' => $user->wallet ?? '',
+                'language' => $user->language ?? 'ar',
+            ];
         $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
-        $success['verify_phone'] = $send;
-        return response()->json(['success'=>$success], $this-> successStatus);
+        $send = (array)$send ;
+        //$success['verify_phone'] = $send['original']['message'];
+        return response()->json( $this->ReturnJson($send['original']['message'],$success,1),$this-> successStatus);
     }
 
     public function verifyPhone(Request $request){
         $user = Auth::user();
         if(!Hash::check($request->code, $user->phone_verification_code)) {
-            return response()->json(['error'=>'error validation code'], 401);
+            return response()->json( $this->ReturnJson("Error validation Code",'',0),400);
         }else{
             $user->update(['phone_verified_at' => Carbon::now()->format('Y-m-d H:i:s')]);
-            return response()->json(['success' => "Phone Verified Successfully"], $this-> successStatus);
+            return response()->json( $this->ReturnJson("Phone Verified Successfully","",1),200);
         }
     }
 
     public function resendVerificationCode(){
         $user = Auth::user();
         $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
-        return response()->json(['success' => $send], $this-> successStatus);
+        $send = (array)$send ;
+        return response()->json( $this->ReturnJson($send['original']['message'],"",1),200);
     }
 
     public function userInfo(){
         $user = Auth::user();
-        return response()->json(['success' => $user], $this-> successStatus);
+        return response()->json( $this->ReturnJson("success",[
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email ?? '',
+            'phone' => $user->phone ?? '',
+            'image' => $user->image ?? '',
+            'address' => $user->address ?? '',
+            'date_of_birth' => $user->date_of_birth ?? '',
+            'marital_status' => $user->marital_status ?? '',
+            'block' => $user->block ?? 0,
+            'block_notes' => $user->block_notes ?? '',
+            'wallet' => $user->wallet ?? '',
+            'language' => $user->language ?? 'ar',
+        ],1),200);
     }
 
     public function logout(){
         $user = Auth::user()->token()->revoke();
-        return response()->json(['success' => 'logout successfully'], $this-> successStatus);
+        return response()->json( $this->ReturnJson('logout successfully','',1),200);
     }
 
     /**

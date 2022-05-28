@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', 'UserAPIController@register');
 Route::post('login', 'UserAPIController@login');
-Route::get('cites', 'CityAPIController@index');
+Route::get('cites', 'SettingsAPIController@cites');
 Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
 Route::get('social', 'SettingsAPIController@social');
@@ -69,7 +69,7 @@ Route::resource('services', App\Http\Controllers\API\ServiceAPIController::class
 
 Route::resource('emails', App\Http\Controllers\API\EmailAPIController::class);
 
-Route::resource('additionals', App\Http\Controllers\API\AdditionalAPIController::class);
+//Route::resource('additionals', App\Http\Controllers\API\AdditionalAPIController::class);
 
 Route::resource('terminals', App\Http\Controllers\API\TerminalAPIController::class);
 
