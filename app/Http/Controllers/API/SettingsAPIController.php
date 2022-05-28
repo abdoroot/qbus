@@ -72,8 +72,6 @@ class SettingsAPIController extends AppBaseController
 
     }
 
-
-
     public function additionals()
     {
         $data = Additional::all();
@@ -91,6 +89,5 @@ class SettingsAPIController extends AppBaseController
         $data = Setting::where('key','return_policy')->first()['value'];
         return response()->json( $this->ReturnJson("success",['return_policy' => $data],1),200);
     }
-
 }
 

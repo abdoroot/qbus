@@ -6,6 +6,7 @@ use App\Http\Requests\API\CreateTripAPIRequest;
 use App\Http\Requests\API\UpdateTripAPIRequest;
 use App\Models\Trip;
 use App\Repositories\TripRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -25,6 +26,19 @@ class TripAPIController extends AppBaseController
         $this->tripRepository = $tripRepo;
     }
 
+
+    public function ReturnJson($message,$data,$code = 1){
+        $array = [
+            'message' => $message,
+            'code' => $code,
+        ];
+
+        if($data != ""){
+            $array['data'] = $data;
+        }
+        return $array;
+    }
+
     /**
      * Display a listing of the Trip.
      * GET|HEAD /trips
@@ -34,16 +48,22 @@ class TripAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $trips = $this->tripRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $limit = 6;
+        $today = Carbon::now();
 
-        return $this->sendResponse(
-            $trips->toArray(),
-            __('messages.retrieved', ['model' => __('models/trips.plural')])
-        );
+        $paginator = Trip::all()->where('date_from', '>=', $today->toDateString())->where('time_from', '>', $today->toTimeString());
+       //$paginator->query
+//        if(!empty($additional = $request->additional ?? [])) {
+//            $paginator = $paginator->when($additional , function($query) use ($additional) {
+//                $query->where(function ($query) use ($additional) {
+//                    foreach($additional as $addition) {
+//                        $query->whereJsonContains('additional', ['id' => $addition]);
+//                    }
+//                });
+//            });
+//        }
+
+        return response()->json( $this->ReturnJson("success",['trips' => $paginator],1),200);
     }
 
     /**

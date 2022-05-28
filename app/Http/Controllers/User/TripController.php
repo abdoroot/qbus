@@ -30,7 +30,7 @@ class TripController extends AppBaseController
     {
         $this->tripRepository = $tripRepo;
         $this->middleware(function ($request, $next) {
-            $this->id = Auth::check() ? Auth::user()->id : null;    
+            $this->id = Auth::check() ? Auth::user()->id : null;
             return $next($request);
         });
     }
@@ -44,42 +44,42 @@ class TripController extends AppBaseController
      */
     public function index(Request $request)
     {
-        // $query = "type=" . ($type = $request->type) . 
+        // $query = "type=" . ($type = $request->type) .
         //         ($type != 'one-way' ? '&prev_trip_order_id='.($prevTripOrderId = $request->prev_trip_order_id) : null);
 
-        if(($type = $request->type) == 'multi' 
-            && isset($request->destination) 
+        if(($type = $request->type) == 'multi'
+            && isset($request->destination)
             && is_array($destination = $request->destination)) {
                 $i = 0;
-                if(!is_null($prevTripOrder = TripOrder::find($request->prev_trip_order_id))) { 
+                if(!is_null($prevTripOrder = TripOrder::find($request->prev_trip_order_id))) {
                     $i = $prevTripOrder->nextMultiIndex();
                 }
                 if($request->skip) {
                     if(isset($destination['from_city_id'][$i+1])) $i+=$request->skip;
-                } 
+                }
 
                 if(isset($destination['from_city_id']) && isset($destination['from_city_id'][$i])) {
                     $request->request->add(['from_city_id' => $destination['from_city_id'][$i]]);
-                } 
+                }
                 if(isset($destination['to_city_id']) && isset($destination['to_city_id'][$i])) {
                     $request->request->add(['to_city_id' => $destination['to_city_id'][$i]]);
-                } 
+                }
                 if(isset($destination['date_from']) && isset($destination['date_from'][$i])) {
                     $request->request->add(['date_from' => $destination['date_from'][$i]]);
-                } 
+                }
                 if(isset($destination['code']) && isset($destination['code'][$i])) {
                     $request->request->add(['code' => $destination['code'][$i]]);
-                } 
+                }
         }
 
         $limit = 6;
         $today = Carbon::now();
-        
+
         $paginator = Trip::where(function ($query) use ($today) {
             $query->where('date_from', '>', $today->toDateString())
                 ->orWhere(function ($query) use ($today)
                 {
-                    $query->where('date_from', '=', $today->toDateString())
+                    $query->where('date_from', '>=', $today->toDateString())
                         ->where('time_from', '>=', $today->toTimeString());
                 }) ;
         });
@@ -88,7 +88,7 @@ class TripController extends AppBaseController
             // $query .= "&search={$request->search}";
             $paginator = $paginator->where('description', 'like', "%$search%");
         }
-        
+
         if(!empty($additional = $request->additional ?? [])) {
             // $query .= "&additional[]=" . implode("&additional[]=", $additional);
             $paginator = $paginator->when($additional , function($query) use ($additional) {
@@ -118,7 +118,7 @@ class TripController extends AppBaseController
             // $query .= "&time_to={$request->time_to}";
             $paginator = $paginator->where('time_to', '<=', $time_to);
         }
-        
+
         $from_city_id = $request->from_city_id;
         $to_city_id = $request->to_city_id;
         if(!is_null($from_city_id) || !is_null($to_city_id)) {
@@ -224,7 +224,7 @@ class TripController extends AppBaseController
                 'rate' => $provider->reviews->sum('rate') / $provider->reviews->count()
             ]);
         }
-        
+
         DB::commit();
 
         $request->session()->flash('review', __('messages.saved', ['model' => __('models/reviews.singular')]));
