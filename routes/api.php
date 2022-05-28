@@ -21,6 +21,8 @@ Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
 Route::get('social', 'SettingsAPIController@social');
 Route::get('additionals', 'SettingsAPIController@additionals');
+Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
+Route::get('return_privacy', 'SettingsAPIController@returnPolicy');
 //////////////////////////////////////////////////////////////
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('logout', 'UserAPIController@logout');

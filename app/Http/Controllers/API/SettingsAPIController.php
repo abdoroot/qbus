@@ -80,5 +80,17 @@ class SettingsAPIController extends AppBaseController
         return response()->json( $this->ReturnJson("success",['additional' => $data],1),200);
     }
 
+    public function privacyPolicy()
+    {
+        $data = Setting::where('key','privacy_policy')->first()['value'];
+        return response()->json( $this->ReturnJson("success",['privacy_policy' => $data],1),200);
+    }
+
+    public function returnPolicy()
+    {
+        $data = Setting::where('key','return_policy')->first()['value'];
+        return response()->json( $this->ReturnJson("success",['return_policy' => $data],1),200);
+    }
+
 }
 

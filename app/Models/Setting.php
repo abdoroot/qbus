@@ -16,7 +16,7 @@ class Setting extends Model
     use HasFactory, HasTranslations;
 
     public $table = 'settings';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -29,7 +29,7 @@ class Setting extends Model
         'rules',
         'trans'
     ];
-    
+
     public $translatable = ['trans'];
 
     public static $trans = [
@@ -54,6 +54,9 @@ class Setting extends Model
         'feedback_footer',
         'section_title',
         'section_text',
+        'section_text',
+        'privacy_policy',
+        'return_policy',
     ];
 
 
