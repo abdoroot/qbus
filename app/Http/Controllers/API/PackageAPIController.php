@@ -4,8 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreatePackageAPIRequest;
 use App\Http\Requests\API\UpdatePackageAPIRequest;
+use App\Models\Additional;
+use App\Models\City;
+use App\Models\Coupon;
 use App\Models\Package;
 use App\Repositories\PackageRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
@@ -25,25 +29,76 @@ class PackageAPIController extends AppBaseController
         $this->packageRepository = $packageRepo;
     }
 
-    /**
-     * Display a listing of the Package.
-     * GET|HEAD /packages
-     *
-     * @param Request $request
-     * @return Response
-     */
+    public function ReturnJson($message,$data,$code = 1){
+        $array = [
+            'message' => $message,
+            'code' => $code,
+        ];
+        if($data != ""){
+            $array['data'] = $data;
+        }
+        else{
+            $array['data'] = ['message' => ""] ;
+        }
+        return $array;
+    }
+
     public function index(Request $request)
     {
-        $packages = $this->packageRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $query = "";
+        $limit = 6;
+        $today = Carbon::now();
+        $paginator = new Package;
 
-        return $this->sendResponse(
-            $packages->toArray(),
-            __('messages.retrieved', ['model' => __('models/packages.plural')])
-        );
+        if(!is_null($search = $request->search)) {
+            //$query .= "&search={$request->search}";
+            $paginator = $paginator->where('description', 'like', "%$search%");
+        }
+
+        if(!empty($additional = $request->additional ?? [])) {
+            $paginator = $paginator->when($additional , function($query) use ($additional) {
+                $query->where(function ($query) use ($additional) {
+                    foreach($additional as $addition) {
+                        //$query->whereJsonContains('additional', ["id" => "3"]);
+                        $query->where('additional', 'LIKE', '%"id":"' . $addition . '"%')
+                            ->orWhere('additional', 'LIKE', '%"id": "' . $addition . '"%'); //added space
+                    }
+                });
+            });
+        }
+
+        if(!is_null($date_from = $request->date_from)) {
+            //$query .= "&date_from={$request->date_from}";
+            $paginator = $paginator->where('date_from', '>=', $date_from);
+        }
+        if(!is_null($time_from = $request->time_from)) {
+            //$query .= "&time_from={$request->time_from}";
+            $paginator = $paginator->where('time_from', '>=', $time_from);
+        }
+        if(!is_null($starting_city_id = $request->starting_city_id)) {
+            //$query .= "&starting_city_id={$request->starting_city_id}";
+            $paginator = $paginator->where('starting_city_id', $starting_city_id);
+        }
+
+        if(!is_null($code = $request->code)) {
+            //$query .= "&code={$request->code}";
+            $provider_id = null;
+            $coupon = Coupon::where(['code' => $request->code, 'status' => 'approved'])
+                ->where('date_from', '>=', $today = Carbon::now()->toDateString())
+                ->where('date_to', '>=', $today)
+                ->first();
+            if(!is_null($coupon)) $provider_id = $coupon->provider_id;
+
+            $paginator = $paginator->where('packages.provider_id', $provider_id);
+        }
+
+        $paginator = $paginator->select('packages.*')->paginate($limit);
+
+        $cities = City::pluck('name', 'id');
+        $additionals = Additional::get();
+
+        return response()->json( $this->ReturnJson("success",['packages' => $paginator->items()],1),200);
+
     }
 
     /**

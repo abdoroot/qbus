@@ -30,7 +30,7 @@ class PackageController extends AppBaseController
     {
         $this->packageRepository = $packageRepo;
         $this->middleware(function ($request, $next) {
-            $this->id = Auth::check() ? Auth::user()->id : null;    
+            $this->id = Auth::check() ? Auth::user()->id : null;
             return $next($request);
         });
     }
@@ -53,9 +53,9 @@ class PackageController extends AppBaseController
             $query .= "&search={$request->search}";
             $paginator = $paginator->where('description', 'like', "%$search%");
         }
-        
+
         if(!empty($additional = $request->additional ?? [])) {
-            $query .= "&additional[]=" . implode("&additional[]=", $additional);
+            //$query .= "&additional[]=" . implode("&additional[]=", $additional);
             $paginator = $paginator->when($additional , function($query) use ($additional) {
                 $query->where(function ($query) use ($additional) {
                     foreach($additional as $addition) {
@@ -66,11 +66,11 @@ class PackageController extends AppBaseController
         }
 
         if(!is_null($date_from = $request->date_from)) {
-            $query .= "&date_from={$request->date_from}";
-            $paginator = $paginator->where('date_from', '<=', $date_from);
+            //$query .= "&date_from={$request->date_from}";
+            $paginator = $paginator->where('date_from', '>=', $date_from);
         }
         if(!is_null($time_from = $request->time_from)) {
-            $query .= "&time_from={$request->time_from}";
+            //$query .= "&time_from={$request->time_from}";
             $paginator = $paginator->where('time_from', '>=', $time_from);
         }
         if(!is_null($starting_city_id = $request->starting_city_id)) {
@@ -82,7 +82,7 @@ class PackageController extends AppBaseController
             $query .= "&code={$request->code}";
             $provider_id = null;
             $coupon = Coupon::where(['code' => $request->code, 'status' => 'approved'])
-                ->where('date_from', '<=', $today = Carbon::now()->toDateString())
+                ->where('date_from', '>=', $today = Carbon::now()->toDateString())
                 ->where('date_to', '>=', $today)
                 ->first();
             if(!is_null($coupon)) $provider_id = $coupon->provider_id;
@@ -162,7 +162,7 @@ class PackageController extends AppBaseController
                 'rate' => $provider->reviews->sum('rate') / $provider->reviews->count()
             ]);
         }
-        
+
         DB::commit();
 
         $request->session()->flash('review', __('messages.saved', ['model' => __('models/reviews.singular')]));

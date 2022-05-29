@@ -55,7 +55,6 @@ class TripAPIController extends AppBaseController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-
         $limit = 6;
         $today = Carbon::now();
 
@@ -78,7 +77,8 @@ class TripAPIController extends AppBaseController
                 $query->where(function ($query) use ($additional) {
                     foreach($additional as $addition) {
                         //$query->whereJsonContains('additional', ["id" => "3"]);
-                        $query->where('additional', 'LIKE', '%"id":"' . $addition . '"%');
+                        $query->where('additional', 'LIKE', '%"id":"' . $addition . '"%')
+                            ->orWhere('additional', 'LIKE', '%"id": "' . $addition . '"%'); //added space
                     }
                 });
             });
