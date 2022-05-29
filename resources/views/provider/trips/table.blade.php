@@ -24,8 +24,8 @@
                     <a href="{{ route('provider.destinations.show', $trip->destination_id) }}">{{ $destination->name }}</a>
                     @endif
                 </td>
-                <td>{{ $trip->date_from }}</td>
-                <td>{{ $trip->date_to }}</td>
+                <td>{{ $trip->date_from }} - {{ $trip->time_from }}</td>
+                <td>{{ $trip->date_to }} - {{ $trip->time_to }}</td>
                 <td>
                     @if(!is_null($bus = $trip->bus))
                     <a href="{{ route('provider.buses.show', $trip->bus_id) }}">{{ $bus->plate }}</a>

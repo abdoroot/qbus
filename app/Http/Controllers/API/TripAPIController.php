@@ -4,12 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreateTripAPIRequest;
 use App\Http\Requests\API\UpdateTripAPIRequest;
+use App\Models\Additional;
+use App\Models\City;
+use App\Models\Coupon;
 use App\Models\Trip;
 use App\Repositories\TripRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class TripController
@@ -50,22 +54,91 @@ class TripAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
+        DB::enableQueryLog();
+
         $limit = 6;
         $today = Carbon::now();
 
-        $paginator = Trip::all()->where('date_from', '>=', $today->toDateString())->where('time_from', '>', $today->toTimeString());
-       //$paginator->query
-//        if(!empty($additional = $request->additional ?? [])) {
-//            $paginator = $paginator->when($additional , function($query) use ($additional) {
-//                $query->where(function ($query) use ($additional) {
-//                    foreach($additional as $addition) {
-//                        $query->whereJsonContains('additional', ['id' => $addition]);
-//                    }
-//                });
-//            });
-//        }
+        $paginator = Trip::where(function ($query) use ($today) {
+            $query->where('date_from', '>', $today->toDateString())
+                ->orWhere(function ($query) use ($today)
+                {
+                    $query->where('date_from', '>=', $today->toDateString())
+                        ->where('time_from', '>=', $today->toTimeString());
+                }) ;
+        });
 
-        return response()->json( $this->ReturnJson("success",['trips' => $paginator],1),200);
+        if(!is_null($search = $request->search)) {
+            // $query .= "&search={$request->search}";
+            $paginator = $paginator->where('description', 'like', "%$search%");
+        }
+
+        if(!empty($additional = $request->additional ?? [])) {
+            $paginator = $paginator->when($additional , function($query) use ($additional) {
+                $query->where(function ($query) use ($additional) {
+                    foreach($additional as $addition) {
+                        //$query->whereJsonContains('additional', ["id" => "3"]);
+                        $query->where('additional', 'LIKE', '%"id":"' . $addition . '"%');
+                    }
+                });
+            });
+        }
+
+        if(!is_null($date_from = $request->date_from)) {
+            // $query .= "&date_from={$request->date_from}";
+            $paginator = $paginator->where('date_from', '>=', $date_from);
+        }
+
+        if(!is_null($date_to = $request->date_to)) {
+            // $query .= "&date_to={$request->date_to}";
+            $paginator = $paginator->where('date_to', '<=', $date_to);
+        }
+
+        if(!is_null($time_from = $request->time_from)) {
+            // $query .= "&time_from={$request->time_from}";
+            $paginator = $paginator->where('time_from', '>=', $time_from);
+        }
+        if(!is_null($time_to = $request->time_to)) {
+            // $query .= "&time_to={$request->time_to}";
+            $paginator = $paginator->where('time_to', '<=', $time_to);
+        }
+
+        $from_city_id = $request->from_city_id;
+        $to_city_id = $request->to_city_id;
+        if(!is_null($from_city_id) || !is_null($to_city_id)) {
+            $paginator = $paginator->join('destinations', 'destinations.id', '=', 'trips.destination_id');
+            if(!is_null($from_city_id)) {
+                // $query .= "&from_city_id={$request->from_city_id}";
+                $paginator = $paginator->where('from_city_id', $from_city_id);
+            }
+            if(!is_null($to_city_id)) {
+                // $query .= "&to_city_id={$request->to_city_id}";
+                $paginator = $paginator->where('to_city_id', $to_city_id);
+            }
+        }
+
+        if(!is_null($code = $request->code)) {
+            // $query .= "&code={$request->code}";
+            $provider_id = null;
+            $coupon = Coupon::where(['code' => $request->code, 'status' => 'approved'])
+                ->where('date_from', '<=', $today = Carbon::now()->toDateString())
+                ->where('date_to', '>=', $today)
+                ->first();
+            if(!is_null($coupon)) $provider_id = $coupon->provider_id;
+
+            $paginator = $paginator->where('trips.provider_id', $provider_id);
+        }
+
+        $paginator = $paginator->select('trips.*')->paginate($limit);
+
+        //dd($paginator->items());
+
+       // echo count($paginator->items());
+
+        $cities = City::pluck('name', 'id');
+        $additionals = Additional::get();
+
+        return response()->json( $this->ReturnJson("success",['trips' => $paginator->items()],1),200);
     }
 
     /**

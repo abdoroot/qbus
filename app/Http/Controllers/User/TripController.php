@@ -46,10 +46,7 @@ class TripController extends AppBaseController
     {
         // $query = "type=" . ($type = $request->type) .
         //         ($type != 'one-way' ? '&prev_trip_order_id='.($prevTripOrderId = $request->prev_trip_order_id) : null);
-
-        if(($type = $request->type) == 'multi'
-            && isset($request->destination)
-            && is_array($destination = $request->destination)) {
+        if(($type = $request->type) == 'multi' && isset($request->destination) && is_array($destination = $request->destination)) {
                 $i = 0;
                 if(!is_null($prevTripOrder = TripOrder::find($request->prev_trip_order_id))) {
                     $i = $prevTripOrder->nextMultiIndex();
@@ -90,11 +87,11 @@ class TripController extends AppBaseController
         }
 
         if(!empty($additional = $request->additional ?? [])) {
-            // $query .= "&additional[]=" . implode("&additional[]=", $additional);
             $paginator = $paginator->when($additional , function($query) use ($additional) {
                 $query->where(function ($query) use ($additional) {
                     foreach($additional as $addition) {
-                        $query->whereJsonContains('additional', ['id' => $addition]);
+                        //$query->whereJsonContains('additional', ['id' => $addition]);
+                        $query->where('additional', 'LIKE', '%"id":"' . $addition . '"%');
                     }
                 });
             });
@@ -146,6 +143,8 @@ class TripController extends AppBaseController
         }
 
         $paginator = $paginator->select('trips.*')->paginate($limit);
+
+        //dd($paginator->items());
 
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();
