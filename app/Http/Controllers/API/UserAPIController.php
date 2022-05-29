@@ -55,7 +55,6 @@ class UserAPIController extends AppBaseController
             //remove null values
             //$user= array_map('array_filter', $user);
 
-
             return response()->json( $this->ReturnJson("success",['token' => $token,
                 "user" => [
                     'id' => $user->id,
