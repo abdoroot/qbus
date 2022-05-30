@@ -35,7 +35,31 @@ class PackageAPIController extends AppBaseController
             'code' => $code,
         ];
         if($data != ""){
-            $array['data'] = $data;
+            $arrayData = @json_decode(json_encode($data), true);
+            foreach($arrayData as $key => $value){
+                if(is_array($value)){
+                    foreach($value as $k2 => $v2){
+                        if(is_array($v2)){
+                            foreach($v2 as $k3 => $v3){
+                                if(is_null($v3)){
+                                    $arrayData[$key][$k2][$k3] = "";
+                                }else{
+                                    //Not null v3
+                                    if(is_array($v3)){
+                                        foreach($v3 as $k4 => $v4){
+                                            if(is_null($v4)){
+                                                $arrayData[$key][$k2][$k3][$k4] = "";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            $array['data'] = $arrayData;
         }
         else{
             $array['data'] = ['message' => ""] ;

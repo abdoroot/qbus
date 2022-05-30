@@ -37,7 +37,31 @@ class TripAPIController extends AppBaseController
             'code' => $code,
         ];
         if($data != ""){
-            $array['data'] = $data;
+            $arrayData = @json_decode(json_encode($data), true);
+            foreach($arrayData as $key => $value){
+                if(is_array($value)){
+                    foreach($value as $k2 => $v2){
+                        if(is_array($v2)){
+                            foreach($v2 as $k3 => $v3){
+                                if(is_null($v3)){
+                                    $arrayData[$key][$k2][$k3] = "";
+                                }else{
+                                    //Not null v3
+                                    if(is_array($v3)){
+                                        foreach($v3 as $k4 => $v4){
+                                            if(is_null($v4)){
+                                                $arrayData[$key][$k2][$k3][$k4] = "";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            $array['data'] = $arrayData;
         }
         else{
             $array['data'] = ['message' => ""] ;
@@ -138,11 +162,10 @@ class TripAPIController extends AppBaseController
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();
 
-
         if(count($paginator->items() ) > 0) {
             return response()->json( $this->ReturnJson("success",['trips' => $paginator->items()],1),200);
         }else{
-            return response()->json( $this->ReturnJson("no data found",['trips' => $paginator->items()],0),400);
+            return response()->json( $this->ReturnJson("no data found",['trips' => ""],0),400);
         }
     }
 
