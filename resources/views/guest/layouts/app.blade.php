@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="@if(app()->getLocale() == "ar") direction:rtl @endif">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +24,7 @@
 
         @include('guest.layouts.footer')
     </div>
-    
+
     <script src="{{ asset('design/assets/js/jquery.min.js') }}"> </script>
     <script src="{{ asset('design/assets/js/slick.min.js') }}"> </script>
     @stack('third_party_scripts')
