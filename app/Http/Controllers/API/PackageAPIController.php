@@ -97,8 +97,11 @@ class PackageAPIController extends AppBaseController
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();
 
-        return response()->json( $this->ReturnJson("success",['packages' => $paginator->items()],1),200);
-
+        if(count($paginator->items() ) > 0) {
+            return response()->json($this->ReturnJson("success", ['packages' => $paginator->items()], 1), 200);
+        }else{
+            return response()->json($this->ReturnJson("no data found", ['packages' => ''], 0), 400);
+        }
     }
 
     /**
