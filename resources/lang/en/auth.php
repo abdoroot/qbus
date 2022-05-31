@@ -52,6 +52,7 @@ return array (
     'provider' => 'Provider Login',
     'register_membership' => 'Don\'t have an account ?',
     'remember_me' => 'Remember Me',
+    'subtitle' => 'Account Credentials',
     'title' => 'Login',
   ),
   'name' => 'Name',
@@ -83,7 +84,7 @@ return array (
   'step' => 'This is step :n',
   'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
   'unapproved' => 'Your account is unapproved, please contact admin for more details',
-  'verify' => 'Verification',
+  'username' => 'username',
   'verify_email' => 
   array (
     'another_req' => 'click here to request another',
@@ -99,7 +100,7 @@ return array (
     'another_req' => 'click here to request another',
     'error' => 'The code is not valid, please click the link below to request another.',
     'error_sending' => 'Some error ocuured while sending verification code.',
-    'input' => '6-digit mobile verification code',
+    'input' => '6-digit verification code',
     'notice' => 'Before proceeding, please check your phone for a verification code.If you did not receive the sms,',
     'subtitle' => 'Enter 6-digit verification code sent to your phone number.',
     'success' => 'A fresh verification code has been sent to your phone number',

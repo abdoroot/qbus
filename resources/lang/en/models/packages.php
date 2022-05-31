@@ -1,19 +1,19 @@
 <?php
 
 return array (
-  'singular' => 'Package',
-  'plural' => 'Packages',
   'fields' => 
   array (
-    'id' => 'Id',
-    'provider_id' => 'Provider Id',
-    'name' => 'Name',
-    'bus_fees' => 'Bus Fees',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
+    'additional' => 'additional',
+    'auto_approve' => 'auto_approve',
+    'bus_fees' => 'bus_fees',
+    'date_from' => 'date_from',
+    'description' => '.description',
+    'fees' => 'fees',
+    'image' => 'image',
+    'name' => 'name',
+    'starting_city_id' => 'tarting_city_id',
+    'time_from' => '.time_from',
   ),
-  'packageCities' => [
-    'title' => 'Destination Cities',
-    'subtitle' => 'Path cities in order which are included in the package',
-  ]
+  'plural' => 'Packages',
+  'singular' => 'Package',
 );

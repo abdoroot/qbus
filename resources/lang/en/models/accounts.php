@@ -1,26 +1,22 @@
 <?php
 
 return array (
-  'singular' => 'Account',
-  'plural' => 'Accounts',
+  'active' => 'active',
   'fields' => 
   array (
-    'id' => 'Id',
-    'username' => 'Username',
-    'password' => 'Password',
-    'provider_id' => 'Provider Id',
-    'active' => 'Active',
-    'status' => 'Status',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
-    'email' => 'Email',
-    'phone' => 'Phone',
-    'role' => 'Role',
+    'active' => 'active',
+    'email' => 'email',
+    'password' => 'password',
+    'phone' => 'phone',
+    'role' => 'role',
+    'username' => 'username',
   ),
-  'roles' => [
-    'admin' => 'Admin',
-    'driver' => 'Driver',
-  ],
-  'active' => 'Active',
-  'inactive' => 'Inactive'
+  'inactive' => 'inactive',
+  'plural' => 'accounts',
+  'roles' => 
+  array (
+    'admin' => 'admin',
+    'driver' => 'driver',
+  ),
+  'singular' => 'account',
 );

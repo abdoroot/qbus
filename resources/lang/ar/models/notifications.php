@@ -6,6 +6,7 @@ return array (
     'admin_id' => 'معرف الادمن',
     'icon' => 'أيقونة',
     'provider_id' => 'معرف المزود',
+    'status' => 'الحالة',
     'text' => 'نص',
     'title' => 'العنوان',
     'to' => 'الي',
@@ -14,6 +15,7 @@ return array (
     'user_id' => 'معرف المستخدم',
   ),
   'plural' => 'اشعارات',
+  'read' => 'مقروءة',
   'singular' => 'اشعار',
   'to' => 
   array (
@@ -29,4 +31,6 @@ return array (
     'success' => 'success',
     'warning' => 'warning',
   ),
+  'unauthorized' => 'غير مصرح',
+  'unread' => 'غير مقروءة',
 );

@@ -1,19 +1,29 @@
 <?php
 
 return array (
-  'singular' => 'Coupon',
-  'plural' => 'Coupons',
   'fields' => 
   array (
-    'id' => 'Id',
-    'provider_id' => 'Provider Id',
-    'name' => 'Name',
-    'date_from' => 'Date From',
-    'date_to' => 'Date To',
-    'type' => 'Type',
-    'discount' => 'Discount',
-    'code' => 'Code',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
+    'admin_notes' => 'fields.admin_notes',
+    'code' => 'code',
+    'date_from' => 'fields.date_from',
+    'date_to' => 'date_to',
+    'discount' => 'discount',
+    'name' => 'name',
+    'singular' => 'code',
+    'status' => 'status',
+    'type' => 'type',
+  ),
+  'plural' => 'coupons',
+  'singular' => 'coupon',
+  'status' => 
+  array (
+    'approved' => 'approved',
+    'pending' => '.pending',
+    'rejected' => 'rejected',
+  ),
+  'types' => 
+  array (
+    'amount' => 'amount',
+    'percentage' => 'percentage',
   ),
 );

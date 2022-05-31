@@ -23,11 +23,11 @@
     </div>
 @endsection
 
-@push('page_css') 
+@push('page_css')
 <style>
     iframe {
         width: 100%;
-        height: calc(100vh - 20em);
+        height: calc(100vh);
         border: none;
     }
 </style>
