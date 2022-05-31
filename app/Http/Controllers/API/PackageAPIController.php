@@ -36,6 +36,7 @@ class PackageAPIController extends AppBaseController
         ];
         if($data != ""){
             $arrayData = @json_decode(json_encode($data), true);
+            $arrayData = array_values($arrayData);
             foreach($arrayData as $key => $value){
                 if(is_array($value)){
                     foreach($value as $k2 => $v2){
@@ -51,13 +52,24 @@ class PackageAPIController extends AppBaseController
                                                 $arrayData[$key][$k2][$k3][$k4] = "";
                                             }
                                         }
+
+
+                                        //print_r($newAdditional);
+
                                     }
                                 }
                             }
                         }
-
+                        if(is_array($arrayData[$key][$k2]['additional'])){
+                            $newAdditional = [];
+                            foreach ($arrayData[$key][$k2]['additional'] as $ak => $av){
+                                array_push($newAdditional,['id' => $av['id'],'fees' => $av['fees']]);
+                            }
+                            $arrayData[$key][$k2]['additional'] = $newAdditional;
+                        }
                     }
                 }
+
             }
             $array['data'] = $arrayData;
         }

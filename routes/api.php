@@ -24,7 +24,8 @@ Route::get('additionals', 'SettingsAPIController@additionals');
 Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
 Route::get('return_privacy', 'SettingsAPIController@returnPolicy');
 Route::any('trips','TripAPIController@index');
-Route::any('pachages','PackageAPIController@index');
+Route::any('packages','PackageAPIController@index');
+Route::post('contact_us', 'ContactAPIController@storeAPi');
 //////////////////////////////////////////////////////////////
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('logout', 'UserAPIController@logout');

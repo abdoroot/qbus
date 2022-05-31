@@ -8,6 +8,8 @@ use App\Models\Contact;
 use App\Repositories\ContactRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Response;
 
 /**
@@ -25,13 +27,21 @@ class ContactAPIController extends AppBaseController
         $this->contactRepository = $contactRepo;
     }
 
-    /**
-     * Display a listing of the Contact.
-     * GET|HEAD /contacts
-     *
-     * @param Request $request
-     * @return Response
-     */
+
+    public function ReturnJson($message,$data,$code = 1){
+        $array = [
+            'message' => $message,
+            'code' => $code,
+        ];
+
+        if($data != ""){
+            $array['data'] = $data;
+        }else{
+            $array['data'] = ['message' => ""] ;
+        }
+        return $array;
+    }
+
     public function index(Request $request)
     {
         $contacts = $this->contactRepository->all(
@@ -64,6 +74,30 @@ class ContactAPIController extends AppBaseController
             $contact->toArray(),
             __('messages.saved', ['model' => __('models/contacts.singular')])
         );
+    }
+
+    public function storeAPi(Request $request)
+    {
+        $input = $request->all();
+
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required','string', 'email', 'max:255'],
+            'subject' => ['required', 'string', 'min:8'],
+            'message' => ['required', 'string', 'max:255']
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json( $this->ReturnJson("Please ReCheck the Fields",$validator->errors(),0),400);
+        }
+
+        $contact = $this->contactRepository->create($input);
+
+        if($contact->id){
+            return response()->json( $this->ReturnJson("success",$validator->errors(),1),200);
+        }
+
     }
 
     /**
