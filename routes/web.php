@@ -29,7 +29,6 @@ Route::get('services', 'HomeController@services')->name('services');
 Route::get('contact', 'HomeController@contact')->name('contact');
 Route::post('email', 'HomeController@email')->name('email');
 Route::get('code', 'HomeController@code')->name('code');
-Route::resource('contacts', 'ContactController')->only('index', 'show', 'create', 'store');
 
 Route::namespace('\App\Http\Controllers\User')->group(function() {
 
@@ -48,6 +47,8 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
         Route::get('profile/password', 'ProfileController@passwordIndex')->name('profile.passwordIndex');
         Route::post('profile/password', 'ProfileController@password')->name('profile.password');
         Route::get('/profile/logout', 'ProfileController@logout')->name('profile.logout');
+
+        Route::resource('contacts', 'ContactController')->only('index', 'show', 'create', 'store');
         Route::resource('notifications', 'NotificationController')->only('index', 'show', 'update', 'destroy');
 
         // bus Orders
