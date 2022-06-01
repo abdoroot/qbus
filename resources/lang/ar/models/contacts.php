@@ -12,12 +12,13 @@ return array (
     'type' => 'النوع',
   ),
   'plural' => 'رسائل الاتصال',
+  'read' => 'مقروء',
   'replied' => 'أجاب',
   'singular' => 'رسالة الاتصال',
   'types' => 
   array (
     'complaint' => 'شكوى',
-    'contact' => 'اتصل',
+    'contact' => 'اتصل بنا',
     'enquiry' => 'تحقيق',
     'help' => 'مساعدة',
     'suggestion' => 'اقتراح',

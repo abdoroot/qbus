@@ -50,6 +50,9 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
         Route::get('/profile', 'ProfileController@index')->name('profile.index');
         Route::get('/profile/settings', 'ProfileController@settings')->name('profile.shows.settings');
         Route::post('/profile', 'ProfileController@update')->name('profile.settings');
+        Route::get('profile/complaint', 'ProfileController@complaint')->name('profile.complaint');
+        Route::get('profile/complaint/{id}', 'ProfileController@showComplaint')->name('profile.show_complaint');
+        Route::get('profile/newcomplaint', 'ProfileController@newComplaint')->name('profile.new_complain');
         Route::get('profile/password', 'ProfileController@passwordIndex')->name('profile.passwordIndex');
         Route::post('profile/password', 'ProfileController@password')->name('profile.password');
         Route::get('/profile/logout', 'ProfileController@logout')->name('profile.logout');

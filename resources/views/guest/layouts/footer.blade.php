@@ -142,7 +142,7 @@
             <p class="text-lg text-gray-400 text-center md:text-left">{{ $app_copyright }}
             </p>
             <div class="flex mt-3 -mx-2 sm:mt-0 justify-center md:justify-start">
-               
+
             </div>
         </div>
     </div>

@@ -12,12 +12,13 @@ return array (
     'type' => 'Type',
   ),
   'plural' => 'Contact messages',
+  'read' => 'readed',
   'replied' => 'replied',
   'singular' => 'Contact message',
   'types' => 
   array (
     'complaint' => 'Complaint',
-    'contact' => 'Contact',
+    'contact' => 'Contact us',
     'enquiry' => 'Enquiry',
     'help' => 'Help',
     'suggestion' => 'Suggestion',
