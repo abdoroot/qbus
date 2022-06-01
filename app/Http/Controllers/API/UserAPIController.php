@@ -42,7 +42,7 @@ class UserAPIController extends AppBaseController
         if($data != ""){
             $array['data'] = $data;
         }else{
-            $array['data'] = ['message' => ""] ;
+            $array['data'] = [] ;
         }
         return $array;
     }

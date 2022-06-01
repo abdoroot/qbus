@@ -22,6 +22,12 @@ Route::get('/clear-cache', function() {
     Artisan::call('view:clear');
     return "all is cleared";
 });
+
+Route::get('error_api_login', function (){
+    ;
+    return response()->json(['message' => "Unauthenticated", 'code' => 0,'data' => []], 401);
+})->name('error_api_login');
+
 // Set Locale Route
 Route::get('setlocale/{locale}', 'HomeController@setLocale')->name('localization');
 Route::get('about', 'HomeController@about')->name('about');

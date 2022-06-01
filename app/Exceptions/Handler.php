@@ -2,9 +2,10 @@
 
 namespace App\Exceptions;
 
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Illuminate\Auth\AuthenticationException;
 class Handler extends ExceptionHandler
 {
     /**
@@ -16,6 +17,7 @@ class Handler extends ExceptionHandler
         //
     ];
 
+
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
@@ -26,6 +28,16 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+
+//    protected function unauthenticated(Request $request, AuthenticationException $exception)
+//    {
+//        if(Request::is('api/v1/*')){
+//            return response()->json(['error' => 'Unauthenticated.'], 401);
+//        }
+//
+//    }
+
 
     /**
      * Register the exception handling callbacks for the application.
