@@ -12,6 +12,7 @@ return array (
     'type' => 'Type',
   ),
   'plural' => 'Contact messages',
+  'replied' => 'replied',
   'singular' => 'Contact message',
   'types' => 
   array (
@@ -21,4 +22,6 @@ return array (
     'help' => 'Help',
     'suggestion' => 'Suggestion',
   ),
+  'unread' => 'unread',
+  'unreplied' => 'unreplied',
 );

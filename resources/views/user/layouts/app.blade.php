@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +10,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset(env('APP_FAVICON', 'elite/assets/images/favicon.png')) }}">
-    <title>{{ __('msg.app_name') }} | @yield('title')</title>
-    
+    <title>{{ __('msg.app_name') }} | @yield('title') 22</title>
+
     <link href="{{ asset('elite/assets/node_modules/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="{{ asset('elite/assets/node_modules/toast-master/css/jquery.toast.css') }}">
-    
+
     @stack('third_party_stylesheets')
 
     <!-- Custom CSS -->
@@ -89,7 +88,7 @@
                 <!-- ============================================================== -->
 
                 @yield('content')
-                
+
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Container fluid  -->
@@ -101,7 +100,7 @@
         <!-- ============================================================== -->
 
         @include('user.layouts.footer')
-        
+
     </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->

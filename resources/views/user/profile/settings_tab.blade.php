@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center mt-16">
+                <div class="flex mt-16">
                     <input type="submit" value="@lang('msg.submit')" class="px-4 text-lg py-2 text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
                 </div>
             </div>

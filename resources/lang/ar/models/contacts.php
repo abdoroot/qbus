@@ -12,6 +12,7 @@ return array (
     'type' => 'النوع',
   ),
   'plural' => 'رسائل الاتصال',
+  'replied' => 'أجاب',
   'singular' => 'رسالة الاتصال',
   'types' => 
   array (
@@ -21,4 +22,6 @@ return array (
     'help' => 'مساعدة',
     'suggestion' => 'اقتراح',
   ),
+  'unread' => 'غير مقروء',
+  'unreplied' => 'لم يتم الرد عليه',
 );

@@ -30,7 +30,6 @@ class ProfileController extends AppBaseController
     public function index(Request $request)
     {
         $user = Auth::user();
-
         return view('user.profile.index')
             ->with('user', $user)
             ->with('active', $request->active);
@@ -38,7 +37,9 @@ class ProfileController extends AppBaseController
 
     public function update(UpdateUserRequest $request)
     {
-        $input = $request->only(['name', 'email', 'phone']);
+        //$input = $request->only(['name', 'email', 'phone','date_of_birth ','image','address']);
+        $input = $request->all();
+        //dd($input);
         $user = Auth::user();
 
         if ($request->hasFile('image')) {
@@ -87,6 +88,16 @@ class ProfileController extends AppBaseController
             ->with('user', $user)
             ->with('active', $request->active);
     }
+
+
+    public function passwordIndex(Request $request)
+    {
+        $user = Auth::user();
+        return view('user.profile.passwordIndex')
+            ->with('user', $user)
+            ->with('active', $request->active);
+    }
+
     public function logout()
     {
         Auth::logout();;

@@ -37,7 +37,43 @@ class TripAPIController extends AppBaseController
             'code' => $code,
         ];
         if($data != ""){
-            $array['data'] = $data;
+            $arrayData = @json_decode(json_encode($data), true);
+            $arrayData = array_values($arrayData);
+            foreach($arrayData as $key => $value){
+                if(is_array($value)){
+                    foreach($value as $k2 => $v2){
+                        if(is_array($v2)){
+                            foreach($v2 as $k3 => $v3){
+                                if(is_null($v3)){
+                                    $arrayData[$key][$k2][$k3] = "";
+                                }else{
+                                    //Not null v3
+                                    if(is_array($v3)){
+                                        foreach($v3 as $k4 => $v4){
+                                            if(is_null($v4)){
+                                                $arrayData[$key][$k2][$k3][$k4] = "";
+                                            }
+                                        }
+
+
+                                        //print_r($newAdditional);
+
+                                    }
+                                }
+                            }
+                        }
+                        if(is_array($arrayData[$key][$k2]['additional'])){
+                            $newAdditional = [];
+                            foreach ($arrayData[$key][$k2]['additional'] as $ak => $av){
+                                array_push($newAdditional,['id' => $av['id'],'fees' => $av['fees']]);
+                            }
+                            $arrayData[$key][$k2]['additional'] = $newAdditional;
+                        }
+                    }
+                }
+
+            }
+            $array['data'] = $arrayData;
         }
         else{
             $array['data'] = ['message' => ""] ;
@@ -138,7 +174,11 @@ class TripAPIController extends AppBaseController
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();
 
-        return response()->json( $this->ReturnJson("success",['trips' => $paginator->items()],1),200);
+        if(count($paginator->items() ) > 0) {
+            return response()->json( $this->ReturnJson("success",['trips' => $paginator->items()],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("no data found",['trips' => ""],0),400);
+        }
     }
 
     /**

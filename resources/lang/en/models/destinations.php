@@ -1,17 +1,16 @@
 <?php
 
 return array (
-  'singular' => 'Destination',
-  'plural' => 'Destinations',
   'fields' => 
   array (
-    'id' => 'Id',
-    'provider_id' => 'Provider Id',
-    'from_city_id' => 'From City Id',
-    'to_city_id' => 'To City Id',
-    'bus_fees' => 'Bus Fees',
-    'passenger_fees' => 'Passenger Fees',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
+    'arrival_terminal_id' => 'arrival_terminal_id',
+    'bus_fees' => 'bus_fees',
+    'from_city_id' => 'from_city_id',
+    'name' => 'destination',
+    'starting_terminal_id' => 'starting_terminal_id',
+    'stops' => 'stops',
+    'to_city_id' => '.to_city_id',
   ),
+  'plural' => 'destinations',
+  'singular' => 'destinantion',
 );

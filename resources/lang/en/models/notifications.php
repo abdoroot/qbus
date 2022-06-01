@@ -6,6 +6,7 @@ return array (
     'admin_id' => 'Admin id',
     'icon' => 'Icon',
     'provider_id' => 'Provider id',
+    'status' => 'status',
     'text' => 'Text',
     'title' => 'Title',
     'to' => 'To',
@@ -14,6 +15,7 @@ return array (
     'user_id' => 'User id',
   ),
   'plural' => 'Notifications',
+  'read' => 'readed',
   'singular' => 'Notification',
   'to' => 
   array (
@@ -29,4 +31,6 @@ return array (
     'success' => 'Success',
     'warning' => 'Warning',
   ),
+  'unauthorized' => 'unauthorized',
+  'unread' => 'unread',
 );

@@ -1,38 +1,29 @@
 <?php
 
 return array (
-  'singular' => 'TripOrder',
-  'plural' => 'TripOrders',
   'fields' => 
   array (
-    'id' => 'Id',
-    'trip_id' => 'Trip Id',
-    'user_id' => 'User Id',
-    'seat_num' => 'Seat Num',
-    'count' => 'Count',
-    'total' => 'Total',
-    'status' => 'Status',
-    'user_notes' => 'User Notes',
-    'provider_notes' => 'Provider Notes',
-    'user_archive' => 'User Archive',
-    'provider_archive' => 'Provider Archive',
-    'created_at' => 'Created At',
-    'updated_at' => 'Updated At',
-    'fees' => 'Total fees',
-    'tax' => 'Tax',
-    'coupon_id' => 'Coupon',
-    'type' => 'Type',
+    'count' => 'count',
+    'provider_notes' => 'provider notes',
+    'status' => 'status',
+    'total' => 'total',
+    'trip_id' => 'trip id',
+    'type' => 'type',
+    'user_id' => 'user id',
+    'user_notes' => 'user notes',
   ),
-  'status' => [
-    'pending'  => 'pending',
-    'canceled' => 'canceled',
+  'plural' => 'trip orders',
+  'singular' => 'trip order',
+  'status' => 
+  array (
     'approved' => 'approved',
+    'pending' => 'pending',
     'rejected' => 'rejected',
-    'paid'     => 'paid'
-  ],
-  'types' => [
-    'one-way' => 'One-way',
-    'round' => 'Round',
-    'multi' => 'Multi'
-  ]
+  ),
+  'types' => 
+  array (
+    'multi' => 'Multiple trips',
+    'one_way' => 'one way',
+    'round' => 'round',
+  ),
 );
