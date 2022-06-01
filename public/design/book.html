@@ -1,702 +1,1057 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/css/framework/tailwind.min.css">
-  <link rel="stylesheet" href="assets/css/framework/slick.min.css">
-  <link rel="stylesheet" href="assets/css/framework/slick-theme.min.css">
-  <link rel="stylesheet" href="assets/css/style.css"><title> Bus </title> 
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/framework/tailwind.min.css">
+    <link rel="stylesheet" href="assets/css/framework/slick.min.css">
+    <link rel="stylesheet" href="assets/css/framework/slick-theme.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title> Bus </title>
 </head>
-  <body class="overflow-x-hidden">
-    <div id="Book"> <nav class="bg-white shadow dark:bg-gray-800">
-<div class="container px-6 py-4 mx-auto">
-<div class="md:flex md:items-center md:justify-between">
-<div class="flex items-center justify-between">
-<div class="text-xl font-semibold text-gray-700">
-<a class="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300" href="index.html">Bus</a>
-</div>
-<!-- Mobile menu button -->
-<div class="flex md:hidden">
-<button type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 text-2xl mr-4">AR</button>
-<button type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
-<svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
-<path fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
-</svg>
-</button>
-</div>
-</div>
-<!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-<div class="flex-1 md:flex md:items-center md:justify-between relative overflow-hidden">
-<div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
-<a href="index.html" class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 homeLink">Home</a>
-<a href="about.html" class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 aboutLink">About us</a>
-<a href="trips.html" class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 triplesLink">Trips</a>
-<a href="services.html" class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 servicesLink">Our Services</a>
-<a href="contact.html" class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 contactLink">Contact Us</a>
-</div>
-<div class="flex md:items-center mt-4 md:mt-0 flex-col md:flex-row md:flex-nowrap items-start">
-<a href="login.html" class="loginLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">Login</a>
-<a href="sign.html" class="signLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">Sign up</a>
-<button class="hidden mx-4 text-gray-600 text-lg transition-colors duration-200 transform md:block dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 focus:text-gray-700 dark:focus:text-gray-400 focus:outline-none" aria-label="show notifications"><span class="font-bold">   AR</span></button>
-<button type="button" class="flex items-center focus:outline-none mt-4 md:mt-0" aria-label="toggle profile dropdown">
-<div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full"><a href="profile.html">
-         <img src="assets/img/2.jpg" class="object-cover w-full h-full" alt="avatar"></a></div>
-<h3 class="mx-2 text-lg font-medium text-gray-700 dark:text-gray-200 md:hidden">Jhon Doe</h3>
-</button>
-</div>
-</div>
-</div>
-</div>
-</nav><section class="bg-white dark:bg-gray-900">
-<div class="container px-6 py-10 mx-auto">
-<h1 class="text-3xl mb-4 font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">Book Bus  <br /> <span class="text-blue-500 mt-4 inline-block">Let's Do Now !</span></h1>
-</div>
-</section>
-      <div class="BookBus"> 
-        <div class="container mx-auto"> 
-          <div class="row flex items-center justify-center flex-wrap p-4 md:p-0"> 
-            <div class="w-full"> 
-              <ul class="timeLine flex items-center justify-between relative overflow-hidden">
-                <li class="first bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">1</li>
-                <li class="seconed bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">2</li>
-                <li class="third bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">3</li>
-                <li class="fourth bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">4</li>
-              </ul>
+
+<body class="overflow-x-hidden">
+    <div id="Book">
+        <nav class="bg-white shadow dark:bg-gray-800">
+            <div class="container px-6 py-4 mx-auto">
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold text-gray-700">
+                            <a class="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300"
+                                href="index.html">Bus</a>
+                        </div>
+                        <!-- Mobile menu button -->
+                        <div class="flex md:hidden">
+                            <button type="button"
+                                class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400 text-2xl mr-4">AR</button>
+                            <button type="button"
+                                class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+                                aria-label="toggle menu">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                                    <path fill-rule="evenodd"
+                                        d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+                    <div class="flex-1 md:flex md:items-center md:justify-between relative overflow-hidden">
+                        <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-8">
+                            <a href="index.html"
+                                class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 homeLink">Home</a>
+                            <a href="about.html"
+                                class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 aboutLink">About
+                                us</a>
+                            <a href="trips.html"
+                                class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 triplesLink">Trips</a>
+                            <a href="services.html"
+                                class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 servicesLink">Our
+                                Services</a>
+                            <a href="contact.html"
+                                class="px-2 py-1 mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700 contactLink">Contact
+                                Us</a>
+                        </div>
+                        <div class="flex md:items-center mt-4 md:mt-0 flex-col md:flex-row md:flex-nowrap items-start">
+                            <a href="login.html"
+                                class="loginLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">Login</a>
+                            <a href="sign.html"
+                                class="signLink px-2 py-1 md:mx-2 mt-2 text-lg font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:text-blue-700 dark:hover:bg-gray-700">Sign
+                                up</a>
+                            <button
+                                class="hidden mx-4 text-gray-600 text-lg transition-colors duration-200 transform md:block dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 focus:text-gray-700 dark:focus:text-gray-400 focus:outline-none"
+                                aria-label="show notifications"><span class="font-bold"> AR</span></button>
+                            <button type="button" class="flex items-center focus:outline-none mt-4 md:mt-0"
+                                aria-label="toggle profile dropdown">
+                                <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full"><a
+                                        href="profile.html">
+                                        <img src="assets/img/2.jpg" class="object-cover w-full h-full" alt="avatar"></a>
+                                </div>
+                                <h3 class="mx-2 text-lg font-medium text-gray-700 dark:text-gray-200 md:hidden">Jhon Doe
+                                </h3>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="w-full"> 
-              <div class="firstStep">
-                 <h1 class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">Choose your location </h1>
-                <div class="map">
-                   <div class="mt-6 mb-16">
-<label for="text" class="text-lg text-gray-600 dark:text-gray-200"> Your Location</label>
-<input type="text" name="text" id="text" placeholder="Your Location" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 text-lg" />
-</div>
-<iframe width="100%" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=Dubai&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                  <div class="buttons flex items-center justify-center text-center"><a class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700" href="#!">Next Step</a></div>
-                </div>
-              </div>
-              <div class="seconedStep hidden">
-                 <h1 class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">What Is Your Destination? </h1>
-                <div class="triple">
-                   <div class="grid grid-cols-1 gap-6 my-16 sm:grid-cols-2">
-<div>
-<label class="text-gray-700 dark:text-gray-200 text-xl" for="DateFrom">Date From:</label>
-<input id="DateFrom" type="date" class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-</div>
-<div>
-<label class="text-gray-700 dark:text-gray-200 text-xl" for="Dateto">Date To:</label>
-<input id="Dateto" type="date" class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-</div>
-<div>
-<label class="text-gray-700 dark:text-gray-200 text-xl" for="TimeFrom">Time From:</label>
-<input id="TimeFrom" type="time" class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-</div>
-<div>
-<label class="text-gray-700 dark:text-gray-200 text-xl" for="timeto">Time To:</label>
-<input id="timeto" type="time" class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-</div>
-<div>
-<label class="text-gray-700 dark:text-gray-200 text-xl" for="from">To:</label>
-                  <select class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                    <option>Dubai </option>
-                    <option>Sharjah</option>
-                    <option>Dubai </option>
-                    <option>Sharjah</option>
-                    <option>Dubai </option>
-                    <option>Sharjah</option>
-                  </select></div>
-<div>
-<label class="text-gray-700 dark:text-gray-200 text-xl" for="to">From:</label>
-                  <select class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                    <option>Dubai </option>
-                    <option>Sharjah</option>
-                    <option>Dubai </option>
-                    <option>Sharjah</option>
-                    <option>Dubai </option>
-                    <option>Sharjah</option>
-                  </select></div>
-</div>
-                  <div class="buttons flex items-center justify-center text-center"><a class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back</a><a class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700" href="#!">Next Step</a></div>
-                </div>
-              </div>
-              <div class="thirdStep hidden">
-                 <h1 class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">Choose The Company </h1>
-                <div class="row flex items-center justify-center flex-wrap max-h-screen overflow-y-scroll"><div class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/49.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex mt-2 item-center">
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/49.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex mt-2 item-center">
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/49.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex mt-2 item-center">
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/49.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex mt-2 item-center">
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/49.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex mt-2 item-center">
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/49.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex mt-2 item-center">
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-<svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
-<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
-</svg>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-                </div>
-                <div class="buttons flex items-center justify-center text-center"><a class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back</a><a class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700" href="#!">Next Step</a></div>
-              </div>
-              <div class="fourthStep hidden">
-                 <h1 class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">Choose The Bus </h1>
-                <div class="row flex items-center justify-center flex-wrap"><div class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/46.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/46.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/46.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/46.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/46.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-<div class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
-                  <div class="imgItem h-72 rounded-lg overflow-hidden"><img class="object-cover object-center min-w-full  h-full" src="assets/img/46.jpg" alt="avatar"></div><div class="flex items-center px-2 py-3 bg-gray-900">
-<svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
-</svg>
-<h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
-</div>
-<div class="px-2 py-4">
-<h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson johnson</h1>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M14 11H10V13H14V11Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
-</svg>
-<h1 class="px-2 text-lg">Meraki UI</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-<path fill-rule="evenodd" clip-rule="evenodd" d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-</svg>
-<h1 class="px-2 text-lg">California</h1>
-</div>
-<div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-<svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-</svg>
-<h1 class="px-2 text-lg">patterson@example.com</h1>
-</div>
-</div>
-</div>
-                </div>
-                <div class="buttons flex items-center justify-center text-center"><a class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back</a><a class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700" href="#!">Next Step</a></div>
-              </div>
-              <div class="fifthStep hidden">
-                 <h1 class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">Do you have any notes? </h1>
-                <textarea class="w-full border-gray-700 border-2 text-lg p-4" name="" cols="30" rows="10" placeholder="what is your notes?"> </textarea>
-                <div class="buttons flex items-center justify-center text-center"><a class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back </a><a class="mt-8 btn cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700" href="index.html">Submit </a></div>
-              </div>
+        </nav>
+        <section class="bg-white dark:bg-gray-900">
+            <div class="container px-6 py-10 mx-auto">
+                <h1
+                    class="text-3xl mb-4 font-semibold text-center text-gray-800 capitalize lg:text-4xl dark:text-white">
+                    Book Bus <br /> <span class="text-blue-500 mt-4 inline-block">Let's Do Now !</span></h1>
             </div>
-          </div>
+        </section>
+        <div class="BookBus">
+            <div class="container mx-auto">
+                <div class="row flex items-center justify-center flex-wrap p-4 md:p-0">
+                    <div class="w-full">
+                        <ul class="timeLine flex items-center justify-between relative overflow-hidden">
+                            <li
+                                class="first bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">
+                                1</li>
+                            <li
+                                class="seconed bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">
+                                2</li>
+                            <li
+                                class="third bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">
+                                3</li>
+                            <li
+                                class="fourth bg-white flex text-center items-center justify-center border-black rounded-full text-2xl border-2 w-12 h-12">
+                                4</li>
+                        </ul>
+                    </div>
+                    <div class="w-full">
+                        <div class="firstStep">
+                            <h1
+                                class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">
+                                Choose your location </h1>
+                            <div class="map">
+                                <div class="mt-6 mb-16">
+                                    <label for="text" class="text-lg text-gray-600 dark:text-gray-200"> Your
+                                        Location</label>
+                                    <input type="text" name="text" id="text" placeholder="Your Location"
+                                        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 text-lg" />
+                                </div>
+                                <iframe width="100%" height="500" id="gmap_canvas"
+                                    src="https://maps.google.com/maps?q=Dubai&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                <div class="buttons flex items-center justify-center text-center"><a
+                                        class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700"
+                                        href="#!">Next Step</a></div>
+                            </div>
+                        </div>
+                        <div class="seconedStep hidden">
+                            <h1
+                                class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">
+                                What Is Your Destination? </h1>
+                            <div class="triple">
+                                <div class="grid grid-cols-1 gap-6 my-16 sm:grid-cols-2">
+                                    <div>
+                                        <label class="text-gray-700 dark:text-gray-200 text-xl" for="DateFrom">Date
+                                            From:</label>
+                                        <input id="DateFrom" type="date"
+                                            class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-700 dark:text-gray-200 text-xl" for="Dateto">Date
+                                            To:</label>
+                                        <input id="Dateto" type="date"
+                                            class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-700 dark:text-gray-200 text-xl" for="TimeFrom">Time
+                                            From:</label>
+                                        <input id="TimeFrom" type="time"
+                                            class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-700 dark:text-gray-200 text-xl" for="timeto">Time
+                                            To:</label>
+                                        <input id="timeto" type="time"
+                                            class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-700 dark:text-gray-200 text-xl" for="from">To:</label>
+                                        <select
+                                            class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                            <option>Dubai </option>
+                                            <option>Sharjah</option>
+                                            <option>Dubai </option>
+                                            <option>Sharjah</option>
+                                            <option>Dubai </option>
+                                            <option>Sharjah</option>
+                                        </select></div>
+                                    <div>
+                                        <label class="text-gray-700 dark:text-gray-200 text-xl" for="to">From:</label>
+                                        <select
+                                            class="text-xl block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                            <option>Dubai </option>
+                                            <option>Sharjah</option>
+                                            <option>Dubai </option>
+                                            <option>Sharjah</option>
+                                            <option>Dubai </option>
+                                            <option>Sharjah</option>
+                                        </select></div>
+                                </div>
+                                <div class="buttons flex items-center justify-center text-center"><a
+                                        class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back</a><a
+                                        class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700"
+                                        href="#!">Next Step</a></div>
+                            </div>
+                        </div>
+                        <div class="thirdStep hidden">
+                            <h1
+                                class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">
+                                Choose The Company </h1>
+                            <div class="row flex items-center justify-center flex-wrap max-h-screen overflow-y-scroll">
+                                <div
+                                    class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/49.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex mt-2 item-center">
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/49.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex mt-2 item-center">
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/49.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex mt-2 item-center">
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/49.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex mt-2 item-center">
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/49.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex mt-2 item-center">
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="companyItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/49.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex mt-2 item-center">
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                            <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons flex items-center justify-center text-center"><a
+                                    class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back</a><a
+                                    class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700"
+                                    href="#!">Next Step</a></div>
+                        </div>
+                        <div class="fourthStep hidden">
+                            <h1
+                                class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">
+                                Choose The Bus </h1>
+                            <div class="row flex items-center justify-center flex-wrap">
+                                <div
+                                    class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/46.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/46.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/46.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/46.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/46.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="busItem cursor-pointer mb-8 max-w-sm mx-auto lg:w-1/3 overflow-hidden bg-white px-4">
+                                    <div class="imgItem h-72 rounded-lg overflow-hidden"><img
+                                            class="object-cover object-center min-w-full  h-full"
+                                            src="assets/img/46.jpg" alt="avatar"></div>
+                                    <div class="flex items-center px-2 py-3 bg-gray-900">
+                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z" />
+                                        </svg>
+                                        <h1 class="mx-3 text-lg font-semibold text-white">Focusing</h1>
+                                    </div>
+                                    <div class="px-2 py-4">
+                                        <h1 class="text-xl font-semibold text-gray-800 dark:text-white">Patterson
+                                            johnson</h1>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 11H10V13H14V11Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7 5V4C7 2.89545 7.89539 2 9 2H15C16.1046 2 17 2.89545 17 4V5H20C21.6569 5 23 6.34314 23 8V18C23 19.6569 21.6569 21 20 21H4C2.34314 21 1 19.6569 1 18V8C1 6.34314 2.34314 5 4 5H7ZM9 4H15V5H9V4ZM4 7C3.44775 7 3 7.44769 3 8V14H21V8C21 7.44769 20.5522 7 20 7H4ZM3 18V16H21V18C21 18.5523 20.5522 19 20 19H4C3.44775 19 3 18.5523 3 18Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">Meraki UI</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">California</h1>
+                                        </div>
+                                        <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                                            </svg>
+                                            <h1 class="px-2 text-lg">patterson@example.com</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons flex items-center justify-center text-center"><a
+                                    class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back</a><a
+                                    class="mt-8 btn next cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700"
+                                    href="#!">Next Step</a></div>
+                        </div>
+                        <div class="fifthStep hidden">
+                            <h1
+                                class="text-3xl my-12 font-semibold text-left text-gray-800 capitalize lg:text-4xl dark:text-white">
+                                Do you have any notes? </h1>
+                            <textarea class="w-full border-gray-700 border-2 text-lg p-4" name="" cols="30" rows="10"
+                                placeholder="what is your notes?"> </textarea>
+                            <div class="buttons flex items-center justify-center text-center"><a
+                                    class="back mt-8  cursor-pointer bg-gray-700 float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform  rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">Back
+                                </a><a
+                                    class="mt-8 btn cursor-pointer float-right w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700"
+                                    href="index.html">Submit </a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- Map Section--><section class="text-gray-600 body-font relative md:mt-32 text-lg">
-<div class="absolute inset-0 bg-gray-300">
-<iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed" style="filter: grayscale(1) contrast(1.2) opacity(0.4);"></iframe>
-</div>
-<div class="container px-5 py-24 mx-auto flex">
-<div class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
-<h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
-<p class="leading-relaxed mb-5 text-gray-600">Post-ironic portland shabby chic echo park, banjo fashion axe</p>
-<div class="relative mb-4">
-<label for="email" class="leading-7 text-lg text-gray-600">Email</label>
-<input type="email" id="email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-</div>
-<div class="relative mb-4">
-<label for="message" class="leading-7 text-lg text-gray-600">Message</label>
-<textarea id="message" name="message" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-</div>
-<button class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Send Your Feedback</button>
-<p class="text-xs text-gray-500 mt-3">Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
-</div>
-</div>
-</section>
-<!-- end Map --><footer class="flex justify-center px-4 text-gray-800 bg-white dark:text-white dark:bg-gray-800">
-<div class="container py-6">
-<h1 class="text-lg font-bold text-center lg:text-2xl"> Join and follow us <br>   </h1>
-<div class="flex justify-center mt-6">
-<div class="bg-white border rounded-md focus-within:ring dark:bg-gray-800 dark:border-gray-600 focus-within:border-blue-400 focus-within:ring-blue-300 focus-within:ring-opacity-40 dark:focus-within:border-blue-300">
-<div class="flex flex-wrap justify-between md:flex-row">
-<input type="email" class="p-2 m-1 text-lg text-gray-700 bg-transparent appearance-none focus:outline-none focus:placeholder-transparent" placeholder="Enter your email" aria-label="Enter your email">
-<button class="w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">subscribe</button>
-</div>
-</div>
-</div>
-</div>
-</footer>
-<footer class="bg-white dark:bg-gray-800">
-<div class="container px-6  mx-auto">
-<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-<div>
-<div class="text-xs font-medium text-gray-400 uppercase text-xl">All Links</div>
-<a href="#" class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Home </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">About Us</a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Services </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Contact Us</a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Location</a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> Support  </a>
-</div>
-<div>
-<div class="text-xs font-medium text-gray-400 uppercase text-xl">Social Media</div>
-<a href="#" class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> Linkedin  </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> Facebook </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> Twitter </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> Snapchat </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> Instagram </a> 
-</div>
-<div>
-<div class="text-xs font-medium text-gray-400 uppercase text-xl">Contact us</div>
-<a href="#" class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> +971552872008  </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> anamaml761@gmail.com </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> info@bus.com </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> bus-ren.com </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline"> +97155000000 </a>
-</div>
-<div>
-<div class="text-xs font-medium text-gray-400 uppercase text-xl"> Links </div>
-<a href="#" class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Support </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Terms and Conditions  </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Privacy Page </a>
-<a href="#" class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Site Policy </a>
-</div>
-</div>
-<hr class="my-4 border-gray-200 dark:border-gray-700">
-<div class="sm:flex sm:items-center sm:justify-between py-6">
-<p class="text-lg text-gray-400 text-center md:text-left">© Copyright 2022. All Rights Reserved.</p>
-<div class="flex mt-3 -mx-2 sm:mt-0 justify-center md:justify-start">
-<a href class="block mx-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" aria-label="Reddit">
-<p class="text-lg text-gray-400 text-center md:text-left">Developed By <strong> Acoad </strong></p>
-</a>
-</div>
-</div>
-</div>
-</footer>
+        <!-- Map Section-->
+        <section class="text-gray-600 body-font relative md:mt-32 text-lg">
+            <div class="absolute inset-0 bg-gray-300">
+                <iframe width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map"
+                    scrolling="no"
+                    src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
+                    style="filter: grayscale(1) contrast(1.2) opacity(0.4);"></iframe>
+            </div>
+            <div class="container px-5 py-24 mx-auto flex">
+                <div
+                    class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10 shadow-md">
+                    <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
+                    <p class="leading-relaxed mb-5 text-gray-600">Post-ironic portland shabby chic echo park, banjo
+                        fashion axe</p>
+                    <div class="relative mb-4">
+                        <label for="email" class="leading-7 text-lg text-gray-600">Email</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                    <div class="relative mb-4">
+                        <label for="message" class="leading-7 text-lg text-gray-600">Message</label>
+                        <textarea id="message" name="message"
+                            class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                    </div>
+                    <button
+                        class="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">Send
+                        Your Feedback</button>
+                    <p class="text-xs text-gray-500 mt-3">Chicharrones blog helvetica normcore iceland tousled brook
+                        viral artisan.</p>
+                </div>
+            </div>
+        </section>
+        <!-- end Map -->
+        <footer class="flex justify-center px-4 text-gray-800 bg-white dark:text-white dark:bg-gray-800">
+            <div class="container py-6">
+                <h1 class="text-lg font-bold text-center lg:text-2xl"> Join and follow us <br> </h1>
+                <div class="flex justify-center mt-6">
+                    <div
+                        class="bg-white border rounded-md focus-within:ring dark:bg-gray-800 dark:border-gray-600 focus-within:border-blue-400 focus-within:ring-blue-300 focus-within:ring-opacity-40 dark:focus-within:border-blue-300">
+                        <div class="flex flex-wrap justify-between md:flex-row">
+                            <input type="email"
+                                class="p-2 m-1 text-lg text-gray-700 bg-transparent appearance-none focus:outline-none focus:placeholder-transparent"
+                                placeholder="Enter your email" aria-label="Enter your email">
+                            <button
+                                class="w-full px-3 py-2 m-1 text-lg font-medium tracking-wider text-white uppercase transition-colors duration-200 transform bg-blue-700 rounded-md dark:hover:bg-gray-600 dark:bg-gray-700 lg:w-auto hover:bg-gray-700">subscribe</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <footer class="bg-white dark:bg-gray-800">
+            <div class="container px-6  mx-auto">
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    <div>
+                        <div class="text-xs font-medium text-gray-400 uppercase text-xl">All Links</div>
+                        <a href="#"
+                            class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Home
+                        </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">About
+                            Us</a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Services
+                        </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Contact
+                            Us</a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Location</a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            Support </a>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-gray-400 uppercase text-xl">Social Media</div>
+                        <a href="#"
+                            class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            Linkedin </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            Facebook </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            Twitter </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            Snapchat </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            Instagram </a>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-gray-400 uppercase text-xl">Contact us</div>
+                        <a href="#"
+                            class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            +971552872008 </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            anamaml761@gmail.com </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            info@bus.com </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            bus-ren.com </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
+                            +97155000000 </a>
+                    </div>
+                    <div>
+                        <div class="text-xs font-medium text-gray-400 uppercase text-xl"> Links </div>
+                        <a href="#"
+                            class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Support
+                        </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Terms
+                            and Conditions </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Privacy
+                            Page </a>
+                        <a href="#"
+                            class="block mt-3 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">Site
+                            Policy </a>
+                    </div>
+                </div>
+                <hr class="my-4 border-gray-200 dark:border-gray-700">
+                <div class="sm:flex sm:items-center sm:justify-between py-6">
+                    <p class="text-lg text-gray-400 text-center md:text-left">© Copyright 2022. All Rights Reserved.</p>
+                    <div class="flex mt-3 -mx-2 sm:mt-0 justify-center md:justify-start">
+                        <a href class="block mx-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                            aria-label="Reddit">
+                            <p class="text-lg text-gray-400 text-center md:text-left">Developed By <strong> Acoad
+                                </strong></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
     <script src="assets/js/jquery.min.js"> </script>
     <script src="assets/js/slick.min.js"> </script>
     <script src="assets/js/index.js"> </script>
-  </body>
+</body>
+
 </html>

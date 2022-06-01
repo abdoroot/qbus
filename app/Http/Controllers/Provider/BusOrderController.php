@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Provider;
 
-use App\Http\Requests\CreateBusOrderRequest;
 use App\Http\Requests\UpdateBusOrderRequest;
 use App\Repositories\BusOrderRepository;
 use App\Http\Controllers\AppBaseController;
@@ -12,6 +11,8 @@ use App\Models\BusDatetime;
 use App\Models\Destination;
 use App\Models\User;
 use App\Models\Bus;
+use App\Models\City;
+use App\Models\BusOrder;
 use Carbon\Carbon;
 use Flash;
 use Response;
@@ -71,18 +72,25 @@ class BusOrderController extends AppBaseController
      */
     public function create()
     {
+        $status = [
+            'pending' => __('models/busOrders.status.pending'),
+            'approved' => __('models/busOrders.status.approved'),
+        ];
+
         $buses = Bus::where('provider_id', $this->provider_id)    
             ->where('active', 1)
             ->pluck('plate', 'id');
 
         $users = User::pluck('name', 'id');
-        
         $cities = City::pluck('name', 'id');
+        $tax = Auth::guard('provider')->user()->provider->tax;
 
         return view('provider.bus_orders.create')
             ->with('buses', $buses)
             ->with('users', $users)
-            ->with('cities', $cities);
+            ->with('cities', $cities)
+            ->with('status', $status)
+            ->with('tax', $tax);
     }
 
     /**
@@ -96,20 +104,15 @@ class BusOrderController extends AppBaseController
     {
         $this->validate($request, BusOrder::$provider_rules);
 
-        $bus = Bus::find($request->bus_id);
-
+        $tax = Auth::guard('provider')->user()->provider->tax;
+        
         DB::beginTransaction();
-
-        $fees = app('\App\Http\Controllers\API\ProviderAPIController')->getFees($this->provider_id, $request->destination);
-        $data = $fees->getData();
-        $bus_fees = $data->data->bus_fees;
 
         $input = array_merge([
             'provider_id' => $this->provider_id,
-            'fees'   => $bus_fees,
-            'tax' => $tax = ($bus_fees * (!is_null($provider = Provider::find($request->provider_id)) ? $provider->tax : 0) / 100),
-            'total' => $bus_fees + $tax,
-            'status' => $bus_fees ? 'approved' : 'pending',
+            'fees'   => $fees = $request->fees,
+            'tax' => $tax = ($fees * $tax / 100),
+            'total' => $fees + $tax,
         ], $request->only(
             'user_id',
             'lat',
@@ -120,9 +123,9 @@ class BusOrderController extends AppBaseController
             'date_to',
             'time_to',
             'destination',
-            'provider_id',
             'bus_id',
-            'user_notes'
+            'user_notes',
+            'status'
         ));
 
         // store busOrder
@@ -144,19 +147,6 @@ class BusOrderController extends AppBaseController
             }
         }
 
-        // send notification to the provider
-        $user_name = $busOrder->user->name;
-        $notification = Notification::create([
-            'title' => 'New bus order #' . $busOrder->id,
-            'text' => "A new order has just been created by user <b> $user_name </b>, 
-                order is " . __('models/busOrders.status.'.$busOrder->status) . ", please click to check more details.",
-            'url' => route('provider.busOrders.show', $busOrder->id),
-            'icon' => 'ti-truck',
-            'type' => 'primary',
-            'to' => 'provider',
-            'provider_id' => $busOrder->provider_id
-        ]);
-
         // send notification to the user
         $notification = Notification::create([
             'title' => 'Order #' . $busOrder->id,
@@ -170,18 +160,9 @@ class BusOrderController extends AppBaseController
         ]);
 
         DB::commit();
-
-        $flash_message = __('messages.saved', ['model' => __('models/busOrders.singular')]);
-
-        if($busOrder->status == 'approved') {
-            $flash_message .= ", " . __('msg.please_do_the_payment_and_complete_the_order');
-            Flash::success($flash_message);
-            return redirect(route('busOrders.payment', $busOrder->id));
-        }
-
-        $flash_message .= ", " . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order');
-        Flash::success($flash_message);
-        return redirect(route('busOrders.index'));
+        
+        Flash::success(__('messages.saved', ['model' => __('models/busOrders.singular')]));
+        return redirect(route('provider.busOrders.index'));
     }
 
     /**

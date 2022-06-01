@@ -1,6 +1,5 @@
 <div class="full itemForm hidden">
     {!! Form::open(['route' => 'busOrders.create', 'method' => 'get']) !!}
-    {!! Form::hidden('type', 'one-way') !!}
     <div
         class="main md:p-8 md:pt-0 flex items-center justify-centr flex-wrap md:ml-auto w-full mt-10 md:mt-0 relative z-10">
         <div class="relative mb-4 text-left w-full md:w-1/4 p-2">

@@ -22,7 +22,8 @@ class BusRepository extends BaseRepository
         'account_id',
         'provider_id',
         'active',
-        'created_at'
+        'created_at',
+        'rate'
     ];
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CreateBusOrderRequest;
 use App\Http\Requests\UpdateBusOrderRequest;
 use App\Repositories\BusOrderRepository;
 use App\Http\Controllers\AppBaseController;

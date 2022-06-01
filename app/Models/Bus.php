@@ -29,7 +29,8 @@ class Bus extends Model
         'passengers',
         'account_id',
         'provider_id',
-        'active'
+        'active',
+        'rate'
     ];
 
     /**
@@ -43,7 +44,8 @@ class Bus extends Model
         'passengers' => 'integer',
         'account_id' => 'integer',
         'provider_id' => 'integer',
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'rate' => 'double'
     ];
 
     /**

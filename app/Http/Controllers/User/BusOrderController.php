@@ -18,6 +18,7 @@ use Flash;
 use Response;
 use Auth;
 use DB;
+use TapPayment;
 
 class BusOrderController extends AppBaseController
 {
@@ -265,6 +266,76 @@ class BusOrderController extends AppBaseController
             return redirect(route('busOrders.index'));
         }
 
-        return('redirect to the payment gateway ...');
+        $user = $busOrder->user;
+
+        try {
+
+            $data = 
+            [
+                "amount" => 1,
+                "currency" => "KWD",
+                "threeDSecure" => true,
+                "save_card" => false,
+                "description" => "Bus order #$id",
+                "statement_descriptor" => "Sample",
+                "metadata" => [],
+                "reference" => [
+                    "transaction" => "txn_0001",
+                    "order" => "ord_$id"
+                ],
+                "receipt" => [
+                    "email" => false,
+                    "sms" => true
+                ],
+                "customer" =>  [
+                    "first_name" => $user->name,
+                    "email" => $user->email,
+                    "phone" => [
+                        "country_code" => "966",
+                        "number" => $user->phone
+                    ]
+                ],
+                "merchant" => ["id" => ""],
+                "source" =>["id" => "src_kw.knet"],
+                "post" => ["url" => route('busOrders.payment', $id)],
+                "redirect" => ["url" => route('busOrders.show', $id)]
+            ];
+
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.tap.company/v2/charges",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    "authorization: Bearer sk_test_atl8y2ETdzjUXRVhiwNH0nCu",
+                    "content-type: application/json"
+                ),
+            ));
+
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+
+            curl_close($curl);
+
+            if ($err) {
+                return "cURL Error #:" . $err;
+            }
+            
+            $response = json_decode($response, true);
+            $transaction = $response['transaction'];
+
+            return redirect($transaction['url']);
+            
+        } catch( \Exception $exception ) {
+            // your handling of request failure
+            Flash::error(__('msg.something_went_wrong_while_proceeding_the_payment') . ', ' . $exception->getMessage());
+            return redirect()->back();
+        }
     }
 }

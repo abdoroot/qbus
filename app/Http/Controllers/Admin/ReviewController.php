@@ -12,6 +12,7 @@ use App\Models\Trip;
 use App\Models\Package;
 use App\Models\User;
 use App\Models\BusOrder;
+use App\Models\Bus;
 use Flash;
 use Response;
 use DB;
@@ -123,6 +124,22 @@ class ReviewController extends AppBaseController
         if(!is_null($provider = Provider::find($review->provider_id))) {
             $provider->update([
                 'rate' => Review::where('provider_id', $provider->id)->where('id', '!=', $id)->sum('rate') / Review::where('provider_id', $provider->id)->where('id', '!=', $id)->count()
+            ]);
+        }
+
+        if(!is_null($busOrder = BusOrder::find($review->bus_order_id)) 
+            && !is_null($bus = Bus::find($busOrder->bus_id))) {
+            $bus->update([
+                'rate' => 
+                    Review::join('bus_orders', 'bus_orders.id', '=', 'reviews.bus_order_id')
+                        ->where('bus_orders.bus_id', $bus->id)
+                        ->where('reviews.id', '!=', $id)
+                        ->sum('reviews.rate') 
+                    / 
+                    Review::join('bus_orders', 'bus_orders.id', '=', 'reviews.bus_order_id')
+                        ->where('bus_orders.bus_id', $bus->id)
+                        ->where('reviews.id', '!=', $id)
+                        ->count()
             ]);
         }
         

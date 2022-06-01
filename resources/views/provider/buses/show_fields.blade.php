@@ -26,6 +26,12 @@
     </td>
 </tr>
 
+<!-- Rate Field -->
+<tr>
+    <th>@lang('models/buses.fields.rate')</th>
+    <td>{{ $bus->rate }}</td>
+</tr>
+
 <!-- Active Field -->
 <tr>
     <th>@lang('models/buses.fields.active')</th>

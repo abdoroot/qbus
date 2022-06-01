@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-body">
                     {!! Form::open(['route' => 'provider.busOrders.store']) !!}
-                        @include('provider.bus_orders.fields')
+                        @include('provider.bus_orders.create_fields')
                     {!! Form::close() !!}
                 </div>
             </div>
