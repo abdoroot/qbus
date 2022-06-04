@@ -2,7 +2,8 @@
     <div class="w-full mx-auto border rounded-lg md:mx-4 text-xl p-6">
         <label class="text-gray-700 text-xl font-bold" for="count">@lang('models/tripOrders.fields.count'):</label>
         <div class="block w-full items-center mt-1">
-            {!! Form::open(['route' => ['tripOrders.store', substr($url = Request::fullUrl(), strpos($url, '?') + 1)], 'id' => 'order-form']) !!}
+{{--            {!! Form::open(['route' => ['tripOrders.store', substr($url = Request::fullUrl(), strpos($url, '?') + 1)], 'id' => 'order-form']) !!}--}}
+            {!! Form::open(['route' => ['addToCart', substr($url = Request::fullUrl(), strpos($url, '?') + 1)], 'id' => 'order-form']) !!}
                 {!! Form::hidden('trip_id', $trip->id) !!}
                 {{-- {!! Form::hidden('type', $type) !!} --}}
                 {!! Form::hidden('count', 1, ['id' => 'count-input']) !!}
@@ -38,7 +39,7 @@
                     </div>
                 </div>
                 --}}
-                
+
                 {{--<div class="mt-4">
                     <label class="text-gray-700 dark:text-gray-200" for="name">@lang('models/coupons.fields.code')</label>
                     <input id="code" type="text"
@@ -61,7 +62,7 @@
                             @if(!is_null($tripAdditionals = $trip->additionals()) && !is_null($addition = collect($tripAdditionals)->where('id', $additional->id)->first()))
                             <div class="">
                                 <input type="checkbox" name="additional[]" value="{{ $addition['id'] }}" class="additional" fees="{{ $addition['fees'] }}">
-                                <span class="mx-4 text-gray-700 dark:text-gray-300">{{ $additional->name }} 
+                                <span class="mx-4 text-gray-700 dark:text-gray-300">{{ $additional->name }}
                                     @if(isset($addition) && !is_null($addition))
                                         ({{ $addition['fees'] }})
                                     @endif
@@ -116,7 +117,7 @@
                     <span id="additional" class="mx-2 text-gray-600">0</span>
                 </div>
 
-              
+
                 <div class="mt-3">
                     <strong>@lang('models/tripOrders.fields.tax') : </strong>
                     <span id="tax"

@@ -7,6 +7,7 @@ use App\Http\Requests\CreateTripOrderRequest;
 use App\Http\Requests\UpdateTripOrderRequest;
 use App\Http\Requests\API\CreateTicketAPIRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Controllers\cartController;
 use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\Notification;
@@ -26,10 +27,11 @@ class TripOrderController extends AppBaseController
     {
         $this->tripOrderRepository = $tripOrderRepo;
         $this->middleware(function ($request, $next) {
-            $this->id = Auth::check() ? Auth::user()->id : null;    
+            $this->id = Auth::check() ? Auth::user()->id : null;
             return $next($request);
         });
     }
+
 
     /**
      * Display a listing of the TripOrder.
@@ -77,7 +79,7 @@ class TripOrderController extends AppBaseController
             $count = (isset($request->additional_count[$filter['id']]) ? $request->additional_count[$filter['id']] : 1);
             $additionFees = $filter['fees'] * $count;
 
-            $additional[] = ['id' => $additional_id, 'fees' => $additionFees, 'count' => $count];
+            $additional[] = ['id' => (int)$additional_id, 'fees' => (float)$additionFees, 'count' => (int)$count];
             $additionalFees += $additionFees;
         }
 
@@ -88,11 +90,15 @@ class TripOrderController extends AppBaseController
             'tax' => $tax = ($fees * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100),
             'coupon_id' => !is_null($coupon) ? $coupon->id : null,
             'total' => is_null($coupon)
-                ? $fees + $tax + $additionalFees 
+                ? $fees + $tax + $additionalFees
                 : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
             'status' => $trip->auto_approve ? 'approved' : 'pending',
-            'additional' => json_decode(json_encode($additional))
+            'additional' => json_decode(json_encode($additional),true)
         ]);
+
+
+        //dd($input);
+        cartController::add($input);
 
         $tripOrder = $this->tripOrderRepository->create($input);
 
@@ -135,7 +141,7 @@ class TripOrderController extends AppBaseController
         $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
 
         $type = $tripOrder->type;
-        
+
         if($tripOrder->status == 'approved') {
 
             $message .= ', ' . __('msg.please_do_the_payment_and_complete_the_order');
@@ -150,7 +156,7 @@ class TripOrderController extends AppBaseController
                     'type' => $request->type
                 ]);
             } elseif($type == 'multi'
-                && isset($request->destination) 
+                && isset($request->destination)
                 && is_array($destination = $request->destination)) {
                     $data = array_merge($data, [
                         'prev_trip_order_id' => $tripOrder->id,
@@ -173,8 +179,8 @@ class TripOrderController extends AppBaseController
                 'type' => $request->type
             ]);
 
-        } elseif($type == 'multi' 
-            && isset($request->destination) 
+        } elseif($type == 'multi'
+            && isset($request->destination)
             && is_array($destination = $request->destination)
             && isset($destination['from_city_id'])
             && $tripOrder->nextMultiIndex() < count($destination['from_city_id']) - 1) {
