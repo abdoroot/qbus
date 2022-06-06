@@ -24,10 +24,14 @@
             {{ !is_null($bus) ? $bus->plate : ' - ' }}
         </span>
         <span class="text-gray-500 text-xl font-bold my-6 block">{{ __('msg.trip_starts_on') }} {{ Carbon\Carbon::parse($trip->date_from)->format('d M Y') }}</span>
-        <hr class="my-3">
         <span class="text-gray-500 text-xl font-bold mt-6 block w-full">
             SAR {{ $trip->fees }} 
             <span class="float-right text-blue-700"> {{ $trip->available }} @lang('msg.seats_only') </span> 
         </span>
+        <hr class="my-3">
+        <a href="{{ route('chats.create', ['trip_id' => $trip->id]) }}"
+            class="px-8 py-2 bg-indigo-600 text-white text-xl font-bold  font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
+            @lang('msg.send_message')
+        </a>
     </div>
 </div>

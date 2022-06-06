@@ -63,6 +63,7 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
         // package Orders
         Route::get('packageOrders/{id}/payment', 'PackageOrderController@payment')->name('packageOrders.payment');
         Route::resource('packageOrders', 'PackageOrderController');
+        Route::resource('chats', 'ChatController');
     });
 });
 
