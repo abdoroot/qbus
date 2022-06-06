@@ -38,7 +38,8 @@ class TripAPIController extends AppBaseController
         ];
         if($data != ""){
             $arrayData = @json_decode(json_encode($data), true);
-            $arrayData = array_values($arrayData);
+            //$arrayData = array_values($arrayData);
+            //dd($arrayData);
             foreach($arrayData as $key => $value){
                 if(is_array($value)){
                     foreach($value as $k2 => $v2){
@@ -54,10 +55,6 @@ class TripAPIController extends AppBaseController
                                                 $arrayData[$key][$k2][$k3][$k4] = "";
                                             }
                                         }
-
-
-                                        //print_r($newAdditional);
-
                                     }
                                 }
                             }
@@ -70,6 +67,9 @@ class TripAPIController extends AppBaseController
                             $arrayData[$key][$k2]['additional'] = $newAdditional;
                         }
                     }
+                }else{
+                    //empty
+                    //$arrayData = [[]];
                 }
 
             }
@@ -91,7 +91,12 @@ class TripAPIController extends AppBaseController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        $limit = 6;
+        $limit = 8;
+        if($request->offset){
+            $offset = $request->offset;
+        }else{
+            $offset = 0;
+        };
         $today = Carbon::now();
 
         $paginator = Trip::where(function ($query) use ($today) {
@@ -165,7 +170,7 @@ class TripAPIController extends AppBaseController
             $paginator = $paginator->where('trips.provider_id', $provider_id);
         }
 
-        $paginator = $paginator->select('trips.*')->paginate($limit);
+        $paginator = $paginator->select('trips.*')->limit($limit)->offset($offset)->get();
 
         //dd($paginator->items());
 
@@ -174,10 +179,10 @@ class TripAPIController extends AppBaseController
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();
 
-        if(count($paginator->items() ) > 0) {
-            return response()->json( $this->ReturnJson("success",['trips' => $paginator->items()],1),200);
+        if(count($paginator) > 0) {
+            return response()->json( $this->ReturnJson("success",['trips' => $paginator],1),200);
         }else{
-            return response()->json( $this->ReturnJson("no data found",['trips' => ""],0),400);
+            return response()->json( $this->ReturnJson("no data found",[],0),400);
         }
     }
 

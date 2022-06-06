@@ -16,6 +16,11 @@ return array (
     'phone' => 'Phone',
     'wallet' => 'wallet',
   ),
+  'marital_status' => 
+  array (
+    'married' => 'married',
+    'single' => 'single',
+  ),
   'plural' => 'Users',
   'singular' => 'User',
 );

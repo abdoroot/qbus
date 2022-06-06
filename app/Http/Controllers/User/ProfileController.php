@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Contact;
 use Validator;
 use Flash;
 use Auth;
@@ -96,6 +97,32 @@ class ProfileController extends AppBaseController
         return view('user.profile.passwordIndex')
             ->with('user', $user)
             ->with('active', $request->active);
+    }
+
+    public function complaint(Request $request)
+    {
+        $user = Auth::user();
+        $contacts = $user->contacts()->get();
+        //dd(json_decode(json_encode($contacts),true));
+        return view('user.profile.complaint')
+            ->with('user', $user)
+            ->with('contacts', $contacts);
+    }
+
+    public function newComplaint(Request $request)
+    {
+        $user = Auth::user();
+        return view('user.profile.new_complaint')->with('user', $user);
+    }
+
+    public function showComplaint($id)
+    {
+        $contact = Contact::find($id);
+        //dd($contact->id);
+        $user = Auth::user();
+        return view('user.profile.show_complaint')
+            ->with('user', $user)
+            ->with('contact', $contact);
     }
 
     public function logout()

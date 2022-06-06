@@ -42,7 +42,7 @@ class UserAPIController extends AppBaseController
         if($data != ""){
             $array['data'] = $data;
         }else{
-            $array['data'] = ['message' => ""] ;
+            $array['data'] = [] ;
         }
         return $array;
     }
@@ -83,6 +83,7 @@ class UserAPIController extends AppBaseController
             'name' => ['required', 'string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'min:8', 'unique:users'],
+            'city_id' => ['required','numeric','exists:cities,id'],
             'address' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date', 'max:255'],
             'marital_status' => ['required',Rule::in(['married', 'married']), 'string', 'max:20'],

@@ -1,5 +1,5 @@
 <div class="tab-pane {{ $active == 'settings' ? 'active' : '' }}" id="settings" role="tabpanel">
-    <h2 class="font-bold">Settings</h2><div class="mt-6 ">
+    <h2 class="font-bold">@lang('msg.settings')</h2><div class="mt-6 ">
     <div class="card-body">
         {!! Form::model($user, ['route' => 'profile.settings', 'files' => 'on']) !!}
             {!! Form::hidden('user', $user->id) !!}

@@ -16,6 +16,11 @@ return array (
     'phone' => 'رقم الهاتف',
     'wallet' => 'المحفظة',
   ),
+  'marital_status' => 
+  array (
+    'married' => 'متزوج',
+    'single' => 'اعزب',
+  ),
   'plural' => 'مستخدمين',
   'singular' => 'مستخدم',
 );

@@ -30,13 +30,14 @@ class PackageAPIController extends AppBaseController
     }
 
     public function ReturnJson($message,$data,$code = 1){
+        $imagesUrl = asset('images/packages/');
         $array = [
             'message' => $message,
             'code' => $code,
         ];
         if($data != ""){
             $arrayData = @json_decode(json_encode($data), true);
-            $arrayData = array_values($arrayData);
+            //$arrayData = array_values($arrayData);
             foreach($arrayData as $key => $value){
                 if(is_array($value)){
                     foreach($value as $k2 => $v2){
@@ -68,9 +69,13 @@ class PackageAPIController extends AppBaseController
                             $arrayData[$key][$k2]['additional'] = $newAdditional;
                         }
                     }
+                }else{
+                    //empty
+                    //$arrayData = [[]];
                 }
 
             }
+            $arrayData['image_base'] = $imagesUrl;
             $array['data'] = $arrayData;
         }
         else{
@@ -82,7 +87,13 @@ class PackageAPIController extends AppBaseController
     public function index(Request $request)
     {
         $query = "";
-        $limit = 6;
+        $limit = 8;
+        if($request->offset){
+            $offset = $request->offset;
+        }else{
+            $offset = 0;
+        }
+
         $today = Carbon::now();
         $paginator = new Package;
 
@@ -128,15 +139,18 @@ class PackageAPIController extends AppBaseController
             $paginator = $paginator->where('packages.provider_id', $provider_id);
         }
 
-        $paginator = $paginator->select('packages.*')->paginate($limit);
+        //$paginator = $paginator->select('packages.*')->paginate($limit);
+        $paginator = $paginator->select('packages.*')->limit($limit)->offset($offset)->get();
+
+        //dd($paginator);
 
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();
 
-        if(count($paginator->items() ) > 0) {
-            return response()->json($this->ReturnJson("success", ['packages' => $paginator->items()], 1), 200);
+        if(count($paginator ) > 0) {
+            return response()->json($this->ReturnJson("success", ['packages' => $paginator], 1), 200);
         }else{
-            return response()->json($this->ReturnJson("no data found", ['packages' => ''], 0), 400);
+            return response()->json($this->ReturnJson("no data found", ['packages' => []], 0), 400);
         }
     }
 

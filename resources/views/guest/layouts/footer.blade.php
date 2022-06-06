@@ -46,7 +46,7 @@
     <div class="container px-6  mx-auto">
         <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <div>
-                <div class="text-xs font-medium text-gray-400 uppercase text-xl">{{ $app_links_title }}</div>
+                <div class="text-xs font-medium text-gray-400 uppercase text-xl">@lang('msg.links')</div>
                 <a href="{{ route('home') }}"
                     class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
                     @lang('msg.home') </a>
@@ -61,7 +61,7 @@
                     @lang('msg.contact') </a>
             </div>
             <div>
-                <div class="text-xs font-medium text-gray-400 uppercase text-xl">{{ $app_download_title }}</div>
+                <div class="text-xs font-medium text-gray-400 uppercase text-xl">@lang('msg.app_links')</div>
                 <a href="{{ $app_store }}"
                     class="block mt-5">
                     <img src="{{ asset('images/settings/app_store.png') }}" class="h-14 w-2/3" />
@@ -72,7 +72,7 @@
                 </a>
             </div>
             <div>
-                <div class="text-xs font-medium text-gray-400 uppercase text-xl">{{ $app_contact_title }}</div>
+                <div class="text-xs font-medium text-gray-400 uppercase text-xl">@lang('msg.contact')</div>
                 <a href="#"
                     class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
                     {{ $app_location }} </a>
@@ -113,9 +113,9 @@
                         @elseif($social->key == 'instagram')
                         <img src="{{ asset('images/settings/instagram.svg') }}" class="w-6 h-6"  />
                         @elseif($social->key == 'youtube')
-                        <svg 
-                            class="w-6 h-6 text-red-600 fill-current" 
-                            xmlns="http://www.w3.org/2000/svg" 
+                        <svg
+                            class="w-6 h-6 text-red-600 fill-current"
+                            xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 16 16">
                             <path
                                 d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
@@ -126,9 +126,9 @@
                 </div>
             </div>
             <div>
-                <div class="text-xs font-medium text-gray-400 uppercase text-xl"> {{ $app_provider_title }} </div>
-                <p class="text-xs font-small text-gray-600 text-sm"> {{ $app_provider_subtitle }} </p>
-                
+                <div class="text-xs font-medium text-gray-400 uppercase text-xl"> @lang('msg.links')</div>
+{{--                <p class="text-xs font-small text-gray-600 text-sm"> {{ $app_provider_subtitle }} </p>--}}
+
                 <a href="{{ route('provider.login') }}"
                     class="block mt-5 text-lg font-medium text-gray-500 duration-700 dark:text-gray-300 hover:text-gray-400 dark:hover:text-gray-200 hover:underline">
                     @lang('auth.login.provider') </a>
@@ -142,16 +142,7 @@
             <p class="text-lg text-gray-400 text-center md:text-left">{{ $app_copyright }}
             </p>
             <div class="flex mt-3 -mx-2 sm:mt-0 justify-center md:justify-start">
-                <a href="http://acoad.net" class="block mx-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
-                    aria-label="Reddit">
-                    <p class="text-lg text-gray-400 text-center md:text-left">
-                        @if(App::isLocale('ar'))
-                        تمت البرمجة بواسطة<strong> أكواد </strong>
-                        @else
-                        Developed By <strong> Acoad </strong>
-                        @endif
-                    </p>
-                </a>
+
             </div>
         </div>
     </div>

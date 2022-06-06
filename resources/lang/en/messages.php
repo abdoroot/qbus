@@ -1,9 +1,9 @@
 <?php
 
 return array (
-  'deleted' => ':model deleted successfully.',
-  'not_found' => ':model not found',
-  'retrieved' => ':model retrieved successfully.',
-  'saved' => ':model saved successfully.',
-  'updated' => ':model updated successfully.',
+  'deleted' => 'deleted successfully.',
+  'not_found' => 'not found',
+  'retrieved' => 'retrieved successfully.',
+  'saved' => 'saved successfully.',
+  'updated' => 'updated successfully.',
 );
