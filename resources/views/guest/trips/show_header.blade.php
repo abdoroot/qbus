@@ -28,8 +28,8 @@
             SAR {{ $trip->fees }} 
             <span class="float-right text-blue-700"> {{ $trip->available }} @lang('msg.seats_only') </span> 
         </span>
-        <hr class="my-3">
-        <a href="{{ route('chats.create', ['trip_id' => $trip->id]) }}"
+        <hr class="mt-3 mb-10">
+        <a href="{{ route('chats.create', ['trip_id' => $trip->id, 'provider_id' => $trip->provider_id]) }}"
             class="px-8 py-2 bg-indigo-600 text-white text-xl font-bold  font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
             @lang('msg.send_message')
         </a>
