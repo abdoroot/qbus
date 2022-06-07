@@ -39,18 +39,18 @@
             </div>
         </div>
     </div>
-    <div class="container mx-auto text-center my-32">
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">{!! $section_title !!}</h2>
-        <p class="mt-4 text-gray-600 dark:text-gray-400 text-lg">{{ $section_text }}</p>
-        <div class="mt-8">
-            <a href="{{ $section_link }}"
-                class="px-5 py-2 font-semibold text-gray-100 transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-700 text-2xl">
-                @lang('msg.click_here')
-            </a>
-        </div>
-    </div>
+{{--    <div class="container mx-auto text-center my-32">--}}
+{{--        <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl">{!! $section_title !!}</h2>--}}
+{{--        <p class="mt-4 text-gray-600 dark:text-gray-400 text-lg">{{ $section_text }}</p>--}}
+{{--        <div class="mt-8">--}}
+{{--            <a href="{{ $section_link }}"--}}
+{{--                class="px-5 py-2 font-semibold text-gray-100 transition-colors duration-200 transform bg-gray-900 rounded-md hover:bg-gray-700 text-2xl">--}}
+{{--                @lang('msg.click_here')--}}
+{{--            </a>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
-    @include('guest.layouts.map')
+{{--    @include('guest.layouts.map')--}}
 
 @endsection
 
@@ -59,7 +59,7 @@
 <!-- Date Picker Plugin JavaScript -->
 <script src="https://unpkg.com/flowbite@1.4.5/dist/datepicker.js"></script>
 <script>
-  
+
  $(function () {
    $(".item-input").on('click', function () {
         $(".itemForm").addClass('hidden')
