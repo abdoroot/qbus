@@ -22,7 +22,7 @@ class DestinationController extends AppBaseController
     {
         $this->destinationRepository = $destinationRepo;
         $this->middleware(function ($request, $next) {
-            $this->provider_id = Auth::guard('provider')->user()->provider_id;    
+            $this->provider_id = Auth::guard('provider')->user()->provider_id;
             return $next($request);
         });
     }
@@ -101,6 +101,8 @@ class DestinationController extends AppBaseController
 
         $cities = City::pluck('name', 'id');
         $terminals = Terminal::where('provider_id', $this->provider_id)->pluck('name', 'id');
+
+        //dd($destination);
 
         return view('provider.destinations.edit')
             ->with('destination', $destination)

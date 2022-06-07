@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', 'UserAPIController@register');
+Route::post('signup', 'UserAPIController@signup');
 Route::post('login', 'UserAPIController@login');
 Route::get('cites', 'SettingsAPIController@cites');
 Route::get('about_us', 'SettingsAPIController@aboutUs');
@@ -25,9 +25,8 @@ Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
 Route::get('return_privacy', 'SettingsAPIController@returnPolicy');
 Route::any('trips','TripAPIController@index');
 Route::any('packages','PackageAPIController@index');
+Route::any('packages/{id}','PackageAPIController@show');
 Route::post('contact_us', 'ContactAPIController@storeAPi'); //todo design to
-
-
 
 
 //////////////////////////////////////////////////////////////

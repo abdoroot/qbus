@@ -25,7 +25,7 @@ Route::get('/clear-cache', function() {
 
 Route::get('error_api_login', function (){
     ;
-    return response()->json(['message' => "Unauthenticated", 'code' => 0,'data' => []], 401);
+    return response()->json(['message' => "Unauthenticated", 'code' => 0,'data' => ['message' =>'Unauthenticated']], 401);
 })->name('error_api_login');
 
 // Set Locale Route
@@ -42,6 +42,10 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
     Route::resource('packages', 'PackageController')->only('index', 'show');
 
     Route::post('trips/review', 'TripController@review')->name('trips.review');
+    //cart
+    Route::post('cart/add', 'cartController@add')->name('addToCart');
+    Route::get('cart/clear', 'cartController@clear')->name('clearCart');
+
     Route::post('packages/review', 'PackageController@review')->name('packages.review');
 
     Route::middleware(['auth'])->group(function() {
@@ -72,7 +76,6 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
         // package Orders
         Route::get('packageOrders/{id}/payment', 'PackageOrderController@payment')->name('packageOrders.payment');
         Route::resource('packageOrders', 'PackageOrderController');
-        Route::resource('chats', 'ChatController')->only('index', 'create', 'store');
     });
 });
 
