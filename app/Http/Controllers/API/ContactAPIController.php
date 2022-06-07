@@ -89,13 +89,24 @@ class ContactAPIController extends AppBaseController
 
 
         if ($validator->fails()) {
-            return response()->json( $this->ReturnJson("Please ReCheck the Fields",$validator->errors(),0),400);
+            $errors = $validator->errors();
+            $errors = json_decode(json_encode($errors),true);
+
+            $newErrors = [];
+            foreach ($errors as $key => $value){
+                array_push($newErrors,[$key => $value[0]]);
+            }
+
+            return response()->json( $this->ReturnJson("Please ReCheck the Fields",[
+                "validate_errors" => $newErrors
+            ],0),400);
+
         }
 
         $contact = $this->contactRepository->create($input);
 
         if($contact->id){
-            return response()->json( $this->ReturnJson("success",$validator->errors(),1),200);
+            return response()->json( $this->ReturnJson("success",["message" => "sent successfully "],1),200);
         }
 
     }

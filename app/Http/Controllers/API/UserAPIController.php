@@ -104,7 +104,6 @@ class UserAPIController extends AppBaseController
 
 
             return response()->json( $this->ReturnJson("Please ReCheck the ",[
-                "message"=> "",
                 "validate_errors" => $newErrors
             ],0),400);
         }
