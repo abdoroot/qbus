@@ -73,11 +73,11 @@ class UserAPIController extends AppBaseController
             ]), $this->successStatus);
         }
         else{
-            return response()->json( $this->ReturnJson("Unauthorised","",0),400);
+            return response()->json( $this->ReturnJson("Unauthorised",["message" => "Unauthorised"],0),400);
         }
     }
 
-    public function register(Request $request)
+    public function signup(Request $request)
     {
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
@@ -93,7 +93,20 @@ class UserAPIController extends AppBaseController
         //print_r($request);
 
         if ($validator->fails()) {
-            return response()->json( $this->ReturnJson("Please ReCheck the ",$validator->errors(),0),400);
+            $errors = $validator->errors();
+            $errors = json_decode(json_encode($errors),true);
+
+            $newErrors = [];
+
+            foreach ($errors as $key => $value){
+                array_push($newErrors,[$key => $value[0]]);
+            }
+
+
+            return response()->json( $this->ReturnJson("Please ReCheck the ",[
+                "message"=> "",
+                "validate_errors" => $newErrors
+            ],0),400);
         }
 
         $input = $request->all();
@@ -101,19 +114,19 @@ class UserAPIController extends AppBaseController
         $user = User::create($input);
         $success['token'] =  $user->createToken('Qbus')-> accessToken;
         $success['user'] =  [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email ?? '',
-                'phone' => $user->phone ?? '',
-                'image' => $user->image ?? '',
-                'address' => $user->address ?? '',
-                'date_of_birth' => $user->date_of_birth ?? '',
-                'marital_status' => $user->marital_status ?? '',
-                'block' => $user->block ?? 0,
-                'block_notes' => $user->block_notes ?? '',
-                'wallet' => $user->wallet ?? '',
-                'language' => $user->language ?? 'ar',
-            ];
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email ?? '',
+            'phone' => $user->phone ?? '',
+            'image' => $user->image ?? '',
+            'address' => $user->address ?? '',
+            'date_of_birth' => $user->date_of_birth ?? '',
+            'marital_status' => $user->marital_status ?? '',
+            'block' => $user->block ?? 0,
+            'block_notes' => $user->block_notes ?? '',
+            'wallet' => $user->wallet ?? '',
+            'language' => $user->language ?? 'ar',
+        ];
         $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
         $send = (array)$send ;
         //$success['verify_phone'] = $send['original']['message'];
@@ -123,7 +136,7 @@ class UserAPIController extends AppBaseController
     public function verifyPhone(Request $request){
         $user = Auth::user();
         if(!Hash::check($request->code, $user->phone_verification_code)) {
-            return response()->json( $this->ReturnJson("Error validation Code",'',0),400);
+            return response()->json( $this->ReturnJson("Error validation Code",['message' => "Error validation Code"],0),400);
         }else{
             $user->update(['phone_verified_at' => Carbon::now()->format('Y-m-d H:i:s')]);
             return response()->json( $this->ReturnJson("Phone Verified Successfully","",1),200);
