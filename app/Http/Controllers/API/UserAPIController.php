@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Controllers\smsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,6 +15,7 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Response;
+use App\Models\Otp;
 
 /**
  * Class UserController
@@ -140,6 +142,120 @@ class UserAPIController extends AppBaseController
             $user->update(['phone_verified_at' => Carbon::now()->format('Y-m-d H:i:s')]);
             return response()->json( $this->ReturnJson("Phone Verified Successfully","",1),200);
         }
+    }
+
+
+    public function forgetPassword(Request $request){
+        //$user = Auth::user();
+        $validator = Validator::make($request->all(),[
+            'phone' => ['required', 'numeric', 'min:8', 'exists:users,phone'],
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $errors = json_decode(json_encode($errors),true);
+
+            $newErrors = [];
+
+            foreach ($errors as $key => $value){
+                array_push($newErrors,[$key => $value[0]]);
+            }
+
+            return response()->json( $this->ReturnJson("Please Re Check the data",[
+                "validate_errors" => $newErrors
+            ],0),400);
+        }
+
+        $input    = $request->all();
+        $phone    = $input['phone'];
+        $user = User::where('phone',$phone)->first();
+        $code = rand(1000, 9999);
+        $smsMessage  = "Qbus OTP ".$code;
+
+        //delete old otps
+        Otp::where("user_id",$user->id)->delete();;
+        //store otp
+        Otp::create(
+            [
+                "code" => $code,
+                "user_id"=> $user->id
+            ]
+        );
+
+        //send Otp password
+        $sendSms = smsController::sendSms($phone,$smsMessage);
+        if($sendSms){
+            $responseMessage = "Reset Password Otp has been sent to +966".substr($phone,0,-4)."**** you can use ".$code;
+            return response()->json( $this->ReturnJson($responseMessage,["message" => $responseMessage],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("message not send",["message" => "message not send"],0),400);
+        }
+
+    }
+
+    public function updateProfile(Request $request){
+        $user = Auth::user();
+        $validator = Validator::make($request->all(),[
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['string', 'email', 'max:255', 'unique:users'],
+            'city_id' => ['required','numeric','exists:cities,id'],
+            'marital_status' => ['required',Rule::in(['married', 'married']), 'string', 'max:20'],
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $errors = json_decode(json_encode($errors),true);
+            $newErrors = [];
+            foreach ($errors as $key => $value){
+                array_push($newErrors,[$key => $value[0]]);
+            }
+
+            return response()->json( $this->ReturnJson("Please Re Check the data",[
+                "validate_errors" => $newErrors
+            ],0),400);
+        }
+
+        return  $user;
+
+    }
+
+
+    public function resetPassword(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            'code' => ['required', 'numeric', 'min:4','exists:users_otp,code'],
+            'password' => ['required', Rules\Password::defaults()],
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            $errors = json_decode(json_encode($errors),true);
+
+            $newErrors = [];
+
+            foreach ($errors as $key => $value){
+                array_push($newErrors,[$key => $value[0]]);
+            }
+
+            return response()->json( $this->ReturnJson("Please Re Check the data",[
+                "validate_errors" => $newErrors
+            ],0),400);
+        }
+
+        $input    = $request->all();
+        $password    = Hash::make($input['password']);
+        $code     = $input['code'];
+        $opt =  Otp::where('code',$code)->first();
+        //reset the password now
+        $op =  User::where('id',$opt->user_id)->update(['password' => $password]);
+
+        if($op){
+            $responseMessage = "Your Password Reset Successfully";
+            return response()->json( $this->ReturnJson($responseMessage,["message" => $responseMessage],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("Some thing went Wrong",["message" => "Some thing went Wrong"],0),400);
+        }
+
     }
 
     public function resendVerificationCode(){

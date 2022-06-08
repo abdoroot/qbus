@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('signup', 'UserAPIController@signup');
 Route::post('login', 'UserAPIController@login');
+Route::post('forget_password', 'UserAPIController@forgetPassword');
+Route::post('reset_password', 'UserAPIController@resetPassword');
 Route::get('cites', 'SettingsAPIController@cites');
 Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
