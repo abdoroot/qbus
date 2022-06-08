@@ -42,6 +42,10 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
     Route::resource('packages', 'PackageController')->only('index', 'show');
 
     Route::post('trips/review', 'TripController@review')->name('trips.review');
+    //cart
+    Route::post('cart/add', 'cartController@add')->name('addToCart');
+    Route::get('cart/clear', 'cartController@clear')->name('clearCart');
+
     Route::post('packages/review', 'PackageController@review')->name('packages.review');
 
     Route::middleware(['auth'])->group(function() {

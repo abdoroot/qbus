@@ -8,6 +8,7 @@ use App\Http\Requests\API\CreateTicketAPIRequest;
 use App\Http\Requests\CreateReviewRequest;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Trip;
 use App\Models\City;
 use App\Models\TripOrder;
@@ -44,6 +45,11 @@ class TripController extends AppBaseController
      */
     public function index(Request $request)
     {
+
+        //cartController::removeTrip(38);
+        ///Session::forget("cart") ;
+        ///Session::put("cart.trip_id",20) ;
+        dd(Session::all());
         // $query = "type=" . ($type = $request->type) .
         //         ($type != 'one-way' ? '&prev_trip_order_id='.($prevTripOrderId = $request->prev_trip_order_id) : null);
         if(($type = $request->type) == 'multi' && isset($request->destination) && is_array($destination = $request->destination)) {
@@ -195,6 +201,7 @@ class TripController extends AppBaseController
             ->with('additionals', $additionals)
             ->with('tax', $tax)
             ->with('type', $type);
+
     }
 
     public function review(CreateReviewRequest $request)
