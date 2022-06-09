@@ -88,7 +88,7 @@ class UserAPIController extends AppBaseController
             'city_id' => ['required','numeric','exists:cities,id'],
             'address' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date', 'max:255'],
-            'marital_status' => ['required',Rule::in(['married', 'married']), 'string', 'max:20'],
+            'marital_status' => ['required',Rule::in(['married', 'single']), 'string', 'max:20'],
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
@@ -198,8 +198,8 @@ class UserAPIController extends AppBaseController
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users'],
-            'city_id' => ['required','numeric','exists:cities,id'],
-            'marital_status' => ['required',Rule::in(['married', 'married']), 'string', 'max:20'],
+            'address' => ['required', 'string', 'max:255'],
+            'marital_status' => ['required',Rule::in(['married', 'single']), 'string', 'max:20'],
         ]);
 
         if ($validator->fails()) {
@@ -215,7 +215,17 @@ class UserAPIController extends AppBaseController
             ],0),400);
         }
 
-        return  $user;
+        $input = $request->all();
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->address = $input['address'];
+        $user->marital_status = $input['marital_status'];
+
+        if($user->save()){
+            return response()->json( $this->ReturnJson("profile updated successfully",["message" => "profile updated successfully"],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("some thing went wrong",["message" => "some thing went wrong"],0),400);
+        }
 
     }
 

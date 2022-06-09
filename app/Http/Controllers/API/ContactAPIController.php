@@ -83,6 +83,7 @@ class ContactAPIController extends AppBaseController
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required','string', 'email', 'max:255'],
+            'phone' => ['required', 'numeric', 'min:8'],
             'subject' => ['required', 'string', 'min:8'],
             'message' => ['required', 'string', 'max:255']
         ]);

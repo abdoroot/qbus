@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('logout', 'UserAPIController@logout');
     Route::get('user_info', 'UserAPIController@userInfo');
     Route::post('verify_phone', 'UserAPIController@verifyPhone');
+    Route::post('update_profile', 'UserAPIController@updateProfile');
     Route::get('resend_verification_code', 'UserAPIController@resendVerificationCode');
 });
 
