@@ -85,14 +85,12 @@ class UserAPIController extends AppBaseController
             'name' => ['required', 'string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'min:8', 'unique:users'],
-            //'city_id' => ['required','numeric','exists:cities,id'],
+            'city_id' => ['numeric','exists:cities,id'],
             'address' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date', 'max:255'],
             'marital_status' => ['required',Rule::in(['married', 'single']), 'string', 'max:20'],
             'password' => ['required', Rules\Password::defaults()],
         ]);
-
-        //print_r($request);
 
         if ($validator->fails()) {
             $errors = $validator->errors();
@@ -120,6 +118,7 @@ class UserAPIController extends AppBaseController
             'email' => $user->email ?? '',
             'phone' => $user->phone ?? '',
             'image' => $user->image ?? '',
+            'city_id' => $user->city_id ?? '',
             'address' => $user->address ?? '',
             'date_of_birth' => $user->date_of_birth ?? '',
             'marital_status' => $user->marital_status ?? '',
@@ -130,17 +129,16 @@ class UserAPIController extends AppBaseController
         ];
         $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
         $send = (array)$send ;
-        //$success['verify_phone'] = $send['original']['message'];
         return response()->json( $this->ReturnJson($send['original']['message'],$success,1),$this-> successStatus);
     }
 
     public function verifyPhone(Request $request){
         $user = Auth::user();
-        if(!Hash::check($request->code, $user->phone_verification_code)) {
-            return response()->json( $this->ReturnJson("Error validation Code",['message' => "Error validation Code"],0),400);
-        }else{
+        if(Hash::check($request->code, $user->phone_verification_code)) {
             $user->update(['phone_verified_at' => Carbon::now()->format('Y-m-d H:i:s')]);
             return response()->json( $this->ReturnJson("Phone Verified Successfully",['message' => "Phone Verified Successfully"],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("Error validation Code",['message' => "Error validation Code"],0),400);
         }
     }
 
@@ -228,7 +226,6 @@ class UserAPIController extends AppBaseController
 
     }
 
-
     public function resetPassword(Request $request){
 
         $validator = Validator::make($request->all(),[
@@ -277,33 +274,28 @@ class UserAPIController extends AppBaseController
     public function userInfo(){
         $user = Auth::user();
         return response()->json( $this->ReturnJson("success",[
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email ?? '',
-            'phone' => $user->phone ?? '',
-            'image' => $user->image ?? '',
-            'address' => $user->address ?? '',
-            'date_of_birth' => $user->date_of_birth ?? '',
-            'marital_status' => $user->marital_status ?? '',
-            'block' => $user->block ?? 0,
-            'block_notes' => $user->block_notes ?? '',
-            'wallet' => $user->wallet ?? '',
-            'language' => $user->language ?? 'ar',
+            "user" => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email ?? '',
+                'phone' => $user->phone ?? '',
+                'image' => $user->image ?? '',
+                'address' => $user->address ?? '',
+                'date_of_birth' => $user->date_of_birth ?? '',
+                'marital_status' => $user->marital_status ?? '',
+                'block' => $user->block ?? 0,
+                'block_notes' => $user->block_notes ?? '',
+                'wallet' => $user->wallet ?? '',
+                'language' => $user->language ?? 'ar',
+            ]
         ],1),200);
     }
 
     public function logout(){
         $user = Auth::user()->token()->revoke();
-        return response()->json( $this->ReturnJson('logout successfully','',1),200);
+        return response()->json( $this->ReturnJson('logout successfully',["message" => "logout successfully"],1),200);
     }
 
-    /**
-     * Display a listing of the User.
-     * GET|HEAD /users
-     *
-     * @param Request $request
-     * @return Response
-     */
     public function index(Request $request)
     {
         $users = $this->userRepository->all(
@@ -318,14 +310,6 @@ class UserAPIController extends AppBaseController
         );
     }
 
-    /**
-     * Store a newly created User in storage.
-     * POST /users
-     *
-     * @param CreateUserAPIRequest $request
-     *
-     * @return Response
-     */
     public function store(CreateUserAPIRequest $request)
     {
         $input = $request->all();
@@ -338,14 +322,6 @@ class UserAPIController extends AppBaseController
         );
     }
 
-    /**
-     * Display the specified User.
-     * GET|HEAD /users/{id}
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
     public function show($id)
     {
         /** @var User $user */
@@ -363,15 +339,6 @@ class UserAPIController extends AppBaseController
         );
     }
 
-    /**
-     * Update the specified User in storage.
-     * PUT/PATCH /users/{id}
-     *
-     * @param int $id
-     * @param UpdateUserAPIRequest $request
-     *
-     * @return Response
-     */
     public function update($id, UpdateUserAPIRequest $request)
     {
         $input = $request->all();
@@ -393,16 +360,6 @@ class UserAPIController extends AppBaseController
         );
     }
 
-    /**
-     * Remove the specified User from storage.
-     * DELETE /users/{id}
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
-     */
     public function destroy($id)
     {
         /** @var User $user */

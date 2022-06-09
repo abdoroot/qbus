@@ -37,6 +37,16 @@ class SettingsAPIController extends AppBaseController
         return response()->json( $this->ReturnJson("success",['cites' => $data],1),200);
     }
 
+    public function showCity($id)
+    {
+        $data = City::where('id',$id);
+        if($data->count() > 0){
+            return response()->json( $this->ReturnJson("success",['cites' => $data->first()],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("error",['message' => 'no data found'],0),400);
+        }
+    }
+
     public function aboutUs()
     {
         $data =[
@@ -61,7 +71,6 @@ class SettingsAPIController extends AppBaseController
         return response()->json( $this->ReturnJson("success",['contact_us' => array_filter($data)],1),200);
 
     }
-
 
     public function social()
     {
@@ -93,14 +102,15 @@ class SettingsAPIController extends AppBaseController
 
     public function privacyPolicy()
     {
-        $data = Setting::where('key','privacy_policy')->first()['value'];
-        return response()->json( $this->ReturnJson("success",['privacy_policy' => $data],1),200);
+        $data = Setting::where('key','privacy_policy')->first()->toArray();
+        //dd(Setting::where('key','privacy_policy')->first()->toArray());
+        return response()->json( $this->ReturnJson("success",['privacy_policy' => $data['trans']],1),200);
     }
 
     public function returnPolicy()
     {
-        $data = Setting::where('key','return_policy')->first()['value'];
-        return response()->json( $this->ReturnJson("success",['return_policy' => $data],1),200);
+        $data = Setting::where('key','return_policy')->first()->toArray();
+        return response()->json( $this->ReturnJson("success",['return_policy' => $data['trans']],1),200);
     }
 }
 

@@ -186,19 +186,23 @@ class PackageAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var Package $package */
         $package = $this->packageRepository->find($id);
 
         if (empty($package)) {
-            return $this->sendError(
-                __('messages.not_found', ['model' => __('models/packages.singular')])
-            );
+            $array = [
+                'message' => __('messages.not_found', ['model' => __('models/packages.singular')]),
+                'code' => 0,
+                'data' => ['message' =>  __('messages.not_found', ['model' => __('models/packages.singular')])]
+            ];
+            return response()->json($array, 400);
         }
 
-        return $this->sendResponse(
-            $package->toArray(),
-            __('messages.retrieved', ['model' => __('models/packages.singular')])
-        );
+        $array = [
+            'message' => __('messages.success', ['model' => __('models/packages.singular')]),
+            'code' => 1,
+            'data' => ['packages' => $package->toArray()]
+        ];
+        return response()->json($array, 200);
     }
 
     /**
