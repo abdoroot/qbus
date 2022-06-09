@@ -36,7 +36,7 @@ class TripAPIController extends AppBaseController
             'message' => $message,
             'code' => $code,
         ];
-        if($data != ""){
+        if($data != "" && $code == 1){
             $arrayData = @json_decode(json_encode($data), true);
             //$arrayData = array_values($arrayData);
             //dd($arrayData);

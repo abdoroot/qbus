@@ -85,7 +85,7 @@ class UserAPIController extends AppBaseController
             'name' => ['required', 'string', 'max:255'],
             'email' => ['string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required', 'numeric', 'min:8', 'unique:users'],
-            'city_id' => ['required','numeric','exists:cities,id'],
+            //'city_id' => ['required','numeric','exists:cities,id'],
             'address' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date', 'max:255'],
             'marital_status' => ['required',Rule::in(['married', 'single']), 'string', 'max:20'],
@@ -107,7 +107,7 @@ class UserAPIController extends AppBaseController
 
             return response()->json( $this->ReturnJson("Please ReCheck the ",[
                 "validate_errors" => $newErrors
-            ],0),400);
+            ],0),401);
         }
 
         $input = $request->all();
@@ -140,10 +140,9 @@ class UserAPIController extends AppBaseController
             return response()->json( $this->ReturnJson("Error validation Code",['message' => "Error validation Code"],0),400);
         }else{
             $user->update(['phone_verified_at' => Carbon::now()->format('Y-m-d H:i:s')]);
-            return response()->json( $this->ReturnJson("Phone Verified Successfully","",1),200);
+            return response()->json( $this->ReturnJson("Phone Verified Successfully",['message' => "Phone Verified Successfully"],1),200);
         }
     }
-
 
     public function forgetPassword(Request $request){
         //$user = Auth::user();
@@ -163,7 +162,7 @@ class UserAPIController extends AppBaseController
 
             return response()->json( $this->ReturnJson("Please Re Check the data",[
                 "validate_errors" => $newErrors
-            ],0),400);
+            ],0),401);
         }
 
         $input    = $request->all();
@@ -212,7 +211,7 @@ class UserAPIController extends AppBaseController
 
             return response()->json( $this->ReturnJson("Please Re Check the data",[
                 "validate_errors" => $newErrors
-            ],0),400);
+            ],0),401);
         }
 
         $input = $request->all();
@@ -249,7 +248,7 @@ class UserAPIController extends AppBaseController
 
             return response()->json( $this->ReturnJson("Please Re Check the data",[
                 "validate_errors" => $newErrors
-            ],0),400);
+            ],0),401);
         }
 
         $input    = $request->all();
@@ -272,7 +271,7 @@ class UserAPIController extends AppBaseController
         $user = Auth::user();
         $send = app('App\Http\Controllers\Auth\VerifyPhoneController')->send($user->id);
         $send = (array)$send ;
-        return response()->json( $this->ReturnJson($send['original']['message'],"",1),200);
+        return response()->json( $this->ReturnJson($send['original']['message'],['message' => $send['original']['message']],1),200);
     }
 
     public function userInfo(){

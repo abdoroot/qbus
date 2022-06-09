@@ -35,7 +35,7 @@ class PackageAPIController extends AppBaseController
             'message' => $message,
             'code' => $code,
         ];
-        if($data != ""){
+        if($data != "" && $code == 1){
             $arrayData = @json_decode(json_encode($data), true);
             //$arrayData = array_values($arrayData);
             foreach($arrayData as $key => $value){
@@ -61,6 +61,8 @@ class PackageAPIController extends AppBaseController
                                 }
                             }
                         }
+
+
                         if(is_array($arrayData[$key][$k2]['additional'])){
                             $newAdditional = [];
                             foreach ($arrayData[$key][$k2]['additional'] as $ak => $av){
@@ -79,7 +81,7 @@ class PackageAPIController extends AppBaseController
             $array['data'] = $arrayData;
         }
         else{
-            $array['data'] = ['message' => ""] ;
+            $array['data'] = ['message' => "no data found"] ;
         }
         return $array;
     }

@@ -23,6 +23,7 @@ Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
 Route::get('social', 'SettingsAPIController@social');
 Route::get('additionals', 'SettingsAPIController@additionals');
+Route::get('additionals/{id}', 'SettingsAPIController@showAdditionals');
 Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
 Route::get('return_privacy', 'SettingsAPIController@returnPolicy');
 Route::any('trips','TripAPIController@index');

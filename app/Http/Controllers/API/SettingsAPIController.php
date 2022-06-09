@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\Additional;
 use Response;
 use App\Models\City;
+use function PHPUnit\Framework\isNull;
 
 /**
  * Class FeatureController
@@ -78,6 +79,16 @@ class SettingsAPIController extends AppBaseController
     {
         $data = Additional::all();
         return response()->json( $this->ReturnJson("success",['additional' => $data],1),200);
+    }
+
+    public function showAdditionals($id)
+    {
+        $data = Additional::where('id',$id);
+        if($data->count() > 0){
+            return response()->json( $this->ReturnJson("success",['additional' => $data->first()],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("error",['message' => 'no data found'],0),400);
+        }
     }
 
     public function privacyPolicy()
