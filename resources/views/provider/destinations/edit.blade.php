@@ -1,6 +1,6 @@
 @extends('provider.layouts.app')
 
-@section('title', __('crud.create') . ' ' . __('models/destinations.singular'))
+@section('title', __('crud.edit') . ' ' . __('models/destinations.singular'))
 
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{ route('provider.destinations.index') }}">@lang('models/destinations.plural')</a></li>

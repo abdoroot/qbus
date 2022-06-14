@@ -83,19 +83,32 @@ class ContactAPIController extends AppBaseController
         $validator = Validator::make($request->all(),[
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required','string', 'email', 'max:255'],
+            'phone' => ['required', 'numeric', 'min:8'],
             'subject' => ['required', 'string', 'min:8'],
             'message' => ['required', 'string', 'max:255']
         ]);
 
 
         if ($validator->fails()) {
-            return response()->json( $this->ReturnJson("Please ReCheck the Fields",$validator->errors(),0),400);
+            $errors = $validator->errors();
+            $errors = json_decode(json_encode($errors),true);
+
+            $newErrors = [];
+            foreach ($errors as $key => $value){
+                array_push($newErrors,[$key => $value[0]]);
+            }
+
+            return response()->json( $this->ReturnJson("Please ReCheck the Fields",[
+                "validate_errors" => $newErrors,
+                "message" => "validate_errors"
+            ],0),401);
+
         }
 
         $contact = $this->contactRepository->create($input);
 
         if($contact->id){
-            return response()->json( $this->ReturnJson("success",$validator->errors(),1),200);
+            return response()->json( $this->ReturnJson("success",["message" => "sent successfully "],1),200);
         }
 
     }

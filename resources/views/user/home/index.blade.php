@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    @include('guest.layouts.map')
+{{--    @include('guest.layouts.map')--}}
 
 @endsection
 
@@ -59,7 +59,7 @@
 <!-- Date Picker Plugin JavaScript -->
 <script src="https://unpkg.com/flowbite@1.4.5/dist/datepicker.js"></script>
 <script>
-  
+
  $(function () {
    $(".item-input").on('click', function () {
         $(".itemForm").addClass('hidden')

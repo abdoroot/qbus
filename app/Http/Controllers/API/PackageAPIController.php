@@ -35,7 +35,7 @@ class PackageAPIController extends AppBaseController
             'message' => $message,
             'code' => $code,
         ];
-        if($data != ""){
+        if($data != "" && $code == 1){
             $arrayData = @json_decode(json_encode($data), true);
             //$arrayData = array_values($arrayData);
             foreach($arrayData as $key => $value){
@@ -61,6 +61,8 @@ class PackageAPIController extends AppBaseController
                                 }
                             }
                         }
+
+
                         if(is_array($arrayData[$key][$k2]['additional'])){
                             $newAdditional = [];
                             foreach ($arrayData[$key][$k2]['additional'] as $ak => $av){
@@ -79,7 +81,7 @@ class PackageAPIController extends AppBaseController
             $array['data'] = $arrayData;
         }
         else{
-            $array['data'] = ['message' => ""] ;
+            $array['data'] = ['message' => "no data found"] ;
         }
         return $array;
     }
@@ -184,19 +186,23 @@ class PackageAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var Package $package */
         $package = $this->packageRepository->find($id);
 
         if (empty($package)) {
-            return $this->sendError(
-                __('messages.not_found', ['model' => __('models/packages.singular')])
-            );
+            $array = [
+                'message' => __('messages.not_found', ['model' => __('models/packages.singular')]),
+                'code' => 0,
+                'data' => ['message' =>  __('messages.not_found', ['model' => __('models/packages.singular')])]
+            ];
+            return response()->json($array, 400);
         }
 
-        return $this->sendResponse(
-            $package->toArray(),
-            __('messages.retrieved', ['model' => __('models/packages.singular')])
-        );
+        $array = [
+            'message' => __('messages.success', ['model' => __('models/packages.singular')]),
+            'code' => 1,
+            'data' => ['packages' => $package->toArray()]
+        ];
+        return response()->json($array, 200);
     }
 
     /**

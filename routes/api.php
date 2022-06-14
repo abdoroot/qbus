@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,20 +15,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', 'UserAPIController@register');
+Route::get('test', function (){
+    $code = 2905;
+    //$codeHashed = Hash::make($code);
+    $codeHashed = '$2y$10$EuD0tc/gpYC/E071518LsuoxJRopojPqDK/E13T6nc88x0wO.RNum';
+    return Hash::check($code, $codeHashed);
+});
+
+
+Route::post('signup', 'UserAPIController@signup');
 Route::post('login', 'UserAPIController@login');
+Route::post('forget_password', 'UserAPIController@forgetPassword');
+Route::post('reset_password', 'UserAPIController@resetPassword');
 Route::get('cites', 'SettingsAPIController@cites');
+Route::get('cites/{id}', 'SettingsAPIController@showCity');
 Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
 Route::get('social', 'SettingsAPIController@social');
 Route::get('additionals', 'SettingsAPIController@additionals');
+Route::get('additionals/{id}', 'SettingsAPIController@showAdditionals');
 Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
-Route::get('return_privacy', 'SettingsAPIController@returnPolicy');
+Route::get('return_policy', 'SettingsAPIController@returnPolicy');
 Route::any('trips','TripAPIController@index');
 Route::any('packages','PackageAPIController@index');
+Route::any('packages/{id}','PackageAPIController@show');
 Route::post('contact_us', 'ContactAPIController@storeAPi'); //todo design to
-
-
 
 
 //////////////////////////////////////////////////////////////
@@ -36,6 +48,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('logout', 'UserAPIController@logout');
     Route::get('user_info', 'UserAPIController@userInfo');
     Route::post('verify_phone', 'UserAPIController@verifyPhone');
+    Route::post('update_profile', 'UserAPIController@updateProfile');
     Route::get('resend_verification_code', 'UserAPIController@resendVerificationCode');
 });
 

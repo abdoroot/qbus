@@ -36,7 +36,7 @@ class TripAPIController extends AppBaseController
             'message' => $message,
             'code' => $code,
         ];
-        if($data != ""){
+        if($data != "" && $code == 1){
             $arrayData = @json_decode(json_encode($data), true);
             //$arrayData = array_values($arrayData);
             //dd($arrayData);
@@ -76,7 +76,7 @@ class TripAPIController extends AppBaseController
             $array['data'] = $arrayData;
         }
         else{
-            $array['data'] = ['message' => ""] ;
+            $array['data'] = ['message' => "no data found"] ;
         }
         return $array;
     }
@@ -171,10 +171,6 @@ class TripAPIController extends AppBaseController
         }
 
         $paginator = $paginator->select('trips.*')->limit($limit)->offset($offset)->get();
-
-        //dd($paginator->items());
-
-       // echo count($paginator->items());
 
         $cities = City::pluck('name', 'id');
         $additionals = Additional::get();

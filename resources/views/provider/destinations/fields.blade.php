@@ -74,7 +74,7 @@
         @elseif(isset($destination))
         values = {!! json_encode(array_map(function($terminal, $index) {
             return ['stops['.$index.']' => $terminal['id']];
-        }, $stopTerminals = $destination->stopTerminals(), array_keys($stopTerminals))) !!};
+        }, $stopTerminals = json_decode(json_encode($destination->stopTerminals()),true), array_keys($stopTerminals))) !!};
         @else
         values = [
             {'stops[0]': null},

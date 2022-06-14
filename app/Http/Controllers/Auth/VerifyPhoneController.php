@@ -57,13 +57,13 @@ class VerifyPhoneController extends Controller
             return response()->json(['success' => false, 'message' => $error]);
         }
 
-        $code = rand(100000, 999999);
+        $code = rand(1000, 9999);
         $user = $this->userRepository->update(['phone_verification_code' => Hash::make($code)], $id);
 
         // Send Phone Verification Code By SMS
         try {
-            
-        } catch (\Throwable $th) {            
+
+        } catch (\Throwable $th) {
             return response()->json(['success' => false, 'message' => __('auth.verify_phone.error_sending')]);
         }
 
