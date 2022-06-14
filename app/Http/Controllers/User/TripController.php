@@ -49,7 +49,7 @@ class TripController extends AppBaseController
         //cartController::removeTrip(38);
         ///Session::forget("cart") ;
         ///Session::put("cart.trip_id",20) ;
-        dd(Session::all());
+        // dd(Session::all());
         // $query = "type=" . ($type = $request->type) .
         //         ($type != 'one-way' ? '&prev_trip_order_id='.($prevTripOrderId = $request->prev_trip_order_id) : null);
         if(($type = $request->type) == 'multi' && isset($request->destination) && is_array($destination = $request->destination)) {

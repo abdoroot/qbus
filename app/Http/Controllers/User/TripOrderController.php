@@ -7,7 +7,7 @@ use App\Http\Requests\CreateTripOrderRequest;
 use App\Http\Requests\UpdateTripOrderRequest;
 use App\Http\Requests\API\CreateTicketAPIRequest;
 use App\Http\Controllers\AppBaseController;
-use App\Http\Controllers\cartController;
+use App\Http\Controllers\User\cartController;
 use Illuminate\Http\Request;
 use App\Models\Trip;
 use App\Models\Notification;
@@ -17,6 +17,7 @@ use Flash;
 use Response;
 use Auth;
 use DB;
+use Session;
 
 class TripOrderController extends AppBaseController
 {
@@ -50,153 +51,59 @@ class TripOrderController extends AppBaseController
 
     public function store(Request $request)
     {
-        $trip = Trip::find($request->trip_id);
+        $type = $request->type;
+        $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
 
-        DB::beginTransaction();
+        $request->request->add(['user_id' => $this->id]);
 
-        $coupon = Coupon::where([
-                'code' => $request->code,
-                'provider_id' => $trip->provider_id,
-                'status' => 'approved',
-            ])
-            ->where('date_from', '<=', $today = Carbon::now()->toDateString())
-            ->where('date_to', '>=', $today)
-            ->first();
-
-        $additionalFees = 0;
-        $additional = [];
-        $tripAdditional = $trip->additional;
-
-        foreach ($request->additional ?? [] as $additional_id) {
-            $filter = array_filter($tripAdditional, function ($addition) use ($additional_id)
-            {
-                return $addition['id'] == $additional_id;
-            });
-
-            if(is_null($filter)) continue;
-
-            $filter = array_shift($filter);
-            $count = (isset($request->additional_count[$filter['id']]) ? $request->additional_count[$filter['id']] : 1);
-            $additionFees = $filter['fees'] * $count;
-
-            $additional[] = ['id' => (int)$additional_id, 'fees' => (float)$additionFees, 'count' => (int)$count];
-            $additionalFees += $additionFees;
-        }
-
-        $input = array_merge($request->only('trip_id', 'count', 'user_notes', 'type', 'prev_trip_order_id'), [
-            'user_id' => $this->id,
-            'provider_id' => $trip->provider_id,
-            'fees' => $fees = $trip->fees * $request->count,
-            'tax' => $tax = ($fees * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100),
-            'coupon_id' => !is_null($coupon) ? $coupon->id : null,
-            'total' => is_null($coupon)
-                ? $fees + $tax + $additionalFees
-                : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
-            'status' => $trip->auto_approve ? 'approved' : 'pending',
-            'additional' => json_decode(json_encode($additional),true)
-        ]);
-
-
-        //dd($input);
-        cartController::add($input);
-
-        $tripOrder = $this->tripOrderRepository->create($input);
-
-        // Notify Provider
-        $providerNotif = Notification::create([
-            'title' => 'Trip Order #' . $tripOrder->id,
-            'text' => "New reservation for trip #{$trip->id}, please click to check more details.",
-            'url' => route('provider.tripOrders.show', $tripOrder->id),
-            'icon' => 'ti-shopping-cart',
-            'type' => ($tripOrder->status == 'pending' ? 'warning' : 'info'),
-            'to' => 'provider',
-            'provider_id' => $tripOrder->provider_id
-        ]);
-
-        // Notify User
-        $userNotif = Notification::create([
-            'title' => 'Trip Order #' . $tripOrder->id,
-            'text' => "Your order is created successfully for trip #{$trip->id}, please click to check more details.",
-            'url' => route('tripOrders.show', $tripOrder->id),
-            'icon' => 'ti-shopping-cart',
-            'type' => 'info',
-            'to' => 'user',
-            'user_id' => $tripOrder->user_id
-        ]);
-
-        // store order Tickets (only if approved)
-        if($tripOrder->status == 'approved') {
-            $apiRequest = new CreateTicketAPIRequest;
-            $apiRequest->replace(['type' => 'trip', 'trip_order_id' => $tripOrder->id]);
-            $storeTickets = app('App\Http\Controllers\API\TicketAPIController')->store($apiRequest);
-            $response     = $storeTickets->getData();
+        if($type == 'one-way') {
+            $input = cartController::buildTheRequest($request);
+            $response = $this->saveTripOrder($input);
             if(!$response->success) {
                 Flash::error($response->message);
                 return redirect()->back()->withInput();
             }
+
+            $tripOrder = $response->$tripOrder;
+
+            $request->session()->flash('payment', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
+            return redirect()->route('tripOrders.payment', ['id' => $tripOrder->id]);
         }
 
-        DB::commit();
-
-        $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
-
-        $type = $tripOrder->type;
-
-        if($tripOrder->status == 'approved') {
-
-            $message .= ', ' . __('msg.please_do_the_payment_and_complete_the_order');
-            $request->session()->flash('payment', $message);
-            $data = ['id' => $tripOrder->id];
-            if($type == 'round' && is_null($request->prev_trip_order_id)) {
-                $data = array_merge($data, [
-                    'prev_trip_order_id' => $tripOrder->id,
+        // Add To Cart (Trip type is round or multi)
+        if(cartController::add($request)) {
+            $cart = Session::get('cart');
+            if($type == 'round') {
+                if(count($cart) > 1) {
+                    $request->session()->flash('flash_cart', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
+                    return redirect()->route('cart');
+                }
+                $request->session()->flash('trip', $message . ', ' . __('msg.choose_your_next_trip'));
+                return redirect()->route('trips.index', [
                     'from_city_id' => $request->to_city_id,
                     'to_city_id' => $request->from_city_id,
                     'date_from' => $request->date_to ?? $request->date_from,
-                    'type' => $request->type
+                    'type' => $type
                 ]);
             } elseif($type == 'multi'
                 && isset($request->destination)
-                && is_array($destination = $request->destination)) {
-                    $data = array_merge($data, [
-                        'prev_trip_order_id' => $tripOrder->id,
+                && is_array($destination = $request->destination)
+                && isset($destination['from_city_id'])) {
+
+                    if(count($cart) >= count($destination['from_city_id']) - 1) {
+                        $request->session()->flash('flash_cart', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
+                        return redirect()->route('cart');
+                    }
+                    $request->session()->flash('trip', $message . ', ' . __('msg.choose_your_next_trip'));
+                    return redirect()->route('trips.index', [
                         'destination' => $request->destination,
-                        'type' => $request->type
+                        'type' => $type
                     ]);
             }
-
-            return redirect()->route('tripOrders.payment', $data);
-
-        } elseif($type == 'round' && is_null($request->prev_trip_order_id)) {
-
-            $message .= ', ' . __('msg.choose_your_next_trip');
-            $request->session()->flash('trip', $message);
-            return redirect()->route('trips.index', [
-                'prev_trip_order_id' => $tripOrder->id,
-                'from_city_id' => $request->to_city_id,
-                'to_city_id' => $request->from_city_id,
-                'date_from' => $request->date_to ?? $request->date_from,
-                'type' => $request->type
-            ]);
-
-        } elseif($type == 'multi'
-            && isset($request->destination)
-            && is_array($destination = $request->destination)
-            && isset($destination['from_city_id'])
-            && $tripOrder->nextMultiIndex() < count($destination['from_city_id']) - 1) {
-
-                $message .= ', ' . __('msg.choose_your_next_trip');
-                $request->session()->flash('trip', $message);
-                return redirect()->route('trips.index', [
-                    'prev_trip_order_id' => $tripOrder->id,
-                    'destination' => $request->destination,
-                    'type' => $request->type
-                ]);
         }
 
-        $message .= ', ' . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order');
-        $request->session()->flash('trip', $message);
-        return redirect()->back();
+        $request->session()->flash('cart', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
+        return redirect()->route('carts.index');
     }
 
     /**
@@ -310,5 +217,51 @@ class TripOrderController extends AppBaseController
         }
 
         return('redirect to the payment gateway ...');
+    }
+
+    public function saveTripOrder($input)
+    {
+        DB::beginTransaction();
+
+        $tripOrder = $this->tripOrderRepository->create($input);
+        $trip = $tripOrder->trip;
+
+        // Notify Provider
+        $providerNotif = Notification::create([
+            'title' => 'Trip Order #' . $tripOrder->id,
+            'text' => "New reservation for trip #{$trip->id}, please click to check more details.",
+            'url' => route('provider.tripOrders.show', $tripOrder->id),
+            'icon' => 'ti-shopping-cart',
+            'type' => ($tripOrder->status == 'pending' ? 'warning' : 'info'),
+            'to' => 'provider',
+            'provider_id' => $tripOrder->provider_id
+        ]);
+
+        // Notify User
+        $userNotif = Notification::create([
+            'title' => 'Trip Order #' . $tripOrder->id,
+            'text' => "Your order is created successfully for trip #{$trip->id}, please click to check more details.",
+            'url' => route('tripOrders.show', $tripOrder->id),
+            'icon' => 'ti-shopping-cart',
+            'type' => 'info',
+            'to' => 'user',
+            'user_id' => $tripOrder->user_id
+        ]);
+
+        // store order Tickets (only if approved)
+        // if($tripOrder->status == 'approved') {
+        $apiRequest = new CreateTicketAPIRequest;
+        $apiRequest->replace(['type' => 'trip', 'trip_order_id' => $tripOrder->id]);
+        $storeTickets = app('App\Http\Controllers\API\TicketAPIController')->store($apiRequest);
+        $response     = $storeTickets->getData();
+
+        if(!$response->success) {
+            DB::rollback();
+            return $response;
+        }
+
+        DB::commit();
+        return response()->json(['success' => true, 'tripOrder' => $tripOrder]);
+        // }
     }
 }

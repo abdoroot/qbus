@@ -43,6 +43,8 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
 
     Route::post('trips/review', 'TripController@review')->name('trips.review');
     //cart
+    Route::get('cart', 'cartController@index')->name('cart');
+    Route::post('cart/{tripId}', 'cartController@removeFromCart')->name('removeFromCart');
     Route::post('cart/add', 'cartController@add')->name('addToCart');
     Route::get('cart/clear', 'cartController@clear')->name('clearCart');
 

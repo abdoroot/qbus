@@ -11,6 +11,22 @@ use Illuminate\Support\Facades\Session;
 
 class cartController extends Controller
 {
+    public function index(Request $request)
+    {
+        $cart = Session::get('cart') ?? [];
+
+        $trips = [];
+
+        foreach($cart as $item) {
+            if(!is_null($trip = Trip::find(isset($item['trip_id']) ? $item['trip_id'] : null))) {
+                $trips[] = $trip;
+            }
+        }
+
+        return view('user.cart.index')
+            ->with('cart', $cart)
+            ->with('trips', $trips);
+    }
     public function isAddedBefore($tripId){
 
         $cart = Session::get('cart');
@@ -25,22 +41,22 @@ class cartController extends Controller
         return false;
     }
 
-    public function buildTheRequest($request){
-
+    public function buildTheRequest($request)
+    {
         $trip = Trip::find($request->trip_id);
 
-        $additional = [];
-
-        $tripAdditional = $trip->additional;
-
         $coupon = Coupon::where([
-            'code' => $request->code,
-            'provider_id' => $trip->provider_id,
-            'status' => 'approved',
-        ])
+                'code' => $request->code,
+                'provider_id' => $trip->provider_id,
+                'status' => 'approved',
+            ])
             ->where('date_from', '<=', $today = Carbon::now()->toDateString())
             ->where('date_to', '>=', $today)
             ->first();
+
+        $additionalFees = 0;
+        $additional = [];
+        $tripAdditional = $trip->additional;
 
         foreach ($request->additional ?? [] as $additional_id) {
             $filter = array_filter($tripAdditional, function ($addition) use ($additional_id)
@@ -55,32 +71,41 @@ class cartController extends Controller
             $additionFees = $filter['fees'] * $count;
 
             $additional[] = ['id' => (int)$additional_id, 'fees' => (float)$additionFees, 'count' => (int)$count];
+            $additionalFees += $additionFees;
         }
 
-        $product =  array_merge($request->only('trip_id', 'count', 'user_notes', 'type', 'prev_trip_order_id'), [
+        $input = array_merge($request->only('user_id', 'trip_id', 'count', 'user_notes', 'type', 'prev_trip_order_id'), [
+            'provider_id' => $trip->provider_id,
             'fees' => $fees = $trip->fees * $request->count,
+            'tax' => $tax = ($fees * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100),
             'coupon_id' => !is_null($coupon) ? $coupon->id : null,
+            'total' => is_null($coupon)
+                ? $fees + $tax + $additionalFees
+                : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
+            'status' => $request->type == 'one-way' ? 'approved' : 'pending', // $trip->auto_approve ? 'approved' : 'pending',
             'additional' => json_decode(json_encode($additional),true)
         ]);
 
-        return $product;
+        return $input;
     }
 
     public function add(Request $request){
 
-        $product = cartController::buildTheRequest($request);
+        $input = cartController::buildTheRequest($request);
 
-        $tripId     = $product['trip_id'];
+        $tripId  = $input['trip_id'];
 
         //search for the trip if already added
         if(!cartController::isAddedBefore($tripId)){
             //add to session
-            Session::push("cart",$product);
+            Session::push("cart",$input);
             //dd('added');
         }else{
             //update the session
-            cartController::update($tripId,$product);
+            cartController::update($tripId,$input);
         }
+
+        return true;
     }
 
     public function update($tripId,array $product)
@@ -153,6 +178,12 @@ class cartController extends Controller
                 }
             }
         }
+    }
+
+    public function removeFromCart($tripId)
+    {
+        $this->removeTrip($tripId);
+        return redirect()->route('cart');
     }
 
     public function clear(){

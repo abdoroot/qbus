@@ -246,6 +246,11 @@ class Trip extends Model
         return '#' . $this->id;
     }
 
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . (!is_null($destination = $this->destination) ? ' : ' . $destination->name : '');
+    }
+
     public function viewDiv(String $className = null, String $query = null)
     {
         $rate = "";
