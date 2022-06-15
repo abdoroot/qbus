@@ -31,12 +31,11 @@
                                     <p class="description">{{ $trip->description }} </p>
                                     <div class="flex items-center justify-between flex-wrap">
                                         <ul class="items-center text-xl w-full md:w-1/2">
-                                            <li class="newPrice">{{ $trip->fees }} SAR </li>
-                                            @if(!is_null($cartItem = array_filter($cart, function($item) use ($trip) {
-                                                return $item['trip_id'] == $trip->id;
-                                            })))
+                                            <li class="newPrice">{{ $trip->tot_fees }} SAR </li>
+                                            @if($trip->add_fees)
                                             <li class="block">@lang('msg.additionals') : 
-                                                {{ $additional = array_sum(array_map(function($item) { return $item['fees']; }, array_shift($cartItem)['additional'])) }} SAR </li>
+                                                {{ $trip->add_fees }} SAR 
+                                            </li>
                                             @endif
                                         </ul>
                                         <div class="options flex w-full md:w-1/2 items-center justify-end text-3xl">
@@ -68,14 +67,15 @@
                                     <h3>@lang('cart.prices')</h3>
                                 </ul>
                                 <ul class="flex items-center justify-between flex-wrap">
-                                    <li class="flex w-full justify-between"> <span> Vat</span><span
-                                            class="font-bold">5%</span></li>
-                                    <li class="flex w-full justify-between"> <span> price </span><span
-                                            class="font-bold">1000 AED</span></li>
-                                    <li class="flex w-full justify-between"> <span> total </span><span class="font-bold">
-                                            1050 AED</span></li>
+                                    <li class="flex w-full justify-between"> <span> @lang('cart.fees')</span><span
+                                            class="font-bold">{{ $fees }}</span></li>
+                                    <li class="flex w-full justify-between"> <span> @lang('cart.additional_fees') </span><span
+                                            class="font-bold">{{ $additional_fees }}</span></li>
+                                    <li class="flex w-full justify-between"> <span> @lang('cart.total') </span><span class="font-bold">
+                                            {{ $total}}</span></li>
                                 </ul>
                             </div>
+                            <a href="{{ route('storeCart') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded">@lang('cart.confirm_and_order')</a>
                         </div>
                     </div>
                 </div>

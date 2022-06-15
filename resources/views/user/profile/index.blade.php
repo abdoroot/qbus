@@ -10,7 +10,8 @@
         </div>
         <div class="w-full md:w-3/4 p-4 md:p-8">
             <div class="profileTap">
-                <h2 class="font-bold">@lang('msg.profile')</h2><div class="mt-6 ">
+                <h2 class="font-bold">@lang('msg.profile')</h2>
+                <div class="mt-6 ">
                     @include('flash::message')
                     <div class="items-center -mx-2 md:flex mb-4 md:mb-16">
                         <div class="w-full mx-2">

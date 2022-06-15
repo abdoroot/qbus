@@ -47,6 +47,8 @@ Route::namespace('\App\Http\Controllers\User')->group(function() {
     Route::post('cart/{tripId}', 'cartController@removeFromCart')->name('removeFromCart');
     Route::post('cart/add', 'cartController@add')->name('addToCart');
     Route::get('cart/clear', 'cartController@clear')->name('clearCart');
+    Route::get('cart/store', 'cartController@store')->name('storeCart');
+    Route::get('cart/payment', 'cartController@payment')->name('cartPayment');
 
     Route::post('packages/review', 'PackageController@review')->name('packages.review');
 

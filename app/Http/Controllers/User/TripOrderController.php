@@ -59,12 +59,13 @@ class TripOrderController extends AppBaseController
         if($type == 'one-way') {
             $input = cartController::buildTheRequest($request);
             $response = $this->saveTripOrder($input);
+            $response = $response->getData();
             if(!$response->success) {
                 Flash::error($response->message);
                 return redirect()->back()->withInput();
             }
 
-            $tripOrder = $response->$tripOrder;
+            $tripOrder = $response->tripOrder;
 
             $request->session()->flash('payment', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
             return redirect()->route('tripOrders.payment', ['id' => $tripOrder->id]);
@@ -90,7 +91,7 @@ class TripOrderController extends AppBaseController
                 && is_array($destination = $request->destination)
                 && isset($destination['from_city_id'])) {
 
-                    if(count($cart) >= count($destination['from_city_id']) - 1) {
+                    if(count($cart) >= count($destination['from_city_id'])) {
                         $request->session()->flash('flash_cart', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
                         return redirect()->route('cart');
                     }

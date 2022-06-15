@@ -16,16 +16,32 @@ class cartController extends Controller
         $cart = Session::get('cart') ?? [];
 
         $trips = [];
+        $fees = 0;
+        $additional_fees = 0;
+        $total = 0;
 
         foreach($cart as $item) {
             if(!is_null($trip = Trip::find(isset($item['trip_id']) ? $item['trip_id'] : null))) {
+                $tot_fees = $item['count'] * $trip->fees;
+                $trip->tot_fees = $tot_fees;
+                $fees += $tot_fees;
+                if(!empty($additional = $item['additional'])) {
+                    $add_fees = array_sum(array_map(function($it) { return $it['fees'] * $it['count']; }, $additional));
+                    $trip->add_fees = $add_fees;
+                    $additional_fees += $add_fees;
+                }
                 $trips[] = $trip;
             }
         }
 
+        $total = $fees + $additional_fees;
+
         return view('user.cart.index')
             ->with('cart', $cart)
-            ->with('trips', $trips);
+            ->with('trips', $trips)
+            ->with('fees', $fees)
+            ->with('additional_fees', $additional_fees)
+            ->with('total', $total);
     }
     public function isAddedBefore($tripId){
 
@@ -189,5 +205,32 @@ class cartController extends Controller
     public function clear(){
         Session::forget("cart") ;
         return redirect(route('home'));
+    }
+
+    public function store()
+    {
+        $cart = Session::get('cart');
+
+        foreach($cart as $i => $item) {
+            $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($item);
+            $response = $response->getData();
+            if(!$response->success) {
+                Flash::error($response->message);
+                return redirect()->back()->withInput();
+            }
+
+            $tripOrder = $response->tripOrder;
+
+            if(isset($cart[$i+1])) $cart[$i+1]['prev_trip_order_id'] = $tripOrder->id;
+        }
+
+        $this->clear();
+        
+        return redirect()->route('cartPayment');
+    }
+
+    public function payment()
+    {
+        return "redirecting to payment gateway ...";
     }
 }
