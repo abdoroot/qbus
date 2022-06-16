@@ -114,11 +114,13 @@
     <td>{{ $trip->provider_notes }}</td>
 </tr> --}}
 
+{{-- 
 <!-- Auto Approve Field -->
 <tr>
     <th>@lang('models/trips.fields.auto_approve')</th>
     <td>{!! $trip->auto_approve_span !!}</td>
 </tr>
+--}}
 
 <!-- Additionals Field -->
 <tr>

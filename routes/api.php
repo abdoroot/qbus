@@ -57,8 +57,8 @@ Route::group(['middleware' => 'auth:api'], function(){
 //
 //Route::resource('notifications', NotificationAPIController::class);
 //
-//Route::get('providers/fees/{provider_id}/{destination}', 'ProviderAPIController@getFees')->name('providers.fees');
-//Route::resource('providers', ProviderAPIController::class);
+Route::get('providers/fees/{provider_id}/{destination}', 'ProviderAPIController@getFees')->name('providers.fees');
+Route::resource('providers', ProviderAPIController::class);
 //
 //Route::resource('contacts', ContactAPIController::class);
 //
@@ -68,17 +68,17 @@ Route::group(['middleware' => 'auth:api'], function(){
 //
 //Route::resource('accounts', AccountAPIController::class);
 //
-//Route::resource('buses', BusAPIController::class);
+Route::resource('buses', BusAPIController::class);
 //
 //Route::resource('bus_orders', BusOrderAPIController::class);
 //
 //Route::resource('destinations', DestinationAPIController::class);
 //
-//Route::get('packages/get-additionals', 'PackageAPIController@getAdditionals')->name('packages.additionals');
-//Route::resource('packages', PackageAPIController::class);
+Route::get('packages/get-additionals', 'PackageAPIController@getAdditionals')->name('packages.additionals');
+Route::resource('packages', PackageAPIController::class);
 //
-//Route::get('trips/get-additionals', 'TripAPIController@getAdditionals')->name('trips.additionals');
-////Route::resource('trips', TripAPIController::class);
+Route::get('trips/get-additionals', 'TripAPIController@getAdditionals')->name('trips.additionals');
+Route::resource('trips', TripAPIController::class);
 //
 //Route::resource('trip_orders', TripOrderAPIController::class);
 //

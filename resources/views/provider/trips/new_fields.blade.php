@@ -81,6 +81,7 @@
 </div>
 @endforeach
 
+{{-- 
 <!-- Auto Approve Field -->
 <div class="form-group col-sm-12">
     <div class="custom-control custom-checkbox mr-sm-2 mb-3">
@@ -92,7 +93,8 @@
     <span class="invalid-feedback"> {{ $message }} </span>
     @enderror
 </div>
-
+ --}}
+ 
 <div class="row">
     <!-- Additional Field -->
     {!! Form::label("additionals", __('models/trips.fields.additional')." :", ['class' => 'col-sm-12']) !!}
