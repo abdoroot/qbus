@@ -29,6 +29,7 @@ Route::middleware('auth:provider')->group(function ()
         Route::resource('reviews', 'ReviewController')->only('index', 'show', 'update');
         Route::resource('terminals', 'TerminalController');
         Route::resource('coupons', 'CouponController');
+        Route::resource('chats', 'ChatController')->only('index', 'create', 'store');
     });
 });
 

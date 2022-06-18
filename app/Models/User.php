@@ -158,4 +158,12 @@ class User extends Authenticatable
 
         return $query;
     }
+
+    public function unreadMessageCount()
+    {
+        return \App\Models\Chat::join('messages', 'messages.chat_id', '=', 'chats.id')
+            ->where('chats.user_id', $this->id)
+            ->where('messages.sender', 'provider')
+            ->where('messages.read_at', null)->count();
+    }
 }
