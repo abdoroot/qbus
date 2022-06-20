@@ -61,15 +61,20 @@ class ChatController extends AppBaseController
      */
     public function create(Request $request)
     {
+        $limit = 6;
         $chat = Chat::find($request->chat_id);
 
         $provider = (!is_null($chat) ? $chat->provider : Provider::find($request->provider_id));
 
         $messages = (!is_null($chat) ? $chat->messages : []);
 
-        $chats = Chat::where('provider_id', $this->provider_id)->orderBy('updated_at', 'desc')->get();
+        $chats = Chat::where('provider_id', $this->provider_id)->orderBy('updated_at', 'desc')->paginate($limit);
 
-        return view('provider.chats.create')
+        if(!is_null($chat)) {
+            $read = Message::where(['chat_id' => $chat->id, 'sender' => 'user'])->update(['read_at' => Carbon::now()]);
+        }
+
+        return view('provider.chats.index')
             ->with('provider', $provider)
             ->with('provider_id', !is_null($provider) ? $provider->id : null)
             ->with('chat_id', $request->chat_id)
@@ -96,6 +101,10 @@ class ChatController extends AppBaseController
             $input['provider_id'] = $this->provider_id;
 
             $chat = $this->chatRepository->create($input);
+        }
+
+        if(is_null($message = $request->message)) {
+            return redirect()->back()->withErrors(['message' => __('validation.required', ['attribute' => __('models/messages.fields.message')])]);
         }
         
         $input = [

@@ -1,87 +1,92 @@
-<div class="table-responsive m-t-30 m-b-20">
-    <table id="chats-table" class="table display table-bordered table-striped no-wrap">
-        <thead>
-            <tr>
-                <th>@lang('crud.id')</th>
-                <th>@lang('models/chats.singular')</th>
-                <th>@lang('models/chats.fields.status')</th>
-                <th>@lang('crud.action')</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($chats as $chat)
-            <tr>
-                <td>{{ $chat->id }}</td>
-                <td>
-                    <a href="{{ route('provider.chats.show', $chat->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">
-                                @if(!is_null($chat->icon)) <i class="{{ $chat->icon }} text-{{ $chat->type }}"></i> @endif
-                                {{ $chat->title }}
-                            </h5>
-                            <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($chat->created_at))->diffForHumans() }}</small>
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-0">
+            <!-- .chat-row -->
+            <div class="chat-main-box">
+                <!-- .chat-left-panel -->
+                <div class="chat-left-aside">
+                    <div class="open-panel"><i class="ti-angle-right"></i></div>
+                    <div class="chat-left-inner">
+                        <div class="form-material">
+                            <input class="form-control p-2" type="text" placeholder="Search Contact">
                         </div>
-                        <p class="mb-1" 
-                            style="width: 100%; white-space: normal;">
-                            {!! substr($chat->text, 0, 80) . (Str::length($chat->text) > 80 ? ' ..' : '') !!}
-                        </p>
-                    </a>
-                </td>
-                <td>
-                    @if(!is_null($chat->read_at))
-                    <span class="badge badge-success">@lang('models/chats.read')</span>
-                    @else
-                    <span class="badge badge-danger">@lang('models/chats.unread')</span>
+                        <ul class="chatonline style-none ">
+                            @foreach($chats as $menuChat)
+                            <li @if(isset($chat) && $chat->id == $menuChat->id) class="bg-secondary" @endif>
+                                <a href="{{ route('provider.chats.create', ['chat_id' => $menuChat->id]) }}">
+                                    <span>
+                                        {{ !is_null($user = $menuChat->user) ? $user->name : '-' }} 
+                                        <small class="text-success">
+                                            @if(!is_null($trip = $menuChat->trip))
+                                            @lang('models/trips.singular') {{ $trip->name }}
+                                            @elseif(!is_null($package = $menuChat->package))
+                                            @lang('models/packages.singular') {{ $package->name }}
+                                            @elseif(!is_null($busOrder = $menuChat->busOrder))
+                                            @lang('models/busOrders.singular') {{ $busOrder->id }}
+                                            @endif
+                                        </small>
+                                        {{-- <p>{!! $menuChat->last_message !!}</p> --}}
+                                    </span>
+                                </a>
+                            </li>
+                            @endforeach
+                            <li class="p-20"></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- .chat-left-panel -->
+                <!-- .chat-right-panel -->
+                <div class="chat-right-aside">
+                    <div class="chat-main-header">
+                        <div class="p-3 b-b">
+                            <h4 class="box-title">
+                                @if(!isset($chat)) @lang('msg.please_select_a_chat') 
+                                @elseif(!is_null($user = $chat->user)) {{ $user->name }}
+                                @else @lang('models/chats.singular') {{ $chat->id }}
+                                @endif
+                            </h4>
+                        </div>
+                    </div>
+                    @if(isset($chat))
+                    <div class="chat-rbox">
+                        <ul class="chat-list p-3">
+                            @foreach($messages as $message)
+                            <li class="{{ $message->sender == 'provider' ? 'reverse' : null }}">
+                                <div class="chat-content">
+                                    <h5>
+                                        @if($message->sender == 'provider' && !is_null($provider = $chat->provider))
+                                        {{ $provider->name }}
+                                        @elseif($message->sender == 'user' && !is_null($user = $chat->user))
+                                        {{ $user->name }}
+                                        @else
+                                        -
+                                        @endif
+                                    </h5>
+                                    <div class="box bg-light-inverse">{{ $message->message }}</div>
+                                    <div class="chat-time">{{ Carbon\Carbon::parse($message->created_at)->format('d M h:i a') }}</div>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-body border-top">
+                        {!! Form::open(['route' => 'provider.chats.store', 'class' => 'row']) !!}
+                            {!! Form::hidden('chat_id', $chat->id) !!}
+                            <div class="col-8">
+                                <textarea name="message" placeholder="@lang('msg.type_your_message_here')" class="form-control border-0"></textarea>
+                            </div>
+                            <div class="col-4 text-right">
+                                <button type="submit" class="btn btn-info btn-circle btn-lg"><i class="fas fa-paper-plane"></i> </button>
+                            </div>
+                        {!! Form::close() !!}
+                    </div>
                     @endif
-                </td>
-                <td>
-                    {!! Form::open(['route' => ['provider.chats.update', $chat->id], 'method' => 'patch', 'class' => 'd-inline']) !!}
-                        {!! Form::button('<i class="ti-pencil"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-sm btn-confirm', 'data-title' => __('msg.confirm'), 'data-text' => $chat->read_at ? __('msg.mark_as_unread') : __('msg.mark_as_read')]) !!}
-                    {!! Form::close() !!}
-                    {!! Form::open(['route' => ['provider.chats.destroy', $chat->id], 'method' => 'delete', 'class' => 'd-inline']) !!}
-                        {!! Form::button('<i class="ti-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm btn-confirm']) !!}
-                    {!! Form::close() !!}
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+                </div>
+                <!-- .chat-right-panel -->
+            </div>
+            <!-- /.chat-row -->
+        </div>
+
+        {!! $chats->links('vendor.pagination.bootstrap-4') !!}
+    </div>
 </div>
-
-@push('third_party_stylesheets')
-<link rel="stylesheet" type="text/css"
-    href="{{ asset('elite/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-<link rel="stylesheet" type="text/css"
-    href="{{ asset('elite/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css') }}">
-@endpush
-
-@push('third_party_scripts')
-<!-- This is data table -->
-<script src="{{ asset('elite/assets/node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('elite/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
-<!-- start - This is for export functionality only -->
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-<!-- end - This is for export functionality only -->
-<script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
-@endpush
-
-@push('page_scripts')
-<script>
-    $(function () {
-        // responsive table
-        $('#chats-table').DataTable({
-            responsive: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'excel', 'print'
-                // , 'pdf'
-            ],
-            "order": [[ 0, "desc" ]]
-        });
-        $('.buttons-copy, .buttons-print, .buttons-excel').addClass('btn btn-primary mr-1'); 
-    });
-</script>
-@endpush

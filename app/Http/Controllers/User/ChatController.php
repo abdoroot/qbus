@@ -69,6 +69,10 @@ class ChatController extends AppBaseController
 
         $chats = Chat::where('user_id', $this->id)->orderBy('updated_at', 'desc')->get();
 
+        if(!is_null($chat)) {
+            $read = Message::where(['chat_id' => $chat->id, 'sender' => 'provider'])->update(['read_at' => Carbon::now()]);
+        }
+
         return view('user.chats.create')
             ->with('provider', $provider)
             ->with('provider_id', !is_null($provider) ? $provider->id : null)

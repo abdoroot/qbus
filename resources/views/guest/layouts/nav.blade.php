@@ -98,7 +98,7 @@
                             <a href="{{ route('profile.index') }}" class="block px-4 py-3 text-lg text-gray-600 hover:bg-gray-100"> @lang('msg.my_account') </a>
                             <a href="{{ route('cart') }}" class="block px-4 py-3 text-lg text-gray-600 hover:bg-gray-100"> @lang('msg.cart') @if($cartCount = count(Session::get('cart') ?? []) > 0) ({{ $cartCount }}) @endif</a>
                             <a href="{{ route('tripOrders.index') }}" class="block px-4 py-3 text-lg text-gray-600 hover:bg-gray-100"> @lang('msg.my_orders') </a>
-                            <a href="{{ route('chats.index') }}" class="block px-4 py-3 text-lg text-gray-600 hover:bg-gray-100"> @lang('msg.chat') @if($msgCount = Auth::user()->unreadMessageCount()) > 0) ({{ $msgCount }}) @endif</a>
+                            <a href="{{ route('chats.index') }}" class="block px-4 py-3 text-lg text-gray-600 hover:bg-gray-100"> @lang('msg.chat') @if($msgCount = Auth::user()->unreadMessageCount() > 0) ({{ $msgCount }}) @endif</a>
                             <a href="{{ route('notifications.index') }}" class="block px-4 py-3 text-lg text-gray-600 hover:bg-gray-100"> @lang('models/notifications.plural') @if($notifCount = ($notifs = Auth::user()->getNotifications(0))->count() > 0) ({{ $notifCount }}) @endif</a>
                         </div>
                     </div>

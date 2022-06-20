@@ -18,3 +18,11 @@
 </div>
 
 @endsection
+
+@push('third_party_stylesheets')
+<link href="{{ asset('elite/dist/css/pages/chat-app-page.css') }}" rel="stylesheet">
+@endpush
+
+@push('page_scripts')
+<script src="{{ asset('elite/dist/js/pages/chat.js') }}"></script>
+@endpush
