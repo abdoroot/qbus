@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Provider;
 
 use App\Repositories\ChatRepository;
 use App\Repositories\MessageRepository;
@@ -30,7 +30,7 @@ class ChatController extends AppBaseController
         $this->messageRepository = $messageRepo;
 
         $this->middleware(function ($request, $next) {
-            $this->id = Auth::check() ? Auth::user()->id : null;
+            $this->provider_id = Auth::guard('provider')->check() ? Auth::guard('provider')->user()->provider_id : null;
             return $next($request);
         });
     }
@@ -46,11 +46,11 @@ class ChatController extends AppBaseController
     {
         $limit = 6;
 
-        $chats = Chat::where('user_id', $this->id)
+        $chats = Chat::where('provider_id', $this->provider_id)
             ->orderBy('id', 'desc')
             ->paginate($limit);
 
-        return view('user.chats.index')
+        return view('provider.chats.index')
             ->with('chats', $chats);
     }
 
@@ -61,27 +61,22 @@ class ChatController extends AppBaseController
      */
     public function create(Request $request)
     {
+        $limit = 6;
         $chat = Chat::find($request->chat_id);
 
         $provider = (!is_null($chat) ? $chat->provider : Provider::find($request->provider_id));
 
         $messages = (!is_null($chat) ? $chat->messages : []);
 
-        $chats = Chat::where('user_id', $this->id)->orderBy('updated_at', 'desc')->get();
+        $chats = Chat::where('provider_id', $this->provider_id)->orderBy('updated_at', 'desc')->paginate($limit);
 
         if(!is_null($chat)) {
-            $read = Message::where(['chat_id' => $chat->id, 'sender' => 'provider'])->update(['read_at' => Carbon::now()]);
+            $read = Message::where(['chat_id' => $chat->id, 'sender' => 'user'])->update(['read_at' => Carbon::now()]);
         }
 
-        return view('user.chats.create')
+        return view('provider.chats.index')
             ->with('provider', $provider)
             ->with('provider_id', !is_null($provider) ? $provider->id : null)
-            ->with('trip_id', !is_null($chat) ? $chat->trip_id : $request->trip_id)
-            ->with('package_id', !is_null($chat) ? $chat->package_id : $request->package_id)
-            ->with('bus_id', !is_null($chat) ? $chat->bus_id : $request->bus_id)
-            ->with('trip_order_id', !is_null($chat) ? $chat->trip_order_id : $request->trip_order_id)
-            ->with('package_order_id', !is_null($chat) ? $chat->package_order_id : $request->package_order_id)
-            ->with('bus_order_id', !is_null($chat) ? $chat->bus_order_id : $request->bus_order_id)
             ->with('chat_id', $request->chat_id)
             ->with('chat', $chat)
             ->with('messages', $messages)
@@ -103,14 +98,18 @@ class ChatController extends AppBaseController
             $this->validate($request, Chat::$rules);
             
             $input = $request->except('message');
-            $input['user_id'] = $this->id;
+            $input['provider_id'] = $this->provider_id;
 
             $chat = $this->chatRepository->create($input);
+        }
+
+        if(is_null($message = $request->message)) {
+            return redirect()->back()->withErrors(['message' => __('validation.required', ['attribute' => __('models/messages.fields.message')])]);
         }
         
         $input = [
             'chat_id' => $chat->id,
-            'sender' => 'user',
+            'sender' => 'provider',
             'message' => $request->message,
         ];
 
@@ -119,7 +118,7 @@ class ChatController extends AppBaseController
         DB::commit();
 
         // Flash::success(__('messages.sent', ['model' => __('models/messages.singular')]));
-        return redirect()->route('chats.create', ['chat_id' => $chat->id]);
+        return redirect()->route('provider.chats.create', ['chat_id' => $chat->id]);
     }
 
 }

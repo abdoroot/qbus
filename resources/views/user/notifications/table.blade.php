@@ -1,91 +1,117 @@
-<div class="table-responsive m-t-30 m-b-20">
+
+@if($notifications->count() > 0)
+<div class="table-responsive">
     <table id="notifications-table" class="table display table-bordered table-striped no-wrap">
         <thead>
-            <tr>
-                <th>@lang('crud.id')</th>
-                <th>@lang('models/notifications.singular')</th>
-                <th>@lang('models/notifications.fields.status')</th>
-                <th>@lang('crud.action')</th>
-            </tr>
+        <tr>
+            <th>#</th>
+            <th>@lang('models/notifications.fields.to')</th>
+            <th>@lang('models/notifications.fields.title')</th>
+            <th>@lang('models/notifications.fields.text')</th>
+            <th>@lang('crud.created_at')</th>
+            <th>@lang('msg.status')</th>
+            <th>@lang('msg.view')</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach($notifications as $notification)
+        @foreach($notifications as $i => $notification)
             <tr>
-                <td>{{ $notification->id }}</td>
+                <td>{{ $i+1 }}</td>
                 <td>
-                    <a href="{{ route('notifications.show', $notification->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">
-                                @if(!is_null($notification->icon)) <i class="{{ $notification->icon }} text-{{ $notification->type }}"></i> @endif
-                                {{ $notification->title }}
-                            </h5>
-                            <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans() }}</small>
-                        </div>
-                        <p class="mb-1" 
-                            style="width: 100%; white-space: normal;">
-                            {!! substr($notification->text, 0, 80) . (Str::length($notification->text) > 80 ? ' ..' : '') !!}
-                        </p>
+                    @if(is_null($notification->user_id))
+                        <span class="badge badge-info">@lang('msg.global')</span>
+                    @else
+                        <span class="badge badge-warning">@lang('msg.private')</span>
+                    @endif
+                </td>
+                <td>
+                    <a href="{{ route('notifications.show', $notification->id) }}">
+                        {{ $notification->title }}
                     </a>
                 </td>
+                <td>{!! substr($notification->text, 0, 50) . (Str::length($notification->text) > 50 ? ' ..' : '') !!}</td>
+                <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans() }}</td>
                 <td>
-                    @if($notification->user_id != Auth::user()->id)
-                    <span class="badge badge-dark">@lang('models/notifications.general')</span>
+                    @if(!is_null($notification->read_at) && !is_null($notification->reply_message))
+                        <span class="badge badge-success">@lang('models/notifications.replied')</span>
                     @elseif(!is_null($notification->read_at))
-                    <span class="badge badge-success">@lang('models/notifications.read')</span>
+                        <span class="badge badge-info">@lang('models/notifications.read')</span>
                     @else
-                    <span class="badge badge-danger">@lang('models/notifications.unread')</span>
+                        <span class="badge badge-dark">@lang('models/notifications.unread')</span>
                     @endif
                 </td>
+
                 <td>
-                    @if($notification->user_id == Auth::user()->id)
-                    {!! Form::open(['route' => ['notifications.update', $notification->id], 'method' => 'patch', 'class' => 'd-inline']) !!}
-                        {!! Form::button('<i class="ti-pencil"></i>', ['type' => 'submit', 'class' => 'btn btn-info btn-sm btn-confirm', 'data-title' => __('msg.confirm'), 'data-text' => $notification->read_at ? __('msg.mark_as_unread') : __('msg.mark_as_read')]) !!}
-                    {!! Form::close() !!}
-                    {!! Form::open(['route' => ['notifications.destroy', $notification->id], 'method' => 'delete', 'class' => 'd-inline']) !!}
-                        {!! Form::button('<i class="ti-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-sm btn-confirm']) !!}
-                    {!! Form::close() !!}
-                    @endif
+                    <a class="block text-white text-center bg-indigo-500 w-full border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" href="{{ route('notifications.show', $notification->id) }}">
+                        @lang('msg.open')
+                    </a>
                 </td>
             </tr>
-            @endforeach
+        @endforeach
         </tbody>
     </table>
 </div>
 
+<div class="my-2">
+    {!! $notifications->links('vendor.pagination.tailwind') !!}
+</div>
 @push('third_party_stylesheets')
-<link rel="stylesheet" type="text/css"
-    href="{{ asset('elite/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css') }}">
-<link rel="stylesheet" type="text/css"
-    href="{{ asset('elite/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css') }}">
+    <style>
+        /* Center tables for demo */
+        table {
+            margin: 0 auto;
+        }
+
+        /* Default Table Style */
+        table {
+            color: #333;
+            background: white;
+            border: 1px solid grey;
+            font-size: 12pt;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table thead th,
+        table tfoot th {
+            color: rgba(75,85,99);
+            background: rgb(229, 231, 235);
+        }
+        table caption {
+            padding:.5em;
+        }
+        table th,
+        table td {
+            padding: .5em;
+            border: 1px solid lightgrey;
+        }
+        /* Zebra Table Style */
+        [data-table-theme*=zebra] tbody tr:nth-of-type(odd) {
+            background: rgba(0,0,0,.05);
+        }
+        [data-table-theme*=zebra][data-table-theme*=dark] tbody tr:nth-of-type(odd) {
+            background: rgba(255,255,255,.05);
+        }
+        /* Dark Style */
+        [data-table-theme*=dark] {
+            color: #ddd;
+            background: #333;
+            font-size: 12pt;
+            border-collapse: collapse;
+        }
+        [data-table-theme*=dark] thead th,
+        [data-table-theme*=dark] tfoot th {
+            color: #aaa;
+            background: rgba(0255,255,255,.15);
+        }
+        [data-table-theme*=dark] caption {
+            padding:.5em;
+        }
+        [data-table-theme*=dark] th,
+        [data-table-theme*=dark] td {
+            padding: .5em;
+            border: 1px solid grey;
+        }
+    </style>
 @endpush
 
-@push('third_party_scripts')
-<!-- This is data table -->
-<script src="{{ asset('elite/assets/node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('elite/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js') }}"></script>
-<!-- start - This is for export functionality only -->
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
-<!-- end - This is for export functionality only -->
-<script src="https://cdn.datatables.net/select/1.3.4/js/dataTables.select.min.js"></script>
-@endpush
-
-@push('page_scripts')
-<script>
-    $(function () {
-        // responsive table
-        $('#notifications-table').DataTable({
-            responsive: true,
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'excel', 'print'
-                // , 'pdf'
-            ],
-            "order": [[ 0, "desc" ]]
-        });
-        $('.buttons-copy, .buttons-print, .buttons-excel').addClass('btn btn-primary mr-1'); 
-    });
-</script>
-@endpush
+@endif

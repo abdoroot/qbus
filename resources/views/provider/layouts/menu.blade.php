@@ -156,3 +156,15 @@
         </span>
     </a>
 </li>
+
+<li class="@if(Request::is('provider/chats*')) active @endif">
+    <a class="waves-effect waves-dark" href="{{ route('provider.chats.index') }}" aria-expanded="false">
+        <i class="icon-bell"></i>
+        <span class="hide-menu">
+            @lang('models/chats.plural')
+            @if(($menu_chats_count = Auth::guard('provider')->user()->getChats(0)->count()) > 0)
+            <span class="badge badge-pill badge-cyan ml-auto">{{ $menu_chats_count }}</span>
+            @endif
+        </span>
+    </a>
+</li>

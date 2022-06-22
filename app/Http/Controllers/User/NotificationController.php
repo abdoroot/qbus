@@ -30,7 +30,7 @@ class NotificationController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $notifications = Auth::user()->getNotifications()->get();
+        $notifications = Auth::user()->getNotifications()->orderBy('id', 'desc')->paginate(30);
 
         return view('user.notifications.index')
             ->with('notifications', $notifications);

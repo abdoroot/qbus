@@ -1,39 +1,47 @@
 
-@if($busOrders->count() > 0)
+@if($tripOrders->count() > 0)
 <div class="table-responsive">
-    <table id="busOrders-table" class="table display table-bordered table-striped no-wrap">
+    <table id="tripOrders-table" class="table display table-bordered table-striped no-wrap">
         <thead>
         <tr>
             <th>@lang('crud.id')</th>
-            <th>@lang('models/buses.singular')</th>
-            <th>@lang('models/buses.fields.plate')</th>
-            <th>@lang('models/busOrders.fields.from_date')</th>
-            <th>@lang('models/busOrders.fields.fees')</th>
+            <th>@lang('models/tripOrders.fields.trip_id')</th>
+            <th>@lang('models/tripOrders.fields.type')</th>
+            <th>@lang('models/tripOrders.fields.count')</th>
+            <th>@lang('models/trips.fields.from_date')</th>
+            <th>@lang('models/tripOrders.fields.total')</th>
             <th>@lang('crud.created_at')</th>
             <th>@lang('msg.status')</th>
             <th>@lang('msg.view')</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($busOrders as $i => $busOrder)
-        @if(!is_null($bus = $busOrder->bus))
+        @foreach($tripOrders as $i => $tripOrder)
             <tr>
-                <td>#<a href="{{ route('busOrders.show', $busOrder->id) }}" class="text-blue-500">{{ $busOrder->id }}</a></td>
-                <td><img class="card-img-top img-responsive" src="{{ asset('images/buses/'.$bus->image) }}" alt="" style="max-height: 150px; max-width: 100%;"></td>
-                <td>{{ $bus->plate }}</td>
-                <td>{{ $busOrder->date_from }}</td>
-                <td>{{ $busOrder->fees ?? '-' }}</td>
-                <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($busOrder->created_at))->diffForHumans() }}</td>
-                <td><span class="ribbon ribbon-{{ $busOrder->status_color }}">{{ __('models/busOrders.status.'.$busOrder->status) }}</span>
+                <td>
+                    #<a href="{{ route('tripOrders.show', $tripOrder->id) }}" class="text-blue-500">
+                        {{ $tripOrder->id }}</a>
+                </td>
+                <td>
+                    @if(!is_null($trip = $tripOrder->trip))
+                    <a href="{{ route('trips.show', $trip->id) }}" class="text-blue-500">
+                        {{ $trip->name }}</a>
+                    @endif
+                </td>
+                <td>{{ $tripOrder->count ?? '-' }}</td>
+                <td>{{ __('models/trips.types.'.$tripOrder->type) }}</td>
+                <td>{{ !is_null($trip) ? $trip->date_from : '-' }}</td>
+                <td>{{ $tripOrder->total ?? '-' }}</td>
+                <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($tripOrder->created_at))->diffForHumans() }}</td>
+                <td><span class="ribbon ribbon-{{ $tripOrder->status_color }}">{{ __('models/tripOrders.status.'.$tripOrder->status) }}</span>
                 </td>
 
                 <td>
-                    <a class="block text-white text-center bg-indigo-500 w-full border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" href="{{ route('busOrders.show', $busOrder->id) }}">
+                    <a class="block text-white text-center bg-indigo-500 w-full border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" href="{{ route('tripOrders.show', $tripOrder->id) }}">
                         @lang('msg.open')
                     </a>
                 </td>
             </tr>
-        @endif
         @endforeach
         </tbody>
     </table>

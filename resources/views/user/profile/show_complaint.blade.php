@@ -118,8 +118,8 @@
         table th,
         table td {
             padding: .5em;
-            //border: 1px solid lightgrey;
-            text-align: right;
+            border: 1px solid lightgrey;
+            /* text-align: right; */
         }
         /* Zebra Table Style */
         [data-table-theme*=zebra] tbody tr:nth-of-type(odd) {

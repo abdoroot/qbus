@@ -133,4 +133,26 @@ class Account extends Authenticatable
 
         return $query;
     }
+
+    public function getChats($read = -1, $skip = null, $limit = null)
+    {
+        $query = \App\Models\Chat::where('provider_id', $this->provider_id);
+
+        if($read != -1) {
+            $query->join('messages', 'messages.chat_id', '=', 'chats.id')
+                ->where('messages.sender', 'user')
+                ->groupBy('chats.id')
+                ->where('read_at', $read ? '!=' : '=', null);
+        }
+
+        if (!is_null($skip)) {
+            $query->skip($skip);
+        }
+
+        if (!is_null($limit)) {
+            $query->limit($limit);
+        }
+
+        return $query;
+    }
 }

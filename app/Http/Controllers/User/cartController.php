@@ -98,7 +98,7 @@ class cartController extends Controller
             'total' => is_null($coupon)
                 ? $fees + $tax + $additionalFees
                 : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
-            'status' => $request->type == 'one-way' ? 'approved' : 'pending', // $trip->auto_approve ? 'approved' : 'pending',
+            'status' => 'approved', // $request->type == 'one-way' ? 'approved' : 'pending', // $trip->auto_approve ? 'approved' : 'pending',
             'additional' => json_decode(json_encode($additional),true)
         ]);
 
@@ -209,6 +209,7 @@ class cartController extends Controller
 
     public function store()
     {
+        return "redirecting to payment gateway ...";
         $cart = Session::get('cart');
 
         foreach($cart as $i => $item) {

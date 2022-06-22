@@ -11,11 +11,11 @@
 
             <div class="w-full md:w-3/4 p-4 md:p-8">
                 <div class="profileTap">
-                    <h2 class="font-bold">@lang('models/busOrders.plural')</h2>
+                    <h2 class="font-bold">@lang('models/tripOrders.plural')</h2>
                     @include('user.bus_orders.tabs')
                     <div class="mt-6 ">
                         @include('flash::message')
-                        @include('user.bus_orders.table')
+                        @include('user.trip_orders.table')
 
                     </div>
                 </div>

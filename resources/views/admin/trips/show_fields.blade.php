@@ -70,11 +70,13 @@
     <td>{{ $trip->description }}</td>
 </tr>
 
+{{-- 
 <!-- Auto Approve Field -->
 <tr>
     <th>@lang('models/trips.fields.auto_approve')</th>
     <td>{!! $trip->auto_approve_span !!}</td>
-</tr>
+</tr>    
+--}}
 
 <!-- Additionals Field -->
 <tr>
