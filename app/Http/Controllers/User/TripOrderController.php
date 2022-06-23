@@ -104,7 +104,7 @@ class TripOrderController extends AppBaseController
         }
 
         $request->session()->flash('cart', $message . ', ' . __('msg.please_do_the_payment_and_complete_the_order'));
-        return redirect()->route('carts.index');
+        return redirect()->route('cart');
     }
 
     /**
