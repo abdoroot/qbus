@@ -43,7 +43,7 @@ class cartController extends Controller
             ->with('additional_fees', $additional_fees)
             ->with('total', $total);
     }
-    public function isAddedBefore($tripId){
+    public static function isAddedBefore($tripId){
 
         $cart = Session::get('cart');
         //dd($cart);
@@ -57,7 +57,7 @@ class cartController extends Controller
         return false;
     }
 
-    public function buildTheRequest($request)
+    public static function buildTheRequest($request)
     {
         $trip = Trip::find($request->trip_id);
 
@@ -105,7 +105,7 @@ class cartController extends Controller
         return $input;
     }
 
-    public function add(Request $request){
+    public static function add(Request $request){
 
         $input = cartController::buildTheRequest($request);
 
@@ -124,7 +124,7 @@ class cartController extends Controller
         return true;
     }
 
-    public function update($tripId,array $product)
+    public static function update($tripId,array $product)
     {
         if(cartController::isAddedBefore($tripId)){
             //update
@@ -226,7 +226,7 @@ class cartController extends Controller
         }
 
         $this->clear();
-        
+
         return redirect()->route('cartPayment');
     }
 
