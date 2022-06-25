@@ -112,14 +112,14 @@ class cartController extends Controller
         $tripId  = $input['trip_id'];
 
         //search for the trip if already added
-        if(!cartController::isAddedBefore($tripId)){
+        // if(!cartController::isAddedBefore($tripId)){
             //add to session
             Session::push("cart",$input);
             //dd('added');
-        }else{
+        // }else{
             //update the session
-            cartController::update($tripId,$input);
-        }
+            // cartController::update($tripId,$input);
+        // }
 
         return true;
     }

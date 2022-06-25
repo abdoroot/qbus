@@ -52,11 +52,15 @@ class TripController extends AppBaseController
         // dd(Session::all());
         // $query = "type=" . ($type = $request->type) .
         //         ($type != 'one-way' ? '&prev_trip_order_id='.($prevTripOrderId = $request->prev_trip_order_id) : null);
-        if(($type = $request->type) == 'multi' && isset($request->destination) && is_array($destination = $request->destination)) {
-                $i = 0;
-                if(!is_null($prevTripOrder = TripOrder::find($request->prev_trip_order_id))) {
-                    $i = $prevTripOrder->nextMultiIndex();
-                }
+        if(($type = $request->type) == 'multi' && 
+            isset($request->destination) && 
+            is_array($destination = $request->destination)) {
+                // $i = 0;
+                // if(!is_null($prevTripOrder = TripOrder::find($request->prev_trip_order_id))) {
+                //     $i = $prevTripOrder->nextMultiIndex();
+                // }
+                $i = count(Session::get('cart') ?? []);
+
                 if($request->skip) {
                     if(isset($destination['from_city_id'][$i+1])) $i+=$request->skip;
                 }

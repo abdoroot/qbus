@@ -75,7 +75,10 @@
                                             {{ $total}}</span></li>
                                 </ul>
                             </div>
-                            <a href="{{ route('storeCart') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded">@lang('cart.confirm_and_order')</a>
+                            <a href="{{ route('storeCart') }}" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 mx-2 rounded">@lang('cart.place_order')</a>
+                        
+                            <a href="{{ route('clearCart') }}"
+                                cl ass="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded">@lang('cart.empty_cart')</a>
                         </div>
                     </div>
                 </div>
