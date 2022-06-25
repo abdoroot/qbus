@@ -11,6 +11,9 @@ return array (
     'type' => 'type',
     'user_id' => 'user id',
     'user_notes' => 'user notes',
+    'fees' => 'Subtotal',
+    'tax' => 'Tax',
+    'additional' => 'Additional'
   ),
   'plural' => 'trip orders',
   'singular' => 'trip order',
@@ -19,6 +22,7 @@ return array (
     'approved' => 'approved',
     'pending' => 'pending',
     'rejected' => 'rejected',
+    'canceled' => 'Canceled'
   ),
   'types' => 
   array (

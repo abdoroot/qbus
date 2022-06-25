@@ -27,4 +27,5 @@ return array (
     'rejected' => 'rejected',
   ),
   'time' => 'time',
+  'destination' => 'Destination',
 );

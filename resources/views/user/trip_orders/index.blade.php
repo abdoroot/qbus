@@ -10,14 +10,15 @@
             </div>
 
             <div class="w-full md:w-3/4 p-4 md:p-8">
+                @include('guest.layouts.flash')
                 <div class="profileTap">
                     <h2 class="font-bold">@lang('models/tripOrders.plural')</h2>
                     @include('user.bus_orders.tabs')
-                    <div class="mt-6 ">
+                    <div class="mt-6 mb-3">
                         @include('flash::message')
                         @include('user.trip_orders.table')
-
                     </div>
+                    {!! $tripOrders->links('vendor.pagination.tailwind') !!}
                 </div>
             </div>
         </div>

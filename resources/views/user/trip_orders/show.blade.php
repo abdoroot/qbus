@@ -11,12 +11,12 @@
             <div class="w-full md:w-3/4 p-4 md:p-8">
                 @include('guest.layouts.flash')
                 <div class="profileTap">
-                    <h2 class="font-bold mt-5">@lang('models/busOrders.singular') {{ '#'.$busOrder->id }}</h2>
+                    <h2 class="font-bold mt-5">@lang('models/tripOrders.singular') {{ '#'.$tripOrder->id }}</h2>
                     <div class="order-view mt-5">
-                        @include('user.bus_orders.show_fields')
+                        @include('user.trip_orders.show_fields')
                     </div>
                     <div class="order-view hidden">
-                        @include('user.bus_orders.edit')
+                        @include('user.trip_orders.edit')
                     </div>
                 </div>
             </div>

@@ -228,7 +228,7 @@ class TripOrder extends Model
 
         $fees = 0;
         foreach($this->additional as $additional) {
-            $fees += $additional['fees'];
+            $fees += $additional['fees'] * $additional['count'];
         }
         return $fees;
     }

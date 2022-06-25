@@ -43,7 +43,10 @@ class TripOrderController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $tripOrders = $this->tripOrderRepository->all(['user_id' => $this->id]);
+        $tripOrders = $this->tripOrderRepository->all([
+            'user_id' => $this->id,
+            'user_archive' => 0
+            ])->paginate(10);
 
         return view('user.trip_orders.index')
             ->with('tripOrders', $tripOrders);

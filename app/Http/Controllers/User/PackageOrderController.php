@@ -40,10 +40,10 @@ class PackageOrderController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $packages = $this->packageOrderRepository->all(['user_id' => $this->id]);
+        $packageOrders = $this->packageOrderRepository->all(['user_id' => $this->id])->paginate(10);
 
         return view('user.package_orders.index')
-            ->with('packages', $packages);
+            ->with('packageOrders', $packageOrders);
     }
 
     public function store(CreatePackageOrderRequest $request)

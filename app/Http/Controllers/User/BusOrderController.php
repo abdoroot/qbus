@@ -43,7 +43,7 @@ class BusOrderController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $busOrders = $this->busOrderRepository->all(['user_id' => $this->id]);
+        $busOrders = $this->busOrderRepository->all(['user_id' => $this->id])->paginate(10);
 
         return view('user.bus_orders.index')
             ->with('busOrders', $busOrders);
