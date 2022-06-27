@@ -238,10 +238,12 @@ class PackageAPIController extends AppBaseController
         $destinations = [];
         if(count($package['destinations']) > 0){
             foreach ($package['destinations'] as $adKey => $adValue){
-                $destinationInfo = Destination::where('id',$adValue)->get()->toArray();
+                $destinationInfo = Destination::where('id',$adValue)->first()->toArray();
+                //dd($destinationInfo);
                 array_push($destinations,$destinationInfo);
             }
         }
+        unset($package['destinations']);
         $package['destinations'] = $destinations;
 
 
