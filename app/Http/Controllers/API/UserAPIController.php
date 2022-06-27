@@ -99,11 +99,13 @@ class UserAPIController extends AppBaseController
             $newErrors = [];
 
             foreach ($errors as $key => $value){
+                if($value[0] == 'null' || $value[0] == null || is_null($value[0])){
+                    $value[0] = "";
+                }
                 array_push($newErrors,[$key => $value[0]]);
             }
 
-
-            return response()->json( $this->ReturnJson("Please ReCheck the ",[
+            return response()->json( $this->ReturnJson("Please ReCheck the Given Data",[
                 "validate_errors" => $newErrors
             ],0),401);
         }
