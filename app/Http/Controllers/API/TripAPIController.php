@@ -184,6 +184,7 @@ class TripAPIController extends AppBaseController
             'trips.time_from',
             'trips.time_to',
             'start_city.name as start_station_name',
+            //DB::raw('JSON_EXTRACT(start_city.name,"$.ar") as start_station_name'),
             'arrival_city.name as arrival_station_name',
             'trips.fees',
             'trips.rate',
@@ -193,10 +194,13 @@ class TripAPIController extends AppBaseController
             DB::raw('JSON_LENGTH(trip_dest.stops) as stops')
         )->limit($limit)->offset($offset)->get()->toArray();
 
+        //dd(DB::getQueryLog());
+
         //$cities = City::pluck('name', 'id');
         //$additionals = Additional::get();
 
         if(count($paginator) > 0) {
+
             //handle additionals
             foreach ($paginator as $key => $value){
                 $additional = [];
@@ -207,6 +211,27 @@ class TripAPIController extends AppBaseController
                        array_push($additional,$additionalInfo['name']);
                    }
                 }
+
+                ///start_station_name to json
+                if($value['start_station_name'] != ''){
+                    $paginator[$key]['start_station_name'] = json_decode($value['start_station_name'],true);
+                }
+
+                ///arrival_station_name to json
+                if($value['arrival_station_name'] != ''){
+                    $paginator[$key]['arrival_station_name'] = json_decode($value['arrival_station_name'],true);
+                }
+
+                ///from_city_name to json
+                if($value['from_city_name'] != ''){
+                    $paginator[$key]['from_city_name'] = json_decode($value['from_city_name'],true);
+                }
+
+                ///to_city_name to json
+                if($value['to_city_name'] != ''){
+                    $paginator[$key]['to_city_name'] = json_decode($value['to_city_name'],true);
+                }
+
                 $paginator[$key]['additionals'] = $additional;
             }
 
