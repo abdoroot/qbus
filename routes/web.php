@@ -37,7 +37,6 @@ Route::post('email', 'HomeController@email')->name('email');
 Route::get('code', 'HomeController@code')->name('code');
 
 Route::namespace('\App\Http\Controllers\User')->group(function() {
-
     Route::resource('trips', 'TripController')->only('index', 'show');
     Route::resource('packages', 'PackageController')->only('index', 'show');
 

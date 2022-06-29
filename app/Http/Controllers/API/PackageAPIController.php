@@ -90,12 +90,19 @@ class PackageAPIController extends AppBaseController
     public function index(Request $request)
     {
         $query = "";
+
         $limit = 8;
+        
         if($request->offset){
             $offset = $request->offset;
+            if($offset == 1){
+                $offset = 0;
+            }else{
+                $offset = ($offset-1) * $limit;
+            }
         }else{
             $offset = 0;
-        }
+        };
 
         $today = Carbon::now();
         $paginator = new Package;
