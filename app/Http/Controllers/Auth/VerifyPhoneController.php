@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Controllers\smsController;
 use Carbon\Carbon;
 use Flash;
 use Auth;
@@ -51,6 +52,8 @@ class VerifyPhoneController extends Controller
 
     public function send($id)
     {
+        $sms = new smsController;
+
         $user = $this->userRepository->find($id);
         if (empty($user)) {
             $error = __('messages.not_found', ['model' => __('models/users.singular')]);
@@ -62,12 +65,12 @@ class VerifyPhoneController extends Controller
 
         // Send Phone Verification Code By SMS
         try {
-
+            $sms->sendSms($user->phone,__('auth.verify_phone.please_use_this_code') . ' '.$code);
         } catch (\Throwable $th) {
             return response()->json(['success' => false, 'message' => __('auth.verify_phone.error_sending')]);
         }
 
-        return response()->json(['success' => true, 'message' => __('auth.verify_phone.success') . ' ' . 'Code : ' . $code]);
+        return response()->json(['success' => true, 'message' => __('auth.verify_phone.success') . ' ' .$user->phone]);
     }
 
     public function resend(Request $request)

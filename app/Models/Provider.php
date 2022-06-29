@@ -81,7 +81,8 @@ class Provider extends model
     public static $rules = [
         'name' => ['required','string','max:255', 'unique:providers,name'],
         'email' => ['required','string','max:255','email','unique:providers,email'],
-        'phone' => ['required','string','max:255','regex:/^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/m','unique:providers,phone'],
+        //'phone' => ['required','string','max:255','regex:/^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/m','unique:providers,phone'],
+        'phone' => ['required','string','max:15','min:9','unique:providers,phone'],
         'address' => ['required', 'string', 'max:255'],
         'comm_name' => ['required', 'string', 'max:255'],
         'comm_reg_num' => ['required', 'numeric'],

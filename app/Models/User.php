@@ -59,7 +59,8 @@ class User extends Authenticatable
     public static $rules = [
         'name' => ['required', 'string', 'max:255'],
         'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users,email'],
-        'phone' => ['required', 'string', 'max:255', 'regex:/^(?:\+971|00971|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/m', 'unique:users,phone'],
+        //'phone' => ['required', 'string', 'max:255', 'regex:/^(?:\+966|00966|0)?(?:50|51|52|55|56|2|3|4|6|7|9)\d{7}$/m', 'unique:users,phone'],
+        'phone' => ['required', 'string', 'max:20','min:9', 'unique:users,phone'],
         'image' => ['nullable', 'image'],
         'password' => ['required', 'string', 'min:8', 'max:255'],
         'address' => ['required', 'string', 'max:255'],

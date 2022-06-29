@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Provider\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\smsController;
 use App\Repositories\ProviderRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -46,7 +47,7 @@ class VerificationController extends Controller
             if(is_null($provider->accounts->first())) {
                 return redirect()->route('provider.account', ['id' => $id]);
             }
-            
+
             return redirect()->route('provider.login');
         }
 
@@ -55,19 +56,20 @@ class VerificationController extends Controller
 
     public function send($id)
     {
+        $sms = new smsController;
         $provider = $this->providerRepository->find($id);
         if (empty($provider)) {
             $error = __('messages.not_found', ['model' => __('models/providers.singular')]);
             return response()->json(['success' => false, 'message' => $error]);
         }
 
-        $code = rand(100000, 999999);
+        $code = rand(1000, 9999);
         $provider = $this->providerRepository->update(['phone_verification_code' => Hash::make($code)], $id);
 
         // Send Phone Verification Code By SMS
         try {
-            
-        } catch (\Throwable $th) {            
+            $sms->sendSms($provider->phone,__('auth.verify_phone.please_use_this_code') . ' '.$code);
+        } catch (\Throwable $th) {
             return response()->json(['success' => false, 'message' => __('auth.verify_phone.error_sending')]);
         }
 

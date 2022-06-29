@@ -102,6 +102,7 @@ return array (
     'error_sending' => 'Some error ocuured while sending verification code.',
     'input' => '6-digit verification code',
     'notice' => 'Before proceeding, please check your phone for a verification code.If you did not receive the sms,',
+    'please_use_this_code' => 'Please use the following code to verify your account',
     'subtitle' => 'Enter 6-digit verification code sent to your phone number.',
     'success' => 'A fresh verification code has been sent to your phone number',
     'title' => 'Verify Your Phone Number',

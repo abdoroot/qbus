@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\smsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 Route::get('/', 'HomeController@index')->name('home');
 
@@ -24,7 +25,6 @@ Route::get('/clear-cache', function() {
 });
 
 Route::get('error_api_login', function (){
-    ;
     return response()->json(['message' => "Unauthenticated", 'code' => 0,'data' => []], 401);
 })->name('error_api_login');
 

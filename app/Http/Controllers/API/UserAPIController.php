@@ -184,7 +184,7 @@ class UserAPIController extends AppBaseController
         //send Otp password
         $sendSms = smsController::sendSms($phone,$smsMessage);
         if($sendSms){
-            $responseMessage = "Reset Password Otp has been sent to +966".substr($phone,0,-4)."**** you can use ".$code;
+            $responseMessage = "Reset Password Otp has been sent to +966".substr($phone,0,-4);
             return response()->json( $this->ReturnJson($responseMessage,["message" => $responseMessage],1),200);
         }else{
             return response()->json( $this->ReturnJson("message not send",["message" => "message not send"],0),400);
