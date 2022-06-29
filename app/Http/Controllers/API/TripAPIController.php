@@ -91,8 +91,8 @@ class TripAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
-        $limit = 3;
+        //DB::enableQueryLog();
+        $limit = 8;
         if($request->offset){
             $offset = $request->offset;
             if($offset == 1){

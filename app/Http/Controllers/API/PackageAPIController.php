@@ -92,7 +92,7 @@ class PackageAPIController extends AppBaseController
         $query = "";
 
         $limit = 8;
-        
+
         if($request->offset){
             $offset = $request->offset;
             if($offset == 1){
