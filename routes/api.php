@@ -50,6 +50,10 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('verify_phone', 'UserAPIController@verifyPhone');
     Route::post('update_profile', 'UserAPIController@updateProfile');
     Route::get('resend_verification_code', 'UserAPIController@resendVerificationCode');
+    
+    Route::resource('bus_orders', BusOrderAPIController::class);
+    Route::resource('trip_orders', TripOrderAPIController::class);
+    Route::resource('package_orders', PackageOrderAPIController::class);
 });
 
 //
@@ -70,8 +74,6 @@ Route::resource('providers', ProviderAPIController::class);
 //
 Route::resource('buses', BusAPIController::class);
 //
-//Route::resource('bus_orders', BusOrderAPIController::class);
-//
 //Route::resource('destinations', DestinationAPIController::class);
 //
 Route::get('packages/get-additionals', 'PackageAPIController@getAdditionals')->name('packages.additionals');
@@ -79,8 +81,6 @@ Route::resource('packages', PackageAPIController::class);
 //
 Route::get('trips/get-additionals', 'TripAPIController@getAdditionals')->name('trips.additionals');
 Route::resource('trips', TripAPIController::class);
-//
-//Route::resource('trip_orders', TripOrderAPIController::class);
 //
 //Route::resource('reviews', ReviewAPIController::class);
 //

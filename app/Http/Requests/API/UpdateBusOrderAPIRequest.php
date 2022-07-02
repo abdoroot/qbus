@@ -24,7 +24,7 @@ class UpdateBusOrderAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = BusOrder::$rules;
+        $rules = BusOrder::$update_rules;
         
         return $rules;
     }

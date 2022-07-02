@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Requests\CreateBusOrderRequest;
-use App\Http\Requests\UpdateBusOrderRequest;
+use App\Http\Requests\API\CreateBusOrderAPIRequest;
+use App\Http\Requests\API\UpdateBusOrderAPIRequest;
 use App\Repositories\BusOrderRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -69,90 +69,16 @@ class BusOrderController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateBusOrderRequest $request)
+    public function store(CreateBusOrderAPIRequest $request)
     {
-        DB::beginTransaction();
-
-        $fees = app('\App\Http\Controllers\API\ProviderAPIController')->getFees($request->provider_id, $request->destination);
-        $data = $fees->getData();
-        $bus_fees = $data->data->bus_fees;
-
-        $input = array_merge([
-            'user_id' => $this->id,
-            'fees'   => $bus_fees,
-            'tax' => $tax = ($bus_fees * (!is_null($provider = Provider::find($request->provider_id)) ? $provider->tax : 0) / 100),
-            'total' => $bus_fees + $tax,
-            'status' => $bus_fees ? 'approved' : 'pending',
-        ], $request->only(
-            'lat',
-            'lng',
-            'zoom',
-            'date_from',
-            'time_from',
-            'date_to',
-            'time_to',
-            'destination',
-            'provider_id',
-            'bus_id',
-            'user_notes'
-        ));
-
-        // store busOrder
-        $busOrder = $this->busOrderRepository->create($input);
-
-        // store busOrder Datetimes (only if approved)
-        if($busOrder->status == 'approved') {
-            $date = Carbon::parse($busOrder->date_from);
-            while ($date->lte(Carbon::parse($busOrder->date_to))) {
-                BusDatetime::create([
-                    'bus_order_id' => $busOrder->id,
-                    'bus_id' => $busOrder->bus_id,
-                    'date' => $date->format('Y-m-d'),
-                    'time_from' => $busOrder->time_from,
-                    'time_to' => $busOrder->time_to,
-                ]);
-
-                $date = $date->addDay();
-            }
+        $request = app('App\Http\Controllers\API\BusOrderAPIController')->store($request);
+        $response = $request->getData();
+        if(!$response->success) {
+            Flash::error($response->message);
+            return redirect()->back();
         }
 
-        // send notification to the provider
-        $user_name = $busOrder->user->name;
-        $notification = Notification::create([
-            'title' => 'New bus order #' . $busOrder->id,
-            'text' => "A new order has just been created by user <b> $user_name </b>, 
-                order is " . __('models/busOrders.status.'.$busOrder->status) . ", please click to check more details.",
-            'url' => route('provider.busOrders.show', $busOrder->id),
-            'icon' => 'ti-truck',
-            'type' => 'primary',
-            'to' => 'provider',
-            'provider_id' => $busOrder->provider_id
-        ]);
-
-        // send notification to the user
-        $notification = Notification::create([
-            'title' => 'Order #' . $busOrder->id,
-            'text' => "Your order has been created successfully, 
-                order is " . __('models/busOrders.status.'.$busOrder->status) . ", please click to check more details.",
-            'url' => route('busOrders.show', $busOrder->id),
-            'icon' => 'ti-truck',
-            'type' => 'primary',
-            'to' => 'user',
-            'user_id' => $busOrder->user_id
-        ]);
-
-        DB::commit();
-
-        $flash_message = __('messages.saved', ['model' => __('models/busOrders.singular')]);
-
-        if($busOrder->status == 'approved') {
-            $flash_message .= ", " . __('msg.please_do_the_payment_and_complete_the_order');
-            Flash::success($flash_message);
-            return redirect(route('busOrders.payment', $busOrder->id));
-        }
-
-        $flash_message .= ", " . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order');
-        Flash::success($flash_message);
+        Flash::success($response->message);
         return redirect(route('busOrders.index'));
     }
 
@@ -165,6 +91,9 @@ class BusOrderController extends AppBaseController
      */
     public function show($id, Request $request)
     {
+        $request = app('App\Http\Controllers\API\BusOrderAPIController')->show($id);
+        $response = $request->getData(); dd($response);
+
         $busOrder = $this->busOrderRepository->find($id);
         if (empty($busOrder) || $busOrder->user_id != $this->id) {
             Flash::error(__('messages.not_found', ['model' => __('models/busOrders.singular')]));
@@ -184,49 +113,22 @@ class BusOrderController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateBusOrderRequest $request)
+    public function update($id, UpdateBusOrderAPIRequest $request)
     {
-        $busOrder = $this->busOrderRepository->find($id);
-
-        if (empty($busOrder) || $busOrder->user_id != $this->id) {
-            Flash::error(__('messages.not_found', ['model' => __('models/busOrders.singular')]));
-            return redirect(route('busOrders.index'));
-        }
-
-        if (!in_array($busOrder->status, ['pending', 'approved'])) {
-            Flash::error(__('msg.unauthorized'));
-            return redirect(route('busOrders.index'));
-        }
-
-        DB::beginTransaction();
-
-        if(is_null($user_notes = $request->user_notes)) {
+        if(is_null($request->user_notes)) {
             return redirect()->back()->withErrors([
-                'user_notes' => __('validation.required', ['attribute' => __('models/busOrders.fields.user_notes')])
+                'user_notes' => $response->message
             ]);
         }
 
-        $input = [
-            'status' => 'canceled',
-            'user_notes' => $user_notes
-        ];
+        $request = app('App\Http\Controllers\API\BusOrderAPIController')->update($id, $request);
+        $response = $request->getData(); 
+        if(!$response->success) {
+            Flash::error($response->message);
+            return redirect()->route('busOrders.index');
+        }
 
-        $busOrder = $this->busOrderRepository->update($input, $id);
-
-        // send notification to the user
-        $notification = Notification::create([
-            'title' => 'Order #' . $busOrder->id,
-            'text' => "The order is " . __('models/busOrders.status.'.$busOrder->status) .  ", please click to check more details.",
-            'url' => route('provider.busOrders.show', $busOrder->id),
-            'icon' => 'ti-close',
-            'type' => 'danger',
-            'to' => 'provider',
-            'provider_id' => $busOrder->provider_id
-        ]);
-
-        DB::commit();
-
-        Flash::success(__('messages.updated', ['model' => __('models/busOrders.singular')]));
+        Flash::success($response->message);
         return redirect(route('busOrders.index'));
     }
 
@@ -241,16 +143,14 @@ class BusOrderController extends AppBaseController
      */
     public function destroy($id)
     {
-        $busOrder = $this->busOrderRepository->find($id);
-
-        if (empty($busOrder) || $busOrder->user_id != $this->id) {
-            Flash::error(__('messages.not_found', ['model' => __('models/busOrders.singular')]));
-            return redirect(route('busOrders.index'));
+        $request = app('App\Http\Controllers\API\BusOrderAPIController')->destroy($id);
+        $response = $request->getData(); 
+        if(!$response->success) {
+            Flash::error($response->message);
+            return redirect()->route('busOrders.index');
         }
 
-        $this->busOrderRepository->update(['user_archive' => 1], $id);
-
-        Flash::success(__('messages.deleted', ['model' => __('models/busOrders.singular')]));
+        Flash::success($response->message);
         return redirect(route('busOrders.index'));
     }
 

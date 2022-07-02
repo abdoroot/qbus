@@ -20,7 +20,7 @@
     })
     
     $(document).ready(function() {
-
+console.log(triggerUpdateProviders);
         if(!triggerUpdateProviders) {
             updateProviders("{{ old('provider_id') }}");
             updateBuses("{{ old('provider_id') }}", "{{ old('bus_id') }}");
@@ -88,16 +88,16 @@
             }
         })
 
-        $(document).on('click', '#Book .busItem', function () {
+        $(document).on('click', '.busItem', function () {
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
             var bus_id = $(this).data('id');
             $('#bus_id').val(bus_id);
         })
-        $(document).on('click', '#Book .companyItem', function () {
+        $(document).on('click', '.companyItem', function () {
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
-            var provider_id = $(this).data('id');
+            var provider_id = $(this).data('id'); console.log(provider_id);
             $('#provider_id').val(provider_id);
             $('#buses').empty();
             updateBuses(provider_id);
@@ -222,7 +222,7 @@
                     time_from: $('#time_from').val(),
                     time_to: $('#time_to').val(),
                 },
-                success: function(res) {
+                success: function(res) { console.log(res);
                     if(!res.success) {
                         $.toast({
                             heading: "{{ __('msg.error') }}",
