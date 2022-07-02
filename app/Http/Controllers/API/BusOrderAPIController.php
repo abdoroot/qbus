@@ -138,8 +138,8 @@ class BusOrderAPIController extends AppBaseController
 
         return $this->sendResponse(
             $busOrder->toArray(),
-            __('messages.saved', ['model' => __('models/busOrders.singular') . 
-            ", " . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order')])
+            __('messages.saved', ['model' => __('models/busOrders.singular')] . 
+            ", " . __('msg.please_wait_for_provider_approval_to_do_the_payment_and_complete_the_order'))
         );
     }
 

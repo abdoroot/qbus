@@ -24,7 +24,7 @@ class UpdateTripOrderAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = TripOrder::$rules;
+        $rules = TripOrder::$update_rules;
         
         return $rules;
     }

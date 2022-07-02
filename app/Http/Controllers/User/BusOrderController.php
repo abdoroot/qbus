@@ -91,9 +91,6 @@ class BusOrderController extends AppBaseController
      */
     public function show($id, Request $request)
     {
-        $request = app('App\Http\Controllers\API\BusOrderAPIController')->show($id);
-        $response = $request->getData(); dd($response);
-
         $busOrder = $this->busOrderRepository->find($id);
         if (empty($busOrder) || $busOrder->user_id != $this->id) {
             Flash::error(__('messages.not_found', ['model' => __('models/busOrders.singular')]));

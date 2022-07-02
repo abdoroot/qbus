@@ -24,7 +24,7 @@ class UpdatePackageOrderAPIRequest extends APIRequest
      */
     public function rules()
     {
-        $rules = PackageOrder::$rules;
+        $rules = PackageOrder::$update_rules;
         
         return $rules;
     }
