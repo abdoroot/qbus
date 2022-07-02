@@ -77,10 +77,10 @@ Route::resource('buses', BusAPIController::class);
 //Route::resource('destinations', DestinationAPIController::class);
 //
 Route::get('packages/get-additionals', 'PackageAPIController@getAdditionals')->name('packages.additionals');
-Route::resource('packages', PackageAPIController::class);
+//Route::resource('packages', PackageAPIController::class);
 //
 Route::get('trips/get-additionals', 'TripAPIController@getAdditionals')->name('trips.additionals');
-Route::resource('trips', TripAPIController::class);
+//Route::resource('trips', TripAPIController::class);
 //
 //Route::resource('reviews', ReviewAPIController::class);
 //

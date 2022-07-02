@@ -81,20 +81,20 @@
 </div>
 @endforeach
 
-{{-- 
+
 <!-- Auto Approve Field -->
 <div class="form-group col-sm-12">
     <div class="custom-control custom-checkbox mr-sm-2 mb-3">
         {!! Form::hidden('auto_approve', 0, ['class' => 'form-check-input']) !!}
-        {!! Form::checkbox('auto_approve', '1', null, ['class' => 'custom-control-input', 'id' => 'auto_approve']) !!}
+        {!! Form::checkbox('auto_approve', '1', true, ['class' => 'custom-control-input', 'id' => 'auto_approve']) !!}
         {!! Form::label('auto_approve', __('models/trips.fields.auto_approve'), ['class' => 'custom-control-label']) !!}
     </div>
     @error('auto_approve')
     <span class="invalid-feedback"> {{ $message }} </span>
     @enderror
 </div>
- --}}
- 
+
+
 <div class="row">
     <!-- Additional Field -->
     {!! Form::label("additionals", __('models/trips.fields.additional')." :", ['class' => 'col-sm-12']) !!}
@@ -105,7 +105,7 @@
             {!! Form::label("additional-{$id}", $additional->name, ['class' => 'custom-control-label']) !!}
         </div>
     </div>
-    
+
     <!-- Fees Field -->
     <div class="form-group col-sm-9">
         {!! Form::number("additional[$i][fees]", null, ['class' => 'form-control' . ($errors->has("additional.{$i}.fees") ? ' is-invalid' : ''), 'step' => '.01', 'placeholder' => __('models/trips.fields.fees')]) !!}
@@ -124,7 +124,7 @@
     $(document).ready(function() {
         // select2
         $('.select2').select2();
-        // Datepicker 
+        // Datepicker
         $('.datepicker-autoclose').datepicker({
             autoclose: true,
             todayHighlight: true,

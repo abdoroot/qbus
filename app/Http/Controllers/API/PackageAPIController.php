@@ -7,6 +7,7 @@ use App\Http\Requests\API\UpdatePackageAPIRequest;
 use App\Models\Additional;
 use App\Models\City;
 use App\Models\Coupon;
+use App\Models\Destination;
 use App\Models\Package;
 use App\Repositories\PackageRepository;
 use Carbon\Carbon;
@@ -89,12 +90,19 @@ class PackageAPIController extends AppBaseController
     public function index(Request $request)
     {
         $query = "";
+
         $limit = 8;
+
         if($request->offset){
             $offset = $request->offset;
+            if($offset == 1){
+                $offset = 0;
+            }else{
+                $offset = ($offset-1) * $limit;
+            }
         }else{
             $offset = 0;
-        }
+        };
 
         $today = Carbon::now();
         $paginator = new Package;
@@ -186,7 +194,26 @@ class PackageAPIController extends AppBaseController
      */
     public function show($id)
     {
-        $package = $this->packageRepository->find($id);
+
+        $package =  Package::where('packages.id',$id);
+        $package->join('cities','cities.id', '=', 'packages.starting_city_id');
+        $package->select(
+          "packages.id",
+          "packages.provider_id",
+          "packages.name",
+          "packages.date_from",
+          "packages.time_from",
+          "packages.description",
+          "packages.image",
+          "packages.destinations", //todo foreach
+          "packages.fees",
+          'cities.name as start_station_name',
+          "packages.additional",//removed after used
+          "packages.rate"
+            );
+
+
+        $package = $package->first()->toArray();
 
         if (empty($package)) {
             $array = [
@@ -197,10 +224,42 @@ class PackageAPIController extends AppBaseController
             return response()->json($array, 400);
         }
 
+
+        //handle additionals
+        $additional = [];
+         if(count($package['additional']) > 0){
+              foreach ($package['additional'] as $adKey => $adValue){
+                $additionalInfo = Additional::where('id',$adValue['id'])->get()->first()->toArray();
+                    array_push($additional,[
+                        'id' => $additionalInfo['id'],
+                        'fees' => (float)$adValue['fees'],
+                        'name' =>  $additionalInfo['name']
+                  ]);
+              }
+         }
+        $package['additionals'] = $additional;
+        unset($package['additional']);
+
+
+        //handle destinations
+        $destinations = [];
+        if(count($package['destinations']) > 0){
+            foreach ($package['destinations'] as $adKey => $adValue){
+                $destinationInfo = Destination::where('id',$adValue)->first()->toArray();
+                //dd($destinationInfo);
+                array_push($destinations,$destinationInfo);
+            }
+        }
+        unset($package['destinations']);
+        $package['destinations'] = $destinations;
+
+
+
+
         $array = [
             'message' => __('messages.success', ['model' => __('models/packages.singular')]),
             'code' => 1,
-            'data' => ['packages' => $package->toArray()]
+            'data' => ['packages' => $package]
         ];
         return response()->json($array, 200);
     }

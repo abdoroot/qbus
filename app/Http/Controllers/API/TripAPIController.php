@@ -40,6 +40,7 @@ class TripAPIController extends AppBaseController
             $arrayData = @json_decode(json_encode($data), true);
             //$arrayData = array_values($arrayData);
             //dd($arrayData);
+            /*
             foreach($arrayData as $key => $value){
                 if(is_array($value)){
                     foreach($value as $k2 => $v2){
@@ -59,7 +60,7 @@ class TripAPIController extends AppBaseController
                                 }
                             }
                         }
-                        if(is_array($arrayData[$key][$k2]['additional'])){
+                        if(is_array($arrayData[$key][$k2]) && is_array($arrayData[$key][$k2]['additional'])){
                             $newAdditional = [];
                             foreach ($arrayData[$key][$k2]['additional'] as $ak => $av){
                                 array_push($newAdditional,['id' => $av['id'],'fees' => $av['fees']]);
@@ -72,7 +73,7 @@ class TripAPIController extends AppBaseController
                     //$arrayData = [[]];
                 }
 
-            }
+            }*/
             $array['data'] = $arrayData;
         }
         else{
@@ -90,10 +91,15 @@ class TripAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
+        //DB::enableQueryLog();
         $limit = 8;
         if($request->offset){
             $offset = $request->offset;
+            if($offset == 1){
+                $offset = 0;
+            }else{
+                $offset = ($offset-1) * $limit;
+            }
         }else{
             $offset = 0;
         };
@@ -150,11 +156,11 @@ class TripAPIController extends AppBaseController
             $paginator = $paginator->join('destinations', 'destinations.id', '=', 'trips.destination_id');
             if(!is_null($from_city_id)) {
                 // $query .= "&from_city_id={$request->from_city_id}";
-                $paginator = $paginator->where('from_city_id', $from_city_id);
+                $paginator = $paginator->where('destinations.from_city_id', $from_city_id);
             }
             if(!is_null($to_city_id)) {
                 // $query .= "&to_city_id={$request->to_city_id}";
-                $paginator = $paginator->where('to_city_id', $to_city_id);
+                $paginator = $paginator->where('destinations.to_city_id', $to_city_id);
             }
         }
 
@@ -170,12 +176,70 @@ class TripAPIController extends AppBaseController
             $paginator = $paginator->where('trips.provider_id', $provider_id);
         }
 
-        $paginator = $paginator->select('trips.*')->limit($limit)->offset($offset)->get();
 
-        $cities = City::pluck('name', 'id');
-        $additionals = Additional::get();
+        $paginator->join('providers', 'trips.provider_id', '=', 'providers.id');
+        $paginator->join('destinations as trip_dest', 'trips.destination_id', '=', 'trip_dest.id');
+        $paginator->join('cities as from_city', 'trip_dest.from_city_id', '=', 'from_city.id');
+        $paginator->join('cities as to_city', 'trip_dest.to_city_id', '=', 'to_city.id');
+        $paginator->join('terminals as start_city', 'trip_dest.starting_terminal_id', '=', 'start_city.id');
+        $paginator->join('terminals as arrival_city', 'trip_dest.arrival_terminal_id', '=', 'arrival_city.id');
+        $paginator = $paginator->select(
+            'trips.id',
+            'providers.name as provider_name',
+            'trips.time_from',
+            'trips.time_to',
+            'start_city.name as start_station_name',
+            //DB::raw('JSON_EXTRACT(start_city.name,"$.ar") as start_station_name'),
+            'arrival_city.name as arrival_station_name',
+            'trips.fees',
+            'trips.rate',
+            'from_city.name as from_city_name',
+            'to_city.name as to_city_name',
+            //'trip_dest.to_city_id',
+            DB::raw('JSON_LENGTH(trip_dest.stops) as stops')
+        )->limit($limit)->offset($offset)->get()->toArray();
+
+        //dd(DB::getQueryLog());
+
+        //$cities = City::pluck('name', 'id');
+        //$additionals = Additional::get();
 
         if(count($paginator) > 0) {
+
+            //handle additionals
+            foreach ($paginator as $key => $value){
+                $additional = [];
+                $trip = Trip::where('id',$value['id'])->get()->first();
+                if(count($trip->additional) > 0){
+                   foreach ($trip->additional as $adKey => $adValue){
+                       $additionalInfo = Additional::where('id',$adValue['id'])->get()->first()->toArray();
+                       array_push($additional,$additionalInfo['name']);
+                   }
+                }
+
+                ///start_station_name to json
+                if($value['start_station_name'] != ''){
+                    $paginator[$key]['start_station_name'] = json_decode($value['start_station_name'],true);
+                }
+
+                ///arrival_station_name to json
+                if($value['arrival_station_name'] != ''){
+                    $paginator[$key]['arrival_station_name'] = json_decode($value['arrival_station_name'],true);
+                }
+
+                ///from_city_name to json
+                if($value['from_city_name'] != ''){
+                    $paginator[$key]['from_city_name'] = json_decode($value['from_city_name'],true);
+                }
+
+                ///to_city_name to json
+                if($value['to_city_name'] != ''){
+                    $paginator[$key]['to_city_name'] = json_decode($value['to_city_name'],true);
+                }
+
+                $paginator[$key]['additionals'] = $additional;
+            }
+
             return response()->json( $this->ReturnJson("success",['trips' => $paginator],1),200);
         }else{
             return response()->json( $this->ReturnJson("no data found",[],0),400);

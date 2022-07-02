@@ -72,7 +72,7 @@ class ProviderController extends AppBaseController
                 }
             }
         }
-        
+
         $provider = $this->providerRepository->create($input);
 
         $account = [
@@ -143,6 +143,7 @@ class ProviderController extends AppBaseController
      */
     public function update($id, UpdateProviderRequest $request)
     {
+        dd('');
         $provider = $this->providerRepository->find($id);
 
         if (empty($provider)) {
@@ -177,7 +178,7 @@ class ProviderController extends AppBaseController
                     $message->subject(__('models/providers.approved'));
                     $message->priority(1);
                 });
-            } catch (\Throwable $th) {            
+            } catch (\Throwable $th) {
                 return response()->json(['success' => false, 'message' => __('auth.verify_email.error_sending')]);
             }
         }

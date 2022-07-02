@@ -99,11 +99,13 @@ class UserAPIController extends AppBaseController
             $newErrors = [];
 
             foreach ($errors as $key => $value){
+                if($value[0] == 'null' || $value[0] == null || is_null($value[0])){
+                    $value[0] = "";
+                }
                 array_push($newErrors,[$key => $value[0]]);
             }
 
-
-            return response()->json( $this->ReturnJson("Please ReCheck the ",[
+            return response()->json( $this->ReturnJson("Please ReCheck the Given Data",[
                 "validate_errors" => $newErrors
             ],0),401);
         }
@@ -182,7 +184,7 @@ class UserAPIController extends AppBaseController
         //send Otp password
         $sendSms = smsController::sendSms($phone,$smsMessage);
         if($sendSms){
-            $responseMessage = "Reset Password Otp has been sent to +966".substr($phone,0,-4)."**** you can use ".$code;
+            $responseMessage = "Reset Password Otp has been sent to +966".substr($phone,0,-4);
             return response()->json( $this->ReturnJson($responseMessage,["message" => $responseMessage],1),200);
         }else{
             return response()->json( $this->ReturnJson("message not send",["message" => "message not send"],0),400);
