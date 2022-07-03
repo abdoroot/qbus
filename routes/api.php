@@ -38,7 +38,8 @@ Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
 Route::get('return_policy', 'SettingsAPIController@returnPolicy');
 Route::any('trips','TripAPIController@index');
 Route::any('packages','PackageAPIController@index');
-Route::any('packages/{id}','PackageAPIController@show');
+Route::any('packages','PackageAPIController@index');
+Route::any('packageDetail/{id}','PackageAPIController@show');
 Route::post('contact_us', 'ContactAPIController@storeAPi'); //todo design to
 
 
@@ -50,7 +51,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('verify_phone', 'UserAPIController@verifyPhone');
     Route::post('update_profile', 'UserAPIController@updateProfile');
     Route::get('resend_verification_code', 'UserAPIController@resendVerificationCode');
-    
+
     Route::resource('bus_orders', BusOrderAPIController::class);
     Route::resource('trip_orders', TripOrderAPIController::class);
     Route::resource('package_orders', PackageOrderAPIController::class);
