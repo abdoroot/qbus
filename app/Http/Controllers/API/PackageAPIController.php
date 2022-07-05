@@ -231,6 +231,11 @@ class PackageAPIController extends AppBaseController
          if(count($package['additional']) > 0){
               foreach ($package['additional'] as $adKey => $adValue){
                 $additionalInfo = Additional::where('id',$adValue['id'])->get()->first()->toArray();
+
+                if(!array_key_exists('ur',$additionalInfo['name'])){
+                    $additionalInfo['name']['ur'] = $additionalInfo['name']['en'];
+                }
+
                     array_push($additional,[
                         'id' => $additionalInfo['id'],
                         'fees' => (float)$adValue['fees'],
