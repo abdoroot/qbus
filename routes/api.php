@@ -33,11 +33,12 @@ Route::get('about_us', 'SettingsAPIController@aboutUs');
 Route::get('contact_us_details', 'SettingsAPIController@contactUsDetails');
 Route::get('social', 'SettingsAPIController@social');
 Route::get('additionals', 'SettingsAPIController@additionals');
+Route::get('packageAdditionals/{id}', 'SettingsAPIController@packageAdditionals');
+Route::get('tripAdditionals/{id}', 'SettingsAPIController@tripAdditionals');
 Route::get('additionals/{id}', 'SettingsAPIController@showAdditionals');
 Route::get('privacy_policy', 'SettingsAPIController@privacyPolicy');
 Route::get('return_policy', 'SettingsAPIController@returnPolicy');
 Route::any('trips','TripAPIController@index');
-Route::any('packages','PackageAPIController@index');
 Route::any('packages','PackageAPIController@index');
 Route::any('packageDetail/{id}','PackageAPIController@show');
 Route::post('contact_us', 'ContactAPIController@storeAPi'); //todo design to
