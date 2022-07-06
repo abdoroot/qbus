@@ -8,11 +8,20 @@ use App\Models\TripOrder;
 use App\Repositories\TripOrderRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\API\CreateTicketAPIRequest;
+use App\Http\Controllers\User\cartController;
+use App\Models\Trip;
+use App\Models\Notification;
+use App\Models\Coupon;
+use Carbon\Carbon;
+use Flash;
 use Response;
+use Auth;
+use DB;
 
 /**
  * Class TripOrderController
- * @package App\Http\Controllers\API
+ * @trip App\Http\Controllers\API
  */
 
 class TripOrderAPIController extends AppBaseController
@@ -34,8 +43,12 @@ class TripOrderAPIController extends AppBaseController
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
         $tripOrders = $this->tripOrderRepository->all(
-            $request->except(['skip', 'limit']),
+            array_merge([
+                'user_id' => $user->id,
+                'user_archive' => 0
+            ], $request->except(['skip', 'limit'])),
             $request->get('skip'),
             $request->get('limit')
         );
@@ -56,12 +69,21 @@ class TripOrderAPIController extends AppBaseController
      */
     public function store(CreateTripOrderAPIRequest $request)
     {
-        $input = $request->all();
+        $user = Auth::user();
+        $request->request->add(['user_id' => $user->id]);
 
-        $tripOrder = $this->tripOrderRepository->create($input);
+        $input = cartController::buildTheRequest($request);
+
+        $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($input);
+        $response = $response->getData();
+        if(!$response->success) {
+            return $this->sendError($response->message);
+        }
+
+        $tripOrder = $response->tripOrder;
 
         return $this->sendResponse(
-            $tripOrder->toArray(),
+            $tripOrder,
             __('messages.saved', ['model' => __('models/tripOrders.singular')])
         );
     }
@@ -76,14 +98,22 @@ class TripOrderAPIController extends AppBaseController
      */
     public function show($id)
     {
+        $user = Auth::user();
+
         /** @var TripOrder $tripOrder */
         $tripOrder = $this->tripOrderRepository->find($id);
-
-        if (empty($tripOrder)) {
+        if (empty($tripOrder) || $tripOrder->user_id != $user->id) {
             return $this->sendError(
                 __('messages.not_found', ['model' => __('models/tripOrders.singular')])
             );
         }
+
+        $tripOrder->additionals = $tripOrder->additionals();
+        $tripOrder->trip = $tripOrder->trip;
+        $tripOrder->additional_fees = $tripOrder->additional_fees;
+        $tripOrder->tickets = $tripOrder->tickets;
+        $tripOrder->discount = $tripOrder->discount;
+        $tripOrder->destination = (!is_null($tripOrder->trip) ? $tripOrder->trip->destinations : null);
 
         return $this->sendResponse(
             $tripOrder->toArray(),
@@ -102,18 +132,45 @@ class TripOrderAPIController extends AppBaseController
      */
     public function update($id, UpdateTripOrderAPIRequest $request)
     {
-        $input = $request->all();
+        $user = Auth::user();
 
-        /** @var TripOrder $tripOrder */
         $tripOrder = $this->tripOrderRepository->find($id);
 
-        if (empty($tripOrder)) {
+        if (empty($tripOrder) || $tripOrder->user_id != $user->id) {
             return $this->sendError(
                 __('messages.not_found', ['model' => __('models/tripOrders.singular')])
             );
         }
 
+        if (!in_array($tripOrder->status, ['pending', 'approved'])) {
+            return $this->sendError(__('msg.unauthorized'));
+        }
+
+        DB::beginTransaction();
+
+        if(is_null($user_notes = $request->user_notes)) {
+            return $this->sendError(__('validation.required', ['attribute' => __('models/tripOrders.fields.user_notes')]));
+        }
+
+        $input = [
+            'status' => 'canceled',
+            'user_notes' => $user_notes
+        ];
+
         $tripOrder = $this->tripOrderRepository->update($input, $id);
+
+        // send notification to the user
+        $notification = Notification::create([
+            'title' => 'Order #' . $tripOrder->id,
+            'text' => "The order is " . __('models/tripOrders.status.'.$tripOrder->status) .  ", please click to check more details.",
+            'url' => route('provider.tripOrders.show', $tripOrder->id),
+            'icon' => 'ti-close',
+            'type' => 'danger',
+            'to' => 'provider',
+            'provider_id' => $tripOrder->provider_id
+        ]);
+
+        DB::commit();
 
         return $this->sendResponse(
             $tripOrder->toArray(),
@@ -133,16 +190,17 @@ class TripOrderAPIController extends AppBaseController
      */
     public function destroy($id)
     {
+        $user = Auth::user();
         /** @var TripOrder $tripOrder */
         $tripOrder = $this->tripOrderRepository->find($id);
 
-        if (empty($tripOrder)) {
+        if (empty($tripOrder) || $user->id != $tripOrder->user_id) {
             return $this->sendError(
                 __('messages.not_found', ['model' => __('models/tripOrders.singular')])
             );
         }
 
-        $tripOrder->delete();
+        $this->tripOrderRepository->update(['user_archive' => 1], $id);
 
         return $this->sendResponse(
             $id,

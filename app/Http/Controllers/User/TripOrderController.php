@@ -42,7 +42,7 @@ class TripOrderController extends AppBaseController
      * @return Response
      */
     public function index(Request $request)
-    {
+    { 
         $tripOrders = $this->tripOrderRepository->all([
             'user_id' => $this->id,
             'user_archive' => 0
@@ -53,7 +53,7 @@ class TripOrderController extends AppBaseController
     }
 
     public function store(Request $request)
-    {
+    {   
         $type = $request->type;
         $message = __('messages.saved', ['model' => __('models/tripOrders.singular')]);
 
@@ -140,47 +140,20 @@ class TripOrderController extends AppBaseController
      */
     public function update($id, UpdateTripOrderRequest $request)
     {
-        $tripOrder = $this->tripOrderRepository->find($id);
-
-        if (empty($tripOrder) || $tripOrder->user_id != $this->id) {
-            Flash::error(__('messages.not_found', ['model' => __('models/tripOrders.singular')]));
-            return redirect(route('tripOrders.index'));
-        }
-
-        if (!in_array($tripOrder->status, ['pending', 'approved'])) {
-            Flash::error(__('msg.unauthorized'));
-            return redirect(route('tripOrders.index'));
-        }
-
-        DB::beginTransaction();
-
-        if(is_null($user_notes = $request->user_notes)) {
+        if(is_null($request->user_notes)) {
             return redirect()->back()->withErrors([
-                'user_notes' => __('validation.required', ['attribute' => __('models/tripOrders.fields.user_notes')])
+                'user_notes' => $response->message
             ]);
         }
 
-        $input = [
-            'status' => 'canceled',
-            'user_notes' => $user_notes
-        ];
+        $request = app('App\Http\Controllers\API\TripOrderAPIController')->update($id, $request);
+        $response = $request->getData(); 
+        if(!$response->success) {
+            Flash::error($response->message);
+            return redirect()->route('tripOrders.index');
+        }
 
-        $tripOrder = $this->tripOrderRepository->update($input, $id);
-
-        // send notification to the user
-        $notification = Notification::create([
-            'title' => 'Order #' . $tripOrder->id,
-            'text' => "The order is " . __('models/tripOrders.status.'.$tripOrder->status) .  ", please click to check more details.",
-            'url' => route('provider.tripOrders.show', $tripOrder->id),
-            'icon' => 'ti-close',
-            'type' => 'danger',
-            'to' => 'provider',
-            'provider_id' => $tripOrder->provider_id
-        ]);
-
-        DB::commit();
-
-        Flash::success(__('messages.updated', ['model' => __('models/tripOrders.singular')]));
+        Flash::success($response->message);
         return redirect(route('tripOrders.index'));
     }
 

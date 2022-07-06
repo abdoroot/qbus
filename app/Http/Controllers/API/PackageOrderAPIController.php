@@ -42,7 +42,10 @@ class PackageOrderAPIController extends AppBaseController
     {
         $user = Auth::user();
         $packageOrders = $this->packageOrderRepository->all(
-            array_merge(['user_id' => $user->id], $request->except(['skip', 'limit'])),
+            array_merge([
+                'user_id' => $user->id,
+                'user_archive' => 0
+            ], $request->except(['skip', 'limit'])),
             $request->get('skip'),
             $request->get('limit')
         );
@@ -177,6 +180,9 @@ class PackageOrderAPIController extends AppBaseController
 
         $packageOrder->additionals = $packageOrder->additionals();
         $packageOrder->package = $packageOrder->package;
+        $tripOrder->additional_fees = $tripOrder->additional_fees;
+        $tripOrder->tickets = $tripOrder->tickets;
+        $tripOrder->discount = $tripOrder->discount;
         $packageOrder->packageDestinations = (!is_null($packageOrder->package) ? $packageOrder->package->packageDestinations() : []);
         
         return $this->sendResponse(
