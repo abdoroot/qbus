@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Setting;
 use App\Models\Additional;
+use App\Models\Package;
+use App\Models\Trip;
 use Response;
 use App\Models\City;
 use function PHPUnit\Framework\isNull;
@@ -88,6 +90,40 @@ class SettingsAPIController extends AppBaseController
     {
         $data = Additional::all();
         return response()->json( $this->ReturnJson("success",['additional' => $data],1),200);
+    }
+
+    public function packageAdditionals($packageId)
+    {
+        $package = Package::where('id',$packageId)->first()->toArray();
+        $packageAdditional = $package['additional'];
+        if(count($packageAdditional) > 0){
+            $additionals = [];
+            foreach ($packageAdditional as $key => $value){
+                $row = Additional::where('id',$value['id'])->first()->toArray();
+                $row['fees'] = $value['fees'];
+                array_push($additionals,$row);
+            }
+            return response()->json( $this->ReturnJson("success",['additional' => $additionals],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("error",['message' => 'no data found'],0),400);
+        }
+    }
+
+    public function tripAdditionals($tripId)
+    {
+        $trip = Trip::where('id',$tripId)->first()->toArray();
+        $tripAdditional = $trip['additional'];
+        if(count($tripAdditional) > 0){
+            $additionals = [];
+            foreach ($tripAdditional as $key => $value){
+                $row = Additional::where('id',$value['id'])->first()->toArray();
+                $row['fees'] = $value['fees'];
+                array_push($additionals,$row);
+            }
+            return response()->json( $this->ReturnJson("success",['additional' => $additionals],1),200);
+        }else{
+            return response()->json( $this->ReturnJson("error",['message' => 'no data found'],0),400);
+        }
     }
 
     public function showAdditionals($id)

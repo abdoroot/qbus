@@ -84,10 +84,9 @@ class ContactAPIController extends AppBaseController
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required','string', 'email', 'max:255'],
             'phone' => ['required', 'numeric', 'min:8'],
-            'subject' => ['required', 'string', 'min:8'],
+            'subject' => ['required', 'string', 'min:4'],
             'message' => ['required', 'string', 'max:255']
         ]);
-
 
         if ($validator->fails()) {
             $errors = $validator->errors();

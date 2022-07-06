@@ -194,7 +194,7 @@ class PackageAPIController extends AppBaseController
      */
     public function show($id)
     {
-
+        $imagesUrl = asset('images/packages/');
         $package =  Package::where('packages.id',$id);
         $package->join('cities','cities.id', '=', 'packages.starting_city_id');
         $package->select(
@@ -205,7 +205,7 @@ class PackageAPIController extends AppBaseController
           "packages.time_from",
           "packages.description",
           "packages.image",
-          "packages.destinations", //todo foreach
+          "packages.destinations",
           "packages.fees",
           'cities.name as start_station_name',
           "packages.additional",//removed after used
@@ -214,6 +214,8 @@ class PackageAPIController extends AppBaseController
 
 
         $package = $package->first()->toArray();
+
+
 
         if (empty($package)) {
             $array = [
@@ -224,12 +226,16 @@ class PackageAPIController extends AppBaseController
             return response()->json($array, 400);
         }
 
-
         //handle additionals
         $additional = [];
          if(count($package['additional']) > 0){
               foreach ($package['additional'] as $adKey => $adValue){
                 $additionalInfo = Additional::where('id',$adValue['id'])->get()->first()->toArray();
+
+                if(!array_key_exists('ur',$additionalInfo['name'])){
+                    $additionalInfo['name']['ur'] = $additionalInfo['name']['en'];
+                }
+
                     array_push($additional,[
                         'id' => $additionalInfo['id'],
                         'fees' => (float)$adValue['fees'],
@@ -254,12 +260,10 @@ class PackageAPIController extends AppBaseController
         $package['destinations'] = $destinations;
 
 
-
-
         $array = [
             'message' => __('messages.success', ['model' => __('models/packages.singular')]),
             'code' => 1,
-            'data' => ['packages' => $package]
+            'data' => ['packages' => $package,'image_base' => $imagesUrl]
         ];
         return response()->json($array, 200);
     }
