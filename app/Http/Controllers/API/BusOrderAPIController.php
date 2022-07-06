@@ -40,7 +40,10 @@ class BusOrderAPIController extends AppBaseController
         $user = Auth::user();
 
         $busOrders = $this->busOrderRepository->all(
-            array_merge(['user_id' => $user->id], $request->except(['skip', 'limit'])),
+            array_merge([
+                'user_id' => $user->id,
+                'user_archive' => 0
+            ], $request->except(['skip', 'limit'])),
             $request->get('skip'),
             $request->get('limit')
         );

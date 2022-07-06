@@ -85,7 +85,7 @@ class TripOrder extends Model
         'count' => 'required|integer',
         'user_notes' => 'nullable|string',
         'code' => 'nullable|exists:coupons,code',
-        'type' => 'required|string|in:one-way,round,multi',
+        // 'type' => 'required|string|in:one-way,round,multi',
         'additional' => 'nullable|array',
         'prev_trip_order_id' => 'nullable|exists:trip_orders,id'
     ];
