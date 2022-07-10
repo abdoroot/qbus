@@ -41,7 +41,9 @@ return array (
   'forgot_password' => 
   array (
     'send_pwd_reset' => 'Send Password Reset Link',
+    'send_pwd_phone_reset' => 'Send Password Reset Code',
     'title' => 'Enter Email to reset password',
+    'phone_title' => 'Enter Phone number to reset password',
   ),
   'full_name' => 'Full Name',
   'inactive' => 'Inactive',

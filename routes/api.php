@@ -55,6 +55,9 @@ Route::group(['middleware' => 'auth:api'], function(){
 
     Route::resource('bus_orders', BusOrderAPIController::class);
     Route::resource('trip_orders', TripOrderAPIController::class);
+    Route::resource('oneway_orders', OnewayAPIController::class);
+    Route::resource('round_orders', RoundOrderAPIController::class);
+    Route::resource('multi_orders', MultiOrderAPIController::class);
     Route::resource('package_orders', PackageOrderAPIController::class);
 });
 

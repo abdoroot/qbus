@@ -18,23 +18,23 @@
         <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/2">
             <div class="w-full max-w-sm p-6 m-auto bg-white rounded-md dark:bg-gray-800 my-32">
                 @include('guest.layouts.flash')
-                <h1 class="text-xl font-semibold text-center text-gray-700 dark:text-white">@lang('auth.forgot_password.title')</h1>
-                {!! Form::open(['route' => 'password.email', 'type' => 'post', 'class' => 'mt-10']) !!}
+                <h1 class="text-xl font-semibold text-center text-gray-700 dark:text-white">@lang('auth.forgot_password.phone_title')</h1>
+                {!! Form::open(['route' => 'password.phone', 'type' => 'post', 'class' => 'mt-10']) !!}
                     <div>
-                        <input type="email"
-                            name="email"
-                            class="@error('email') border-red-500 @enderror 
+                        <input type="text"
+                            name="phone"
+                            class="@error('phone') border-red-500 @enderror 
                                 text-lg block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            placeholder="@lang('auth.email')">
+                            placeholder="@lang('auth.phone')">
 
-                        @error('email')
+                        @error('phone')
                         <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mt-6">
                         <button
                             class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 text-lg">
-                            @lang('auth.forgot_password.send_pwd_reset') </button>
+                            @lang('auth.forgot_password.send_pwd_phone_reset') </button>
                     </div>
                 {!! Form::close() !!}
                 <div class="flex items-center justify-between my-12">
@@ -43,8 +43,8 @@
                         class="text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline">or</a>
                     <span class="w-1/5 border-b dark:border-gray-400 lg:w-1/5"></span>
                 </div>
-                <p class="mt-5 text-base text-center text-gray-400"><a href="{{ route('password.phone') }}"
-                    class="text-blue-500 focus:outline-none focus:underline hover:underline">@lang('msg.reset_password_by_phone_number')</a>.
+                <p class="mt-5 text-base text-center text-gray-400"><a href="{{ route('password.request') }}"
+                    class="text-blue-500 focus:outline-none focus:underline hover:underline">@lang('msg.reset_password_by_email')</a>.
                 </p>
                 <p class="mt-6 text-base text-center text-gray-400"><a href="{{ route('login') }}"
                     class="text-blue-500 focus:outline-none focus:underline hover:underline">@lang('auth.sign_in')</a>.

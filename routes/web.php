@@ -90,4 +90,9 @@ Route::namespace('\App\Http\Controllers\Auth')->group(function () {
     Route::get('/verify/{id}', 'VerifyPhoneController@show')->name('verification.verify');
     Route::post('/verify/{id}', 'VerifyPhoneController@verify');
     Route::post('/resend', 'VerifyPhoneController@resend')->name('verification.resend');
+
+    Route::get('password/phone', 'PasswordPhoneController@showRequestForm')->name('password.phone');
+    Route::post('password/phone', 'PasswordPhoneController@sendResetCodePhone');
+    Route::get('password/phone-reset', 'ResetPasswordPhoneController@showResetForm')->name('reset.phone');
+    Route::POST('password/phone-reset', 'ResetPasswordPhoneController@reset');
 });
