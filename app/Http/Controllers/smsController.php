@@ -36,13 +36,14 @@ class smsController extends Controller
                     'dests' => [$phone],
                     'body' => $smsMessage,
                     'priority' => 1,
-                ]
+                ],
+                'http_errors' => false
             ]);
 
             return $response;
         }
         catch(Exception $e){
-            echo $e;
+            //echo $e;
       }
 
 

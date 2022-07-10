@@ -145,7 +145,7 @@ class UserAPIController extends AppBaseController
     }
 
     public function forgetPassword(Request $request){
-        //$user = Auth::user();
+        $sms = new smsController;
         $validator = Validator::make($request->all(),[
             'phone' => ['required', 'numeric', 'min:8', 'exists:users,phone'],
         ]);
@@ -182,7 +182,12 @@ class UserAPIController extends AppBaseController
         );
 
         //send Otp password
-        $sendSms = smsController::sendSms($phone,$smsMessage);
+        try {
+            $sendSms = $sms->sendSms($phone, $smsMessage);
+        }catch(Exception $e){
+            $sendSms = false;
+        }
+
         if($sendSms){
             $responseMessage = "Reset Password Otp has been sent to +966".substr($phone,0,-4);
             return response()->json( $this->ReturnJson($responseMessage,["message" => $responseMessage],1),200);
