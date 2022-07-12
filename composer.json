@@ -9,6 +9,7 @@
         "barryvdh/laravel-translation-manager": "^0.6.3",
         "doctrine/dbal": "~2.3",
         "fruitcake/laravel-cors": "^2.0",
+        "google/apiclient": "^2.12",
         "guzzlehttp/guzzle": "^7.0.1",
         "infyomlabs/adminlte-templates": "^3.0",
         "infyomlabs/laravel-generator": "^3.0",
