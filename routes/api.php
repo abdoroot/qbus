@@ -24,15 +24,22 @@ Route::any('test_notification', function (Request $request){
     $body  = $input['body'];
     $data  = $input['data'];
 
-   if( $fcm->sendFCM($topic,$title,$body,$data)){
-       $code = 200;
-   }else{
-       $code = 401;
-   }
+    $code =  $fcm->sendFCM($topic,$title,$body,$data);
+
+    if($code){
+        $code = 1;
+        $message ='notification Sent';
+    }else{
+        $code =0;
+        $message ='error notification Sending';
+    }
 
     $array = [
-        'message' => 'notification Sent',
         'code' => $code,
+        'message' => $message,
+        'data' => [
+            'message' => $message,
+        ]
     ];
 
    return response()->json($array);
