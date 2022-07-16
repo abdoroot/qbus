@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\fcm;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,11 +14,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('test', function (){
-    $code = 2905;
-    //$codeHashed = Hash::make($code);
-    $codeHashed = '$2y$10$EuD0tc/gpYC/E071518LsuoxJRopojPqDK/E13T6nc88x0wO.RNum';
-    return Hash::check($code, $codeHashed);
+
+Route::any('test_notification', function (Request $request){
+
+    $fcm = new fcm();
+    $input    = $request->all();
+    $topic = $input['topic'];
+    $title = $input['title'];
+    $body  = $input['body'];
+    $data  = $input['data'];
+
+    $code =  $fcm->sendFCM($topic,$title,$body,$data);
+
+    if($code){
+        $code = 1;
+        $message ='notification Sent';
+    }else{
+        $code =0;
+        $message ='error notification Sending';
+    }
+
+    $array = [
+        'code' => $code,
+        'message' => $message,
+        'data' => [
+            'message' => $message,
+        ]
+    ];
+
+   return response()->json($array);
+
 });
 
 
