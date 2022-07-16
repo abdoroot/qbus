@@ -3,6 +3,7 @@
         <thead>
             <tr>
                 <th>@lang('crud.id')</th>
+                <th>@lang('models/notifications.fields.icon')</th>
                 <th>@lang('models/notifications.singular')</th>
                 <th>@lang('models/notifications.fields.status')</th>
                 <th>@lang('crud.action')</th>
@@ -13,6 +14,7 @@
             <tr>
                 <td>{{ $notification->id }}</td>
                 <td>
+                    <td><img src="{{ asset('images/notifications/'.$notification->icon) }}"></td>
                     <a href="{{ route('admin.notifications.show', $notification->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">

@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'admin.notifications.store']) !!}
+                    {!! Form::open(['route' => 'admin.notifications.store', 'files' => 'on']) !!}
                         @include('admin.notifications.fields')
                     {!! Form::close() !!}
                 </div>

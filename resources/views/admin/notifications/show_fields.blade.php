@@ -1,13 +1,19 @@
 <!-- Title Field -->
 <tr>
     <th>@lang('models/notifications.fields.title')</th>
-    <td><i class="{{ $notification->icon }}"></i> {{ $notification->title }}</td>
+    <td>{{ $notification->title }}</td>
 </tr>
 
 <!-- Text Field -->
 <tr>
     <th>@lang('models/notifications.fields.text')</th>
     <td>{{ $notification->text }}</td>
+</tr>
+
+<!-- Icon Field -->
+<tr>
+    <th>@lang('models/notifications.fields.icon')</th>
+    <td><img src="{{ asset('images/notifications/'.$notification->icon) }}"></td>
 </tr>
 
 <!-- Url Field -->

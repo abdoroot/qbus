@@ -63,7 +63,7 @@ class Notification extends Model
         'title' => 'required|string|max:255',
         'text' => 'required|string',
         'url' => 'nullable|string|max:255|url',
-        'icon' => 'nullable|string|max:100',
+        'icon' => 'nullable|image',
         'type' => 'required|in:primary,info,success,warning,danger',
         'to' => 'required|in:user,provider,admin',
         'admins' => 'nullable|required_if:to,admin|array|min:1',

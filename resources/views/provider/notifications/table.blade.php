@@ -15,8 +15,8 @@
                 <td>
                     <a href="{{ route('provider.notifications.show', $notification->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">
-                                @if(!is_null($notification->icon)) <i class="{{ $notification->icon }} text-{{ $notification->type }}"></i> @endif
+                            <h5 class="mb-1 text-{{ $notification->type }}">
+                                @if(!is_null($notification->icon)) <img src="{{ asset('images/notifications/'.$notification->icon) }}"> @endif
                                 {{ $notification->title }}
                             </h5>
                             <small>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans() }}</small>

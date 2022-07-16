@@ -57,6 +57,15 @@ class NotificationController extends AppBaseController
     {
         $input = $request->except('users', 'admins');
 
+        if ($request->hasFile('icon')) {
+            $file = $request->file('icon');
+            if($file->isValid()) {
+                $filename = time().'_'.substr($file->getClientOriginalName(), -20);
+                $file->move(public_path('images/notifications'), $filename);
+                $input['icon'] = $filename;
+            }
+        }
+
         if(!is_null($ids = $request["{$input['to']}s"])) {
             foreach($ids as $id) {
                 $input["{$input['to']}_id"] = $id;

@@ -59,7 +59,15 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::resource('round_orders', RoundOrderAPIController::class);
     Route::resource('multi_orders', MultiOrderAPIController::class);
     Route::resource('package_orders', PackageOrderAPIController::class);
+
+    Route::get('chat', 'ChatAPIController@index');
+    Route::get('chat/{id}', 'ChatAPIController@show');
+    Route::post('chat', 'ChatAPIController@store');
+
 });
+
+Route::post('trip_review', 'ReviewAPIController@tripReview');
+Route::post('package_review', 'ReviewAPIController@packageReview');
 
 //
 //Route::resource('users', UserAPIController::class);

@@ -9,6 +9,10 @@ use App\Repositories\ReviewRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Auth;
+use DB;
+use App\Models\Package;
+use App\Models\Trip;
 
 /**
  * Class ReviewController
@@ -149,4 +153,78 @@ class ReviewAPIController extends AppBaseController
             __('messages.deleted', ['model' => __('models/reviews.singular')])
         );
     }
+
+    public function packageReview(CreateReviewAPIRequest $request)
+    {
+        $package = Package::find($request->package_id);
+        if (empty($package)) {
+            return $this->sendError(
+                __('messages.not_found', ['model' => __('models/packages.singular')])
+            );
+        }
+
+        DB::beginTransaction();
+
+        $input = array_merge($request->all(), [
+            'user_id' => Auth::check() ? Auth::user()->id : null,
+            'provider_id' => $package->provider_id,
+        ]);
+
+        $review = Review::create($input);
+
+        $package->update([
+            'rate' => Review::where('package_id', $package->id)->sum('rate') / Review::where('package_id', $package->id)->count()
+        ]);
+
+        if(!is_null($provider = $review->provider)) {
+            $provider->update([
+                'rate' => Review::where('provider_id', $package->provider_id)->sum('rate') / Review::where('provider_id', $package->provider_id)->count()
+            ]);
+        }
+
+        DB::commit();
+
+        return $this->sendResponse(
+            $review->toArray(),
+            __('messages.saved', ['model' => __('models/reviews.singular')])
+        );
+    }
+
+    public function tripReview(CreateReviewAPIRequest $request)
+    {
+        $trip = Package::find($request->trip_id);
+        if (empty($trip)) {
+            return $this->sendError(
+                __('messages.not_found', ['model' => __('models/packeges.singular')])
+            );
+        }
+
+        DB::beginTransaction();
+
+        $input = array_merge($request->all(), [
+            'user_id' => Auth::check() ? Auth::user()->id : null,
+            'provider_id' => $trip->provider_id,
+        ]);
+
+        $review = Review::create($input);
+
+        $trip->update([
+            'rate' => Review::where('trip_id', $trip->id)->sum('rate') / Review::where('trip_id', $trip->id)->count()
+        ]);
+
+        if(!is_null($provider = $review->provider)) {
+            $provider->update([
+                'rate' => Review::where('provider_id', $trip->provider_id)->sum('rate') / Review::where('provider_id', $trip->provider_id)->count()
+            ]);
+        }
+
+        DB::commit();
+
+        return $this->sendResponse(
+            $review->toArray(),
+            __('messages.saved', ['model' => __('models/reviews.singular')])
+        );
+    }
 }
+
+

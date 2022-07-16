@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {!! Form::model($notification, ['route' => ['admin.notifications.update', $notification->id], 'method' => 'patch']) !!}
+                    {!! Form::model($notification, ['route' => ['admin.notifications.update', $notification->id], 'files' => 'on', 'method' => 'patch']) !!}
                         @include('admin.notifications.fields')
                     {!! Form::close() !!}
                 </div>

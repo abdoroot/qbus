@@ -87,13 +87,19 @@
 </div>
 
 <!-- Icon Field -->
-<div class="form-group">
-    {!! Form::label('icon', __('models/notifications.fields.icon').':') !!}
-    {!! Form::text('icon', null, ['class' => 'form-control' . ($errors->has('icon') ? ' is-invalid' : '')]) !!}
-    <small id="iconlHelp" class="form-text text-muted">ex: fa fa-user / icon-heart / ti-settings ...</small>
-    @error('icon')
-    <span class="invalid-feedback"> {{ $message }} </span>
-    @enderror
+<div class="form-group col-sm-12">
+    {!! Form::label('icon', __('models/users.fields.icon').':') !!}
+    <div class="custom-file">
+        {!! Form::file('icon', ['id' => 'icon', 'class' => 'custom-file-input' . ($errors->has('icon') ? ' is-invalid' : '')]) !!}
+        <label class="custom-file-label" data-browse="@lang('msg.browse')" for="icon">
+            @isset($user) {{ $user->icon }} @else @lang('msg.upload_file') @endif
+        </label>
+        @if ($errors->has('icon'))
+            <span class="invalid-feedback" role="alert">
+                {{ $errors->first('icon') }}
+            </span>
+        @endif
+    </div>
 </div>
 
 <button type="submit" class="btn btn-primary">@lang('crud.save')</button>

@@ -5,9 +5,10 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>@lang('models/notifications.fields.icon')</th>
             <th>@lang('models/notifications.fields.to')</th>
             <th>@lang('models/notifications.fields.title')</th>
-            <th>@lang('models/notifications.fields.text')</th>
+            {{-- <th>@lang('models/notifications.fields.text')</th> --}}
             <th>@lang('crud.created_at')</th>
             <th>@lang('msg.status')</th>
             <th>@lang('msg.view')</th>
@@ -17,6 +18,7 @@
         @foreach($notifications as $i => $notification)
             <tr>
                 <td>{{ $i+1 }}</td>
+                <td><img src="{{ asset('images/notifications/'.$notification->icon) }}" style="max-height: 70px; max-width: 100%;"></td>
                 <td>
                     @if(is_null($notification->user_id))
                         <span class="badge badge-info">@lang('msg.global')</span>
@@ -29,7 +31,7 @@
                         {{ $notification->title }}
                     </a>
                 </td>
-                <td>{!! substr($notification->text, 0, 50) . (Str::length($notification->text) > 50 ? ' ..' : '') !!}</td>
+                {{-- <td>{!! substr($notification->text, 0, 50) . (Str::length($notification->text) > 50 ? ' ..' : '') !!}</td> --}}
                 <td>{{ \Carbon\Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans() }}</td>
                 <td>
                     @if(!is_null($notification->read_at) && !is_null($notification->reply_message))

@@ -20,6 +20,12 @@
     </td>
 </tr>
 
+<!-- Icon Field -->
+<tr>
+    <th>@lang('models/notifications.fields.icon')</th>
+    <td><img src="{{ asset('images/notifications/'.$notification->icon) }}"></td>
+</tr>
+
 <!-- Type Field -->
 <tr>
     <th>@lang('models/notifications.fields.type')</th>

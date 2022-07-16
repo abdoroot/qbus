@@ -60,7 +60,7 @@ class LoginController extends Controller
         }
 
         if (Auth::attempt($credentials, $request->get('remember'))) {
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended(route('profile.index'));
         }
         
         return redirect()->back()->withInput()->withErrors([

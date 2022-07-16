@@ -26,6 +26,13 @@
                                 <td>{{ $notification->text }}</td>
                             </tr>
 
+                            <!-- Icon Field -->
+                            <tr>
+                                <th>@lang('models/notifications.fields.icon')</th>
+                                <td><img src="{{ asset('images/notifications/'.$notification->icon) }}"
+                                        style="max-height: 100px; max-width: 100%;"></td>
+                            </tr>
+
                             <!-- Type Field -->
                             <tr>
                                 <th>@lang('models/notifications.fields.type')</th>
