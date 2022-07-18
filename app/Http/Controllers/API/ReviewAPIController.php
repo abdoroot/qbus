@@ -192,7 +192,7 @@ class ReviewAPIController extends AppBaseController
 
     public function tripReview(CreateReviewAPIRequest $request)
     {
-        $trip = Package::find($request->trip_id);
+        $trip = Trip::find($request->trip_id);
         if (empty($trip)) {
             return $this->sendError(
                 __('messages.not_found', ['model' => __('models/packeges.singular')])
