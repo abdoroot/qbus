@@ -68,7 +68,7 @@ class OnewayAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateTripOrderAPIRequest $request)
+    public function store(Request $request)
     {
         $user = Auth::user();
         $request->request->add(['user_id' => $user->id, 'type' => 'one-way']);
