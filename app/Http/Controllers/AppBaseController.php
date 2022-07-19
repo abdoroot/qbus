@@ -35,4 +35,26 @@ class AppBaseController extends Controller
             'message' => $message
         ], 200);
     }
+
+
+    public function successResponse($data, $message)
+    {
+        return Response::json([
+            'code' => 1,
+            'message' => $message,
+            'data' => $data
+        ], 200);
+    }
+
+    public function errorResponse($message)
+    {
+        return Response::json([
+            'code' => 0,
+            'message' => $message,
+            'data' => [
+                'message' => $message
+            ]
+        ], 200);
+    }
+
 }

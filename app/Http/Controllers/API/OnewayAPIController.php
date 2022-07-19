@@ -78,13 +78,13 @@ class OnewayAPIController extends AppBaseController
         $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($input);
         $response = $response->getData();
         if(!$response->success) {
-            return $this->sendError($response->message);
+            return $this->errorResponse($response->message);
         }
 
         $tripOrder = $response->tripOrder;
 
-        return $this->sendResponse(
-            $tripOrder,
+        return $this->successResponse(
+            ['trip_order' => $tripOrder],
             __('messages.saved', ['model' => __('models/tripOrders.singular')])
         );
     }
