@@ -54,7 +54,7 @@ class AppBaseController extends Controller
             'data' => [
                 'message' => $message
             ]
-        ], 200);
+        ], 404);
     }
 
 }

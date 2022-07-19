@@ -68,31 +68,49 @@ class RoundAPIController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateTripOrderAPIRequest $request)
+    public function store(Request $request)
     {
-        $user = Auth::user();
-        $trips = $request->trips;
-        $tripsOrders = [];
+        DB::beginTransaction();
+        try {
+            $user = Auth::user();
+            $trips = $request->trips;
+            $tripsOrders = [];
+            $counter = 0;
+            $prev_trip_order_id =0;
+            foreach($trips ?? [] as $i => $trip) {
+                $counter++;
+                $trip['user_id'] = $user->id;
+                $trip['type'] = 'round';
 
-        foreach($trips ?? [] as $i => $trip) {
-            $trip['user_id'] = $user->id;
-            $trip['type'] = 'round';
-            $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($trip);
-            $response = $response->getData();
-            if(!$response->success) {
-                return $this->sendError($response->message);
+                $request = new Request($trip);
+                $trip = cartController::buildTheRequest($request);
+
+                if($counter>1){
+                    //prev_trip_order_id
+                    $trip['prev_trip_order_id'] = $prev_trip_order_id;
+                }
+
+                $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($trip);
+                $response = $response->getData();
+                if(!$response->success) {
+                    return $this->sendError($response->message);
+                }
+
+                $tripOrder = $response->tripOrder;
+                $prev_trip_order_id = $tripOrder->id;
+                $tripsOrders[] = $tripOrder;
+
+                if(isset($trips[$i+1])) $trips[$i+1]['prev_trip_order_id'] = $tripOrder->id;
             }
-
-            $tripOrder = $response->tripOrder;
-            $tripOrders[] = $tripOrder;
-            
-            if(isset($trips[$i+1])) $trips[$i+1]['prev_trip_order_id'] = $tripOrder->id;
+            DB::commit();
+            return $this->successResponse(
+                ['message' =>  __('messages.saved', ['model' => __('models/tripOrders.singular')])],
+                __('messages.saved', ['model' => __('models/tripOrders.singular')])
+            );
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse($e->getMessage());
         }
-
-        return $this->sendResponse(
-            $tripOrders,
-            __('messages.saved', ['model' => __('models/tripOrders.singular')])
-        );
     }
 
     /**

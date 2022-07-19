@@ -70,23 +70,27 @@ class OnewayAPIController extends AppBaseController
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $request->request->add(['user_id' => $user->id, 'type' => 'one-way']);
+        try {
+            $user = Auth::user();
+            $request->request->add(['user_id' => $user->id, 'type' => 'one-way']);
 
-        $input = cartController::buildTheRequest($request);
+            $input = cartController::buildTheRequest($request);
 
-        $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($input);
-        $response = $response->getData();
-        if(!$response->success) {
-            return $this->errorResponse($response->message);
+            $response = app('App\Http\Controllers\User\TripOrderController')->saveTripOrder($input);
+            $response = $response->getData();
+            if(!$response->success) {
+                return $this->errorResponse($response->message);
+            }
+
+            $tripOrder = $response->tripOrder;
+
+            return $this->successResponse(
+                ['trip_order' => $tripOrder],
+                __('messages.saved', ['model' => __('models/tripOrders.singular')])
+            );
+        }catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage());
         }
-
-        $tripOrder = $response->tripOrder;
-
-        return $this->successResponse(
-            ['trip_order' => $tripOrder],
-            __('messages.saved', ['model' => __('models/tripOrders.singular')])
-        );
     }
 
     /**
