@@ -34,6 +34,7 @@ class TripOrder extends Model
         'user_id',
         'provider_id',
         'count',
+        'subtotal',
         'total',
         'status',
         'user_notes',
@@ -43,6 +44,7 @@ class TripOrder extends Model
         'fees',
         'tax',
         'coupon_id',
+        'discount',
         'type',
         'admin_notes',
         'additional',
@@ -188,7 +190,7 @@ class TripOrder extends Model
             case 'approved':
                 return 'info';
                 break;
-            
+
             case 'rejected':
                 return 'danger';
                 break;

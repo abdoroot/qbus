@@ -90,14 +90,33 @@ class cartController extends Controller
             $additionalFees += $additionFees;
         }
 
+        //print_r($additionalFees);exit();
+        $fees = ($trip->fees * $request->count) ;
+        $total = $fees + $additionalFees;
+        $subtotal = $fees + $additionalFees;
+        $discount = 0;
+
+        if(!is_null($coupon)){
+            if($coupon->type == 'amount'){
+                $discount = $coupon->discount;
+            }else{
+                //percentage
+                $discount = ($total * $coupon->discount / 100);
+            }
+            $total = $total - $discount;
+        }
+        //calculate tax here after discount
+        $tax = ($total * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100);
+        $total +=$tax;
+        //print_r($provider->tax);exit();
         $input = array_merge($request->only('user_id', 'trip_id', 'count', 'user_notes', 'type', 'prev_trip_order_id'), [
             'provider_id' => $trip->provider_id,
-            'fees' => $fees = $trip->fees * $request->count,
-            'tax' => $tax = ($fees * (!is_null($provider = $trip->provider) ? $provider->tax : 0) / 100),
+            'fees' => $fees,
             'coupon_id' => !is_null($coupon) ? $coupon->id : null,
-            'total' => is_null($coupon)
-                ? $fees + $tax + $additionalFees
-                : ($total = $fees + $tax + $additionalFees) - ($coupon->type == 'amount' ? $coupon->discount : ($total * $coupon->discount / 100)),
+            'subtotal' => $subtotal,
+            'discount' => $discount,
+            'tax' => $tax,
+            'total' => $total,
             'status' => 'approved', // $request->type == 'one-way' ? 'approved' : 'pending', // $trip->auto_approve ? 'approved' : 'pending',
             'additional' => json_decode(json_encode($additional),true)
         ]);
