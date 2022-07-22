@@ -85,7 +85,7 @@ class OnewayAPIController extends AppBaseController
             $tripOrder = $response->tripOrder;
 
             return $this->successResponse(
-                ['trip_order' => $tripOrder],
+                ['message' =>  __('messages.saved', ['model' => __('models/tripOrders.singular')])],
                 __('messages.saved', ['model' => __('models/tripOrders.singular')])
             );
         }catch (\Exception $e) {
